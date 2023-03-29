@@ -1,0 +1,14 @@
+<?php
+// Vérification spécifique
+$_POST['codeClasse'] = strtoupper($_POST['codeClasse']);
+if(sizePost($_POST['codeClasse'], 2) == 0) {
+  // Préparation
+  $preparation = new Preparation();
+  $param = $preparation->creationPrep($_POST);
+  $select = "INSERT INTO `classes`(`nomClasse`, `codeClasse`, `deplacement`, `descriptionClasse`, `prixClasse`) VALUES (:nomClasse, :codeClasse, :deplacement, :descriptionClasse, :prixClasse)";
+  $record = new RCUD($select, $param);
+  $recordClasse = $record->CUD();
+  header('location:../index.php?idNav='.$idNav.'&message=Votre nouvelle classe à été enregistré.');
+} else {
+  header('location:../index.php?idNav='.$idNav.'&message=Votre code de Classe n\'est pas conforme.');
+}
