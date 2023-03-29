@@ -63,6 +63,7 @@ input, label {
 }
 main {
   text-align: center;
+  align-content: center;
 }
 footer {
     text-align: center;
@@ -161,10 +162,15 @@ transition: display 3s;
     grid-row-gap: 0px;
     text-align: left;
     padding-bottom: 1em;
+    align-items: center;
   }
 
 .nomClasse { grid-area: 1 / 1 / 2 / 2; }
 .codeClasse { grid-area: 1 / 2 / 2 / 3; }
 .deplacementClasse { grid-area: 1 / 3 / 2 / 4; }
 .descriptionClasse { grid-area: 1 / 4 / 2 / 5; }
-.formClasse{ grid-area: 1 / 5 / 2 / 6; }
+.formClasse{
+    grid-area: 1 / 5 / 2 / 6;
+    display: flex;
+    flex-direction: row;
+  }

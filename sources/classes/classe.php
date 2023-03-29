@@ -1,7 +1,7 @@
 <?php
   require 'objets/getClasse.php';
   require 'objets/printClasse.php';
-  $debug = true;
+  $debug = false;
   $classes = new PrintClasses();
 ?>
 <h2>Ajouter une classe</h2>

@@ -12,9 +12,9 @@ class PrintClasses extends Classes {
         <div class="deplacementClasse"><h3>Déplacement</h3></div>
         <div class="descriptionClasses">
         <h3>Description & prix</h3>
-        </div>
-        <div class="zoneForm"><h3>Administrer</h3></div>
-    </div>';
+        </div>';
+        if($_SESSION['role'] == 2){echo'<div class="zoneForm"><h3>Administrer</h3></div>';}
+        echo '</div>';
   }
     foreach ($data as $key) {
       echo '<div class="GridClasse">
@@ -26,7 +26,7 @@ class PrintClasses extends Classes {
             <br/>
               Prix :'.$key['prixClasse'].'
           </div>';
-          if($key['valide'] == 1) {
+          if($key['valide'] == 1 && $_SESSION['role'] == 2) {
           echo'<div class="zoneForm">
             <form class="formulaireClassique" action="'.encodeRoutage(21).'" method="post">
               <input type="hidden" name="idClasse" value="'.$key['idClasse'].'"/>
@@ -34,12 +34,17 @@ class PrintClasses extends Classes {
             </form>
           </div>';
         } else {
-          echo'<div class="zoneForm">
-          <form class="formulaireClassique" action="'.encodeRoutage(21).'" method="post">
-              <input type="hidden" name="idClasse" value="'.$key['idClasse'].'"/>
-              <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Delete</button>
-            </form>
-          </div>';
+          if($_SESSION['role'] == 2) {
+          $message = ['Delete', 'Valider'];
+          echo '<div class="zoneForm">';
+          for ($i=21; $i <=22 ; $i++) {
+            echo'<form class="formulaireClassique" action="'.encodeRoutage($i).'" method="post">
+                <input type="hidden" name="idClasse" value="'.$key['idClasse'].'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$message[$i-21].'</button>
+              </form>';
+              }
+          }
+          echo '</div>';
           }
       echo '</div>';
     }
