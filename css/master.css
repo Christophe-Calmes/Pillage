@@ -173,4 +173,5 @@ transition: display 3s;
     grid-area: 1 / 5 / 2 / 6;
     display: flex;
     flex-direction: row;
+  
   }

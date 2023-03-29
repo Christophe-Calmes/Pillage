@@ -10,6 +10,8 @@ if($debug) {
   print_r($idNav);
 }
 ?>
+<button type="button" id="magic" class="open">Ouvrir le formulaire</button>
+<div id="hiddenForm" style="display: none;" >
 <form class="formulaireClassique" action="<?=encodeRoutage(20)?>" method="post">
   <label for="nomClasse">Nom d'une nouvelle classes </label>
   <input id="nomClasse" type="text" name="nomClasse" required>
@@ -23,7 +25,23 @@ if($debug) {
   <input id="prixClasse" name="prixClasse" type="number" min="0" max="30"/>
   <button class="buttonForm" type="submit" name="idNav" value="<?=$idNav?>">Ajouter</button>
 </form>
-
+</div>
+<script type="text/javascript">
+  let jeckyl = document.getElementById('magic');
+  let magax = document.getElementById('hiddenForm');
+  jeckyl.addEventListener('click', function(){
+    if(!open) {
+      jeckyl.innerText = "Fermer le formulaire";
+      magax.style.display = "block";
+      open = true;
+    } else {
+      jeckyl.innerText = "Ouvrir le formulaire";
+      magax.style.display = "none";
+      open = false;
+    }
+    return open;
+  });
+</script>
 
 
 <?php
