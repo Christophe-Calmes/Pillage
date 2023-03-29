@@ -11,7 +11,7 @@ if($debug) {
 }
 ?>
 <button type="button" id="magic" class="open">Ouvrir le formulaire</button>
-<div id="hiddenForm" style="display: none;" >
+<div id="hiddenForm">
 <form class="formulaireClassique" action="<?=encodeRoutage(20)?>" method="post">
   <label for="nomClasse">Nom d'une nouvelle classes </label>
   <input id="nomClasse" type="text" name="nomClasse" required>
@@ -26,26 +26,9 @@ if($debug) {
   <button class="buttonForm" type="submit" name="idNav" value="<?=$idNav?>">Ajouter</button>
 </form>
 </div>
-<script type="text/javascript">
-  let jeckyl = document.getElementById('magic');
-  let magax = document.getElementById('hiddenForm');
-  jeckyl.addEventListener('click', function(){
-    if(!open) {
-      jeckyl.innerText = "Fermer le formulaire";
-      magax.style.display = "block";
-      open = true;
-    } else {
-      jeckyl.innerText = "Ouvrir le formulaire";
-      magax.style.display = "none";
-      open = false;
-    }
-    return open;
-  });
-</script>
-
-
 <?php
   $valideClasse = 1;
   $classes->ListeClasse($classes->getClasse($valideClasse), $valideClasse, $idNav);
   $valideClasse = 0;
   $classes->ListeClasse($classes->getClasse($valideClasse), $valideClasse, $idNav);
+  include 'javaScript/magicButton.php';
