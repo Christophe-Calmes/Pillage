@@ -1,0 +1,154 @@
+/*Présentation Graine*/
+/*Variables CSS*/
+:root {
+  /*Variable lier au boutton*/
+  --main-background-color: grey;
+  --main-border: none;
+  --main-color: white;
+  --main-padding: 15px 32px;
+  --main-text-align: center;
+  --main-text-decoration: none;
+  --main-display: inline-block;
+  --main-font-size: 16px;
+  --main-cursor: pointer;
+  /*Autres variable*/
+}
+/*Presentation basique*/
+h1, h2 {
+  font-size: 2em;
+}
+h3 {
+  font-size: 1.5em;
+}
+a {
+  text-decoration: none;
+}
+.listeProfil {
+  list-style: none;
+  text-align: left;
+}
+/*Flex*/
+.flex-rows {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.flex-colonne {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+/*Formulaire*/
+.formulaireClassique {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin-bottom: 0.5em;
+}
+input, label {
+  margin-bottom: 0.25em;
+}
+.buttonForm {
+  margin: 0.5em;
+}
+/*Fin formulaire*/
+/*Titre et sousTitre*/
+.hautPage {
+  text-align: center;
+}
+main {
+  text-align: center;
+}
+footer {
+    text-align: center;
+}
+/*Navigation*/
+/*Navigation bandeau*/
+.navigationBandeau {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.navigationBandeau li {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin-left: 1em;
+  margin-right: 1em;
+  text-align: center;
+}
+/*Bouton lien*/
+/*Variable CSS boutton*/
+
+/*Fin Maitre boutton*/
+button {
+  background-color: var(--main-background-color);
+  border: var(--main-border);
+  color: var(--main-color);
+  padding: var(--main-padding);
+  text-align: var(--main-text-align);
+  text-decoration: var(--main-text-decoration);
+  display: var(--main-display);
+  font-size: var(--main-font-size);
+  cursor: var(--main-cursor);
+}
+a {
+  background-color: var(--main-background-color);
+  border: var(--main-border);
+  color: var(--main-color);
+  padding: var(--main-padding);
+  text-align: var(--main-text-align);
+  text-decoration: var(--main-text-decoration);
+  display: var(--main-display);
+  font-size: var(--main-font-size);
+  cursor: var(--main-cursor);
+}
+.lienNav {
+  background-color: var(--main-background-color);
+  border: var(--main-border);
+  color: var(--main-color);
+  padding: var(--main-padding);
+  text-align: var(--main-text-align);
+  text-decoration: var(--main-text-decoration);
+  display: var(--main-display);
+  font-size: var(--main-font-size);
+  cursor: var(--main-cursor);
+}
+.lienNav:hover {
+   border: 3px solid #302A39ff;
+   transition: border 0.7s;
+}
+/*Menu bandeau Tester sur un autre projet*/
+.dropdown {
+display: inline-block;
+}
+.dropdown-child {
+position: absolute;
+display: none;
+min-width: 250px;
+}
+
+.dropdown-child a {
+  background-color: var(--main-background-color);
+  border: var(--main-border);
+  color: var(--main-color);
+  /* padding: var(--main-padding); */
+  text-align: var(--main-text-align);
+  text-decoration: var(--main-text-decoration);
+  display: var(--main-display);
+  font-size: var(--main-font-size);
+  cursor: var(--main-cursor);
+  padding: 20px;
+  display: block;
+}
+.dropdown:hover .dropdown-child {
+display: block;
+transition: display 3s;
+}
+/*Fin présentation graines*/
