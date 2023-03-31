@@ -25,13 +25,16 @@ class PrintSpecialRules extends SpecialRules {
                               </form>
                              </div>';}
                         //
-                        if($key['valide'] == 0 && $_SESSION['role'] == 2){
-                          echo'<div class="formRS">
-                                <form class="formulaireClassique" action="'.encodeRoutage(24).'" method="post">
-                                  <input type="hidden" name="idRS" value="'.$key['idRS'].'"/>
-                                  <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Valider</button>
-                                </form>
-                              </div>';}
+                        if($_SESSION['role'] == 2 && $key['valide'] == 0) {
+                        $message = ['Valider' ,'Delete'];
+                        echo '<div class="zoneForm">';
+                        for ($i=24; $i <=25 ; $i++) {
+                          echo'<form class="formulaireClassique" action="'.encodeRoutage($i).'" method="post">
+                              <input type="hidden" name="idRS" value="'.$key['idRS'].'"/>
+                              <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$message[$i-24].'</button>
+                            </form>';
+                            }
+                        }
                     echo'</div>';
             }
 
