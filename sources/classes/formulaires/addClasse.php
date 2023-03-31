@@ -5,6 +5,7 @@ if(sizePost($_POST['codeClasse'], 2) == 0) {
   // Préparation
   $preparation = new Preparation();
   $param = $preparation->creationPrep($_POST);
+  // insert in DB
   $select = "INSERT INTO `classes`(`nomClasse`, `codeClasse`, `deplacement`, `descriptionClasse`, `prixClasse`) VALUES (:nomClasse, :codeClasse, :deplacement, :descriptionClasse, :prixClasse)";
   $record = new RCUD($select, $param);
   $recordClasse = $record->CUD();

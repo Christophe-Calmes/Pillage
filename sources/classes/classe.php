@@ -1,15 +1,5 @@
-<?php
-  require 'objets/getClasse.php';
-  require 'objets/printClasse.php';
-  $debug = false;
-  $classes = new PrintClasses();
-?>
 <h2>Ajouter une classe</h2>
-<?php
-if($debug) {
-  print_r($idNav);
-}
-?>
+
 <button type="button" id="magic" class="open">Ouvrir le formulaire</button>
 <div id="hiddenForm">
 <form class="formulaireClassique" action="<?=encodeRoutage(20)?>" method="post">
@@ -27,6 +17,10 @@ if($debug) {
 </form>
 </div>
 <?php
+  require 'objets/getClasse.php';
+  require 'objets/printClasse.php';
+  $debug = false;
+  $classes = new PrintClasses();
   $valideClasse = 1;
   $classes->ListeClasse($classes->getClasse($valideClasse), $valideClasse, $idNav);
   $valideClasse = 0;
