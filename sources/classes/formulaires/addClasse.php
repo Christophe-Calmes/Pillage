@@ -6,7 +6,7 @@ if(sizePost($_POST['codeClasse'], 2) == 0) {
   $preparation = new Preparation();
   $param = $preparation->creationPrep($_POST);
   // insert in DB
-  $select = "INSERT INTO `classes`(`nomClasse`, `codeClasse`, `deplacement`, `cavalerie`, `descriptionClasse`, `prixClasse`) VALUES (:nomClasse, :codeClasse, :deplacement, :cavalerie,:descriptionClasse, :prixClasse)";
+  $select = "INSERT INTO `classes`(`nomClasse`, `codeClasse`, `deplacement`, `cavalerie`, `descriptionClasse`) VALUES (:nomClasse, :codeClasse, :deplacement, :cavalerie,:descriptionClasse)";
   $record = new RCUD($select, $param);
   $recordClasse = $record->CUD();
   header('location:../index.php?idNav='.$idNav.'&message=Votre nouvelle classe à été enregistré.');

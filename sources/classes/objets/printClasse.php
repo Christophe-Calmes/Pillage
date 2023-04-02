@@ -11,7 +11,6 @@ class PrintClasses extends Classes {
         <div class="abrevClasse"><h3>Abréviation</h3></div>
         <div class="deplacementClasse"><h3>Déplacement</h3></div>
         <div class="descriptionClasses">
-        <h3>Description & prix</h3>
         </div>';
         if($_SESSION['role'] == 2){echo'<div class="zoneForm"><h3>Administrer</h3></div>';}
         echo '</div>';
@@ -23,8 +22,6 @@ class PrintClasses extends Classes {
           <div class="deplacementClasse">'.$key['deplacement'].' "</div>
           <div class="descriptionClasses">
             '.$key['descriptionClasse'].'
-            <br/>
-              Prix :'.$key['prixClasse'].'
           </div>';
           if($key['valide'] == 1 && $_SESSION['role'] == 2) {
           echo'<div class="zoneForm">

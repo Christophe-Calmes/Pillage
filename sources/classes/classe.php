@@ -15,8 +15,6 @@
   <input id="deplacement" name="deplacement" type="number" min="0" max="14"/>
   <label for="cavalerie">Déplacement cavalerie ?</label>
   <input id="cavalerie" name="cavalerie" type="number" min="0" max="22"/>
-  <label for="prixClasse">Prix de la classe ?</label>
-  <input id="prixClasse" name="prixClasse" type="number" min="0" max="30"/>
   <button class="buttonForm" type="submit" name="idNav" value="<?=$idNav?>">Ajouter</button>
 </form>
 </div>
