@@ -9,8 +9,10 @@
   <input id="nomClasse" type="text" name="codeClasse" maxlength="2"required>
   <label for="descriptionClasse">Description de la nouvelle classe </label>
   <textarea id="descriptionClasse" name="descriptionClasse" rows="5" cols="33" required></textarea>
-  <label for="deplacement">Déplacement lié à la classe en pouces ?</label>
-  <input id="deplacement" name="deplacement" type="number" min="0" max="12"/>
+  <label for="deplacement">Déplacement pieton ?</label>
+  <input id="deplacement" name="deplacement" type="number" min="0" max="14"/>
+  <label for="cavalerie">Déplacement cavalerie ?</label>
+  <input id="cavalerie" name="cavalerie" type="number" min="0" max="22"/>
   <label for="prixClasse">Prix de la classe ?</label>
   <input id="prixClasse" name="prixClasse" type="number" min="0" max="30"/>
   <button class="buttonForm" type="submit" name="idNav" value="<?=$idNav?>">Ajouter</button>

@@ -199,5 +199,11 @@ transition: display 3s;
 /**===id JavaScript===*/
 
 #hiddenForm {
-display: none;
+  top: 50%;
+  left: 35%;
+  background-color: #ffffff;
+  position: absolute;
+  width: 30%;
+  display: none;
+  border: 1px solid black;
 }
