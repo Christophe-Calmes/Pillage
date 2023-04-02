@@ -1,6 +1,8 @@
+<div class="objetLeft">
 <h2>Ajouter une classe</h2>
 
 <button type="button" id="magic" class="open">Ouvrir le formulaire</button>
+</div>
 <div id="hiddenForm">
 <form class="formulaireClassique" action="<?=encodeRoutage(20)?>" method="post">
   <label for="nomClasse">Nom d'une nouvelle classes </label>

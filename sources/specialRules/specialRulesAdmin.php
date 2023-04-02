@@ -1,6 +1,7 @@
+<div class="objetLeft">
 <h2>Ajouter une règle spéciale</h2>
-
 <button type="button" id="magic" class="open">Ouvrir le formulaire</button>
+</div>
 <div id="hiddenForm">
 <form class="formulaireClassique" action="<?=encodeRoutage(23)?>" method="post">
   <label for="nomRS">Nom de la nouvelle règle spéciale :</label>

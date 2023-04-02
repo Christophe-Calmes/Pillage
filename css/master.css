@@ -195,15 +195,25 @@ transition: display 3s;
     grid-area: 1 / 4 / 2 / 5;
     text-align: center;
   }
+/*==Objet left==*/
+.objetLeft {
+  text-align: left;
+  margin-left: 2em;
+}
 
 /**===id JavaScript===*/
 
 #hiddenForm {
-  top: 50%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  top: 30%;
   left: 35%;
   background-color: #ffffff;
+  -webkit-box-shadow: 4px 0px 12px -6px #151515;
+  box-shadow: 4px 0px 12px -6px #151515;
   position: absolute;
   width: 30%;
   display: none;
   border: 1px solid black;
+  border-radius: 5px;
 }
