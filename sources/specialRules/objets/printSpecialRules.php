@@ -9,7 +9,7 @@ class PrintSpecialRules extends SpecialRules {
       echo '<div class="GridRS">
               <div class="nomRS"><h3>Nom</h3></div>
               <div class="descriptionRS"><h3>Description</h3></div>
-              <div class="prixRS"><h3>Prix</h3></div>';
+              <div class="prixRS"><h3>Prix (PO)</h3></div>';
               if($_SESSION['role'] == 2){echo'<div class="formRS"><h3>Administration</h3></div>';}
             echo'</div>';
             foreach ($data as $key) {
