@@ -153,16 +153,25 @@ display: block;
 transition: display 3s;
 }
 /*Fin présentation graines*/
+/*==Trucs pratiques=*/
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /*Bibliothèque Grid*/
 .GridClasse {
     display: grid;
     grid-template-columns: repeat(3, 0.5fr) 1fr 0.5fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 0px;
+    grid-column-gap: 20px;
     grid-row-gap: 0px;
     text-align: left;
     padding-bottom: 1em;
     align-items: center;
+    padding-left: 1em;
+    padding-right: 0em;
+    padding-bottom: 2em;
   }
 
 .nomClasse { grid-area: 1 / 1 / 2 / 2; }
@@ -178,11 +187,14 @@ transition: display 3s;
       display: grid;
         grid-template-columns: 0.1fr 0.6fr 0.1fr 0.2fr;
         grid-template-rows: 1fr;
-        grid-column-gap: 0px;
+        grid-column-gap: 20px;
         grid-row-gap: 0px;
         text-align: left;
         padding-bottom: 1em;
         align-items: center;
+        padding-left: 1em;
+        padding-right: 0em;
+        padding-bottom: 2em;
       }
 
 .nomRS { grid-area: 1 / 1 / 2 / 2; }
@@ -195,6 +207,25 @@ transition: display 3s;
     grid-area: 1 / 4 / 2 / 5;
     text-align: center;
   }
+  .arrayWeapon {
+  	display: grid;
+  	grid-template-columns: repeat(4, 0.25fr);
+  	grid-template-rows: 1fr;
+  	grid-column-gap: 20px;
+  	grid-row-gap: 0px;
+  	text-align: left;
+  	align-content: center;
+  	align-self: center;
+  	position: initial;
+  	padding-left: 1em;
+  	padding-right: 0em;
+  	padding-bottom: 2em;
+  }
+
+  .nomWeapon { grid-area: 1 / 1 / 2 / 2; }
+  .descriptionWeapon { grid-area: 1 / 2 / 2 / 3; }
+  .close { grid-area: 1 / 3 / 2 / 4; }
+  .distance { grid-area: 1 / 4 / 2 / 5; }
 /*==Objet left==*/
 .objetLeft {
   text-align: left;
