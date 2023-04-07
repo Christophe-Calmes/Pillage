@@ -30,11 +30,6 @@ Class PrintArmes extends GetArmes {
       if($type == 0) {
         echo $key['distance'].' " / '.($key['distance']*2).' "';
       }
-
-      /*if($type == 1) {
-        echo'<div class="distance">';
-        echo $key['distance'].'"/'.$key['distance'] * 2).'"</div>';
-      }*/
       echo'</div>';
   }
   echo '</article>';
