@@ -1,7 +1,5 @@
 <?php
-require 'sources/factions/objets/getFactions.php';
-require 'sources/factions/objets/printFactions.php';
-$factions = new PrintFactions();
+require 'sources/factions/headFaction.php';
 echo '
 <div class="objetLeft">
     <h2>Ajouter une faction</h2>
@@ -23,7 +21,4 @@ foreach ($arrayFactions as $key => $value) {
     $factions->printFaction($dataFaction);
   }
 }
-
-
-
 include 'javaScript/magicButton.php';

@@ -46,9 +46,18 @@ Class PrintFactions extends GetFactions {
             <div class="login">'.$value['login'].'</div>
             <div class="private">'.Oui($value['factionPrivate']).'</div>
             <div class="valide">'.Oui($value['valide']).'</div>
-            <div class="update">A venir</div>
+            <div class="update"><a href='.findTargetRoute(102).'&idFaction='.$value['idFaction'].'>Modifier</a></div>
             <div class="delete">A venir</div>
           </div>';
     }
+  }
+  public function updateFaction ($data, $idNav) {
+    echo '<form class="formulaireClassique" action="'.encodeRoutage(26).'" method="post">
+      <label for="nomFaction">Nom de la faction </label>
+      <input id="nomFaction" type="text" name="nomFaction" value="'.$data[0]['nomFaction'].'" required>
+      <label for="descriptionFaction">Description de la nouvelle faction</label>
+      <textarea id="descriptionFaction" name="descriptionFaction" rows="5" cols="33" required>'.$data[0]['descriptionFaction'].'</textarea>
+      <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>
+    </form>';
   }
 }
