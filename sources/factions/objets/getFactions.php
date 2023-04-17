@@ -42,4 +42,13 @@ Class GetFactions {
     $readDB = new RCUD($select, $param);
     return $readDB->READ();
   }
+  public function getOneFactionUser ($idFaction, $id) {
+    $select = "SELECT `idFaction`, `nomFaction`, `descriptionFaction`, `factionPrivate`, `valide`
+    FROM `Factions`
+    WHERE `idFaction` = :idFaction AND `auteur` = :auteur";
+    $param = [['prep'=>':idFaction', 'variable'=>$idFaction],
+              ['prep'=>':auteur', 'variable'=>$id]];
+    $readDB = new RCUD($select, $param);
+    return $readDB->READ();
+  }
 }

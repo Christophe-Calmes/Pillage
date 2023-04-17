@@ -55,7 +55,7 @@ Class PrintFactions extends GetFactions {
           </div>';
     }
   }
-  public function printFactionUser($variable, $idNav) {
+  public function printFactionUserAdmin($variable, $idNav) {
 
   echo '<div class="adminFaction headGrid">
           <div class="nomFaction headGrid">Nom</div>
@@ -73,10 +73,10 @@ Class PrintFactions extends GetFactions {
             <div class="login">'.$value['login'].'</div>
             <div class="private">'.Oui($value['factionPrivate']).'</div>
             <div class="valide">'.Oui($value['valide']).'</div>
-            <div class="update"><a href='.findTargetRoute(102).'&idFaction='.$value['idFaction'].'>Modifier</a></div>
+            <div class="update"><a href='.findTargetRoute(105).'&idFaction='.$value['idFaction'].'>Modifier</a></div>
             <div class="delete">';
             if($value['valide'] == 0) {
-              echo'<form class="formulaireClassique" action="'.encodeRoutage(29).'" method="post">
+              echo'<form class="formulaireClassique" action="'.encodeRoutage(31).'" method="post">
                 <input type="hidden" name="idFaction" value="'.$value['idFaction'].'"/>
                 <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
               </form>';
@@ -110,9 +110,14 @@ Class PrintFactions extends GetFactions {
     }
   }
 
-  public function updateFaction ($data, $idNav) {
-    echo '<form class="formulaireClassique" action="'.encodeRoutage(28).'" method="post">
-      <label for="nomFaction">Nom de la faction </label>
+  public function updateFaction($data, $idNav, $type) {
+    // Type true = Administrateur, type false User
+    if($type) {
+      echo '<form class="formulaireClassique" action="'.encodeRoutage(28).'" method="post">';
+    } else {
+      echo '<form class="formulaireClassique" action="'.encodeRoutage(30).'" method="post">';
+    }
+    echo '<label for="nomFaction">Nom de la faction </label>
       <input id="nomFaction" type="text" name="nomFaction" value="'.$data[0]['nomFaction'].'" required>
       <label for="descriptionFaction">Description de la nouvelle faction</label>
       <textarea id="descriptionFaction" name="descriptionFaction" rows="5" cols="33" required>'.$data[0]['descriptionFaction'].'</textarea>
