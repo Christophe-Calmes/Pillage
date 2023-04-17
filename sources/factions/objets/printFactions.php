@@ -1,11 +1,5 @@
 <?php
-function Oui ($yes){
-        if($yes == 0) {
-          return 'Non';
-        } else {
-          return 'Oui';
-        }
-      }
+
 Class PrintFactions extends GetFactions {
   public function printForm($type, $idNav) {
     // Si admin $type = 1
@@ -28,7 +22,7 @@ Class PrintFactions extends GetFactions {
       </form>';
     }
   }
-  public function printFaction($variable) {
+  public function printFaction($variable, $idNav) {
 
   echo '<div class="adminFaction headGrid">
           <div class="nomFaction headGrid">Nom</div>
@@ -47,16 +41,90 @@ Class PrintFactions extends GetFactions {
             <div class="private">'.Oui($value['factionPrivate']).'</div>
             <div class="valide">'.Oui($value['valide']).'</div>
             <div class="update"><a href='.findTargetRoute(102).'&idFaction='.$value['idFaction'].'>Modifier</a></div>
-            <div class="delete">A venir</div>
+            <div class="delete">';
+            if($value['valide'] == 0) {
+              echo'<form class="formulaireClassique" action="'.encodeRoutage(29).'" method="post">
+                <input type="hidden" name="idFaction" value="'.$value['idFaction'].'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
+              </form>';
+            } else {
+              echo 'Non disponible';
+            }
+
+            echo '</div>
           </div>';
     }
   }
+  public function printFactionUser($variable, $idNav) {
+
+  echo '<div class="adminFaction headGrid">
+          <div class="nomFaction headGrid">Nom</div>
+          <div class="descriptionFaction headGrid">Description</div>
+          <div class="login headGrid">Auteur</div>
+          <div class="private headGrid">Faction Privé</div>
+          <div class="valide headGrid">Valide</div>
+          <div class="update headGrid">Modifier</div>
+          <div class="delete headGrid">Effacer</div>
+        </div>';
+    foreach ($variable as $key => $value) {
+    echo '<div class="adminFaction">
+            <div class="nomFaction">'.$value['nomFaction'].'</div>
+            <div class="descriptionFaction">'.$value['descriptionFaction'].'</div>
+            <div class="login">'.$value['login'].'</div>
+            <div class="private">'.Oui($value['factionPrivate']).'</div>
+            <div class="valide">'.Oui($value['valide']).'</div>
+            <div class="update"><a href='.findTargetRoute(102).'&idFaction='.$value['idFaction'].'>Modifier</a></div>
+            <div class="delete">';
+            if($value['valide'] == 0) {
+              echo'<form class="formulaireClassique" action="'.encodeRoutage(29).'" method="post">
+                <input type="hidden" name="idFaction" value="'.$value['idFaction'].'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>
+              </form>';
+            } else {
+              echo 'Non disponible';
+            }
+
+            echo '</div>
+          </div>';
+    }
+  }
+
+
+  public function printFactionUser($variable) {
+
+  echo '<div class="userFaction headGrid">
+          <div class="nomFaction headGrid">Nom</div>
+          <div class="descriptionFaction headGrid">Description</div>
+          <div class="login headGrid">Auteur</div>
+          <div class="private headGrid">Faction Privé</div>
+          <div class="valide headGrid">Valide</div>
+        </div>';
+    foreach ($variable as $key => $value) {
+    echo '<div class="userFaction">
+            <div class="nomFaction">'.$value['nomFaction'].'</div>
+            <div class="descriptionFaction">'.$value['descriptionFaction'].'</div>
+            <div class="login">'.$value['login'].'</div>
+            <div class="private">'.Oui($value['factionPrivate']).'</div>
+            <div class="valide">'.Oui($value['valide']).'</div>
+          </div>';
+    }
+  }
+
   public function updateFaction ($data, $idNav) {
-    echo '<form class="formulaireClassique" action="'.encodeRoutage(26).'" method="post">
+    echo '<form class="formulaireClassique" action="'.encodeRoutage(28).'" method="post">
       <label for="nomFaction">Nom de la faction </label>
       <input id="nomFaction" type="text" name="nomFaction" value="'.$data[0]['nomFaction'].'" required>
       <label for="descriptionFaction">Description de la nouvelle faction</label>
       <textarea id="descriptionFaction" name="descriptionFaction" rows="5" cols="33" required>'.$data[0]['descriptionFaction'].'</textarea>
+      <label for="factionPrivate">Faction privé ?</label>
+      <select id="factionPrivate" name="factionPrivate">';
+      echo selected($data[0]['factionPrivate']);
+      echo'</select>
+      <label for="valide">Faction valide ?</label>
+      <select id="valide" name="valide">';
+      echo selected($data[0]['valide']);
+      echo'</select>
+      <input name="idFaction" value="'.$data[0]['idFaction'].'" type="hidden"/>
       <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>
     </form>';
   }

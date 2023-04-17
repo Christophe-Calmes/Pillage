@@ -2,7 +2,7 @@
 // Routage 26
 $parametre = new Preparation();
 $param = $parametre->creationPrepIdUser($_POST);
-print_r($param);
+//print_r($param);
 $insert = "INSERT INTO `Factions`(`nomFaction`, `descriptionFaction`, `valide`, `factionPrivate`, `auteur`)
 VALUES (:nomFaction, :descriptionFaction, 1, 0, :idUser)";
 $action = new RCUD($insert, $param);

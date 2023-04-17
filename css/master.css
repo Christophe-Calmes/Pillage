@@ -242,11 +242,27 @@ transition: display 3s;
     grid-row-gap: 10px;
     padding-left: 1em;
     padding-right: 0em;
+    padding-top: 2em;
     padding-bottom: 2em;
+    text-align: justify;
   }
-
+  .userFaction {
+    display: grid;
+    grid-template-columns: 1fr 2fr repeat(3, 0.3fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    padding-left: 1em;
+    padding-right: 0em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    text-align: justify;
+  }
   .nomFaction { grid-area: 1 / 1 / 2 / 2; }
-  .descriptionFaction { grid-area: 1 / 2 / 2 / 3; }
+  .descriptionFaction {
+    grid-area: 1 / 2 / 2 / 3;
+    padding-right: 1em;
+  }
   .login { grid-area: 1 / 3 / 2 / 4; }
   .private { grid-area: 1 / 4 / 2 / 5; }
   .valides { grid-area: 1 / 5 / 2 / 6; }

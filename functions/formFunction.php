@@ -42,3 +42,21 @@ $type =  ['text',  'date', 'time', 'email',
   echo $NavButton;
   echo '</form>';
 }
+function Oui ($yes){
+        if($yes == 0) {
+          return 'Non';
+        } else {
+          return 'Oui';
+        }
+      }
+function selected ($valide) {
+  $array =['<option value="0">Non</option>',
+  '<option value="1">Oui</option>',
+  '<option value="0" selected>Non</option>',
+  '<option value="1" selected>Oui</option>'];
+  if($valide == 1) {
+    return $array[3].$array[0];
+  } else {
+    return $array[2].$array[1];
+  }
+}

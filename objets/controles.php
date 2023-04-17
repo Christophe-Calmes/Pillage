@@ -13,6 +13,13 @@ class Controles {
       return 1;
     }
   }
+  public function idUser($token) {
+    $select = "SELECT `idUser` FROM `users` WHERE `token` = :token";
+    $param = [['prep'=>':token', 'variable'=> $token]];
+    $readDB = new RCUD($select, $param);
+    $idUser = $readDB->READ();
+    return $idUser[0]['idUser'];
+  }
 
   function __destruct() {
   }

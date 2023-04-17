@@ -22,8 +22,20 @@ Class GetFactions {
     $readDB = new RCUD($select, $param);
     return $readDB->READ();
   }
+  public function getAdminFactionsUser($valide, $factionPrivate, $idUser) {
+    $select = "SELECT `idFaction`, `nomFaction`, `descriptionFaction`, `Factions`.`valide`, `login`, `factionPrivate`
+    FROM `Factions`
+    INNER JOIN `users` ON `auteur` = `idUser`
+    WHERE `Factions`.`valide` = :valide AND `factionPrivate` = :factionPrivate AND `auteur` = :auteur
+    ORDER BY `nomFaction`";
+    $param = [['prep'=>':valide', 'variable'=>$valide],
+              ['prep'=>':factionPrivate', 'variable'=>$factionPrivate],
+              ['prep'=>':auteur', 'variable'=>$idUser]];
+    $readDB = new RCUD($select, $param);
+    return $readDB->READ();
+  }
   public function getOneFaction ($idFaction) {
-    $select = "SELECT `idFaction`, `nomFaction`, `descriptionFaction`
+    $select = "SELECT `idFaction`, `nomFaction`, `descriptionFaction`, `factionPrivate`, `valide`
     FROM `Factions`
     WHERE `idFaction` = :idFaction";
     $param = [['prep'=>':idFaction', 'variable'=>$idFaction]];
