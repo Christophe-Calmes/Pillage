@@ -1,9 +1,20 @@
+/*
+===SCSS RGB===
+$licorice: rgba(37, 24, 18, 1);
+$brown-sugar: rgba(162, 112, 84, 1);
+$bistre: rgba(46, 34, 29, 1);
+$khaki: rgba(172, 167, 155, 1);
+$tan: rgba(203, 171, 137, 1);
+
+*/
+
 /*Présentation Graine*/
 /*Variables CSS*/
 :root {
   /*Variable lier au boutton*/
-  --main-background-color: grey;
-  --main-border: none;
+  --main-background-color: rgba(162, 112, 84, 1);
+  --main-border: 1px solid rgba(203, 171, 137, 1);
+  --main-color-interne: rgba(240, 240, 240, 1);
   --main-color: white;
   --main-padding: 15px 32px;
   --main-text-align: center;
@@ -11,9 +22,14 @@
   --main-display: inline-block;
   --main-font-size: 16px;
   --main-cursor: pointer;
+  --main-radius: 5px;
   /*Autres variable*/
 }
 /*Presentation basique*/
+html {
+  background-color: rgba(172, 167, 155, 1);
+}
+
 h1, h2 {
   font-size: 2em;
 }
@@ -52,6 +68,10 @@ a {
 }
 input, label {
   margin-bottom: 0.25em;
+}
+input {
+  background-color: var(--main-color-interne);
+  border-radius: var(--main-radius);
 }
 .buttonForm {
   margin: 0.5em;
@@ -98,6 +118,7 @@ button {
   display: var(--main-display);
   font-size: var(--main-font-size);
   cursor: var(--main-cursor);
+  border-radius: var(--main-radius);
 }
 a {
   background-color: var(--main-background-color);
@@ -109,6 +130,7 @@ a {
   display: var(--main-display);
   font-size: var(--main-font-size);
   cursor: var(--main-cursor);
+  border-radius: var(--main-radius);
 }
 .lienNav {
   background-color: var(--main-background-color);
@@ -179,6 +201,7 @@ transition: display 3s;
     padding-left: 1em;
     padding-right: 0em;
     padding-bottom: 2em;
+    border-radius: var(--main-radius);
   }
 
 .nomClasse { grid-area: 1 / 1 / 2 / 2; }
@@ -202,6 +225,11 @@ transition: display 3s;
         padding-left: 1em;
         padding-right: 0em;
         padding-bottom: 2em;
+        padding-left: 1em;
+        padding-right: 0em;
+        padding-top: 2em;
+        padding-bottom: 2em;
+        text-align: justify;
       }
 
 .nomRS { grid-area: 1 / 1 / 2 / 2; }
@@ -227,6 +255,7 @@ transition: display 3s;
   	padding-left: 1em;
   	padding-right: 0em;
   	padding-bottom: 2em;
+    border-radius: var(--main-radius);
   }
 
   .nomWeapon { grid-area: 1 / 1 / 2 / 2; }
@@ -245,6 +274,7 @@ transition: display 3s;
     padding-top: 2em;
     padding-bottom: 2em;
     text-align: justify;
+    border-radius: var(--main-radius);
   }
   .userFaction {
     display: grid;
@@ -257,6 +287,7 @@ transition: display 3s;
     padding-top: 2em;
     padding-bottom: 2em;
     text-align: justify;
+    border-radius: var(--main-radius);
   }
   .nomFaction { grid-area: 1 / 1 / 2 / 2; }
   .descriptionFaction {
@@ -268,14 +299,164 @@ transition: display 3s;
   .valides { grid-area: 1 / 5 / 2 / 6; }
   .update { grid-area: 1 / 6 / 2 / 7; }
   .delete { grid-area: 1 / 7 / 2 / 8; }
-
-
+/*GRID == Grille faction*/
+.grilleFaction {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+.chef { grid-area: 1 / 3 / 2 / 4; }
+.guerrier { grid-area: 1 / 2 / 2 / 3; }
+.berseker { grid-area: 1 / 4 / 2 / 5; }
+.huscarl { grid-area: 1 / 5 / 2 / 6; }
+.soigneur { grid-area: 1 / 6 / 2 / 7; }
+.chariot { grid-area: 1 / 7 / 2 / 8; }
+.zoneBlanche { grid-area: 1 / 1 / 2 / 2; }
+.cout { grid-area: 2 / 1 / 3 / 2; }
+.protection { grid-area: 3 / 1 / 4 / 8; }
+.sansProtection { grid-area: 4 / 1 / 5 / 2; }
+.armure { grid-area: 5 / 1 / 6 / 2; }
+.bouclier { grid-area: 6 / 1 / 7 / 2; }
+.armesClose { grid-area: 7 / 1 / 8 / 8; }
+.armesImp { grid-area: 8 / 1 / 9 / 2; }
+.Lance { grid-area: 9 / 1 / 10 / 2; }
+.ArmeBase { grid-area: 10 / 1 / 11 / 2; }
+.HacheD { grid-area: 11 / 1 / 12 / 2; }
+.armesTir { grid-area: 12 / 1 / 13 / 8; }
+.fronde { grid-area: 13 / 1 / 14 / 2; }
+.javelot { grid-area: 14 / 1 / 15 / 2; }
+.arc { grid-area: 15 / 1 / 16 / 2; }
+.arbalete { grid-area: 16 / 1 / 17 / 2; }
+.equipementSpe { grid-area: 17 / 1 / 18 / 8; }
+.cheval { grid-area: 18 / 1 / 19 / 2; }
+.banniere { grid-area: 19 / 1 / 20 / 2; }
+.cor { grid-area: 20 / 1 / 21 / 2; }
+.chien { grid-area: 21 / 1 / 22 / 2; }
+.cout01 { grid-area: 4 / 2 / 5 / 3; }
+.cout00 { grid-area: 2 / 2 / 6 / 3; }
+.cout02 { grid-area: 5 / 2 / 6 / 3; }
+.cout03 { grid-area: 6 / 2 / 7 / 3; }
+.cout04 { grid-area: 8 / 2 / 9 / 3; }
+.cout05 { grid-area: 9 / 2 / 10 / 3; }
+.cout06 { grid-area: 10 / 2 / 11 / 3; }
+.cout07 { grid-area: 11 / 2 / 12 / 3; }
+.cout08 { grid-area: 13 / 2 / 14 / 3; }
+.cout09 { grid-area: 14 / 2 / 15 / 3; }
+.cout010 { grid-area: 15 / 2 / 16 / 3; }
+.cout011 { grid-area: 16 / 2 / 17 / 3; }
+.cout012 { grid-area: 18 / 2 / 19 / 3; }
+.cout013 { grid-area: 19 / 2 / 20 / 3; }
+.cout014 { grid-area: 20 / 2 / 21 / 3; }
+.cout015 { grid-area: 21 / 2 / 22 / 3; }
+.cout10 { grid-area: 2 / 3 / 3 / 4; }
+.cout11 { grid-area: 4 / 3 / 5 / 4; }
+.cout12 { grid-area: 5 / 3 / 6 / 4; }
+.cout13 { grid-area: 6 / 3 / 7 / 4; }
+.cout14 { grid-area: 8 / 3 / 9 / 4; }
+.cout15 { grid-area: 9 / 3 / 10 / 4; }
+.cout16 { grid-area: 10 / 3 / 11 / 4; }
+.cout17 { grid-area: 11 / 3 / 12 / 4; }
+.cout18 { grid-area: 13 / 3 / 14 / 4; }
+.cout19 { grid-area: 14 / 3 / 15 / 4; }
+.cout110 { grid-area: 15 / 3 / 16 / 4; }
+.cout111 { grid-area: 16 / 3 / 17 / 4; }
+.cout112 { grid-area: 18 / 3 / 19 / 4; }
+.cout113 { grid-area: 19 / 3 / 20 / 4; }
+.cout114 { grid-area: 20 / 3 / 21 / 4; }
+.cout115 { grid-area: 21 / 3 / 22 / 4; }
+.cout20 { grid-area: 2 / 4 / 3 / 5; }
+.cout21 { grid-area: 4 / 4 / 5 / 5; }
+.cout22 { grid-area: 5 / 4 / 6 / 5; }
+.cout23 { grid-area: 6 / 4 / 7 / 5; }
+.cout24 { grid-area: 8 / 4 / 9 / 5; }
+.cout25 { grid-area: 9 / 4 / 10 / 5; }
+.cout26 { grid-area: 10 / 4 / 11 / 5; }
+.cout27 { grid-area: 11 / 4 / 12 / 5; }
+.cout28 { grid-area: 13 / 4 / 14 / 5; }
+.cout29 { grid-area: 14 / 4 / 15 / 5; }
+.cout210 { grid-area: 15 / 4 / 16 / 5; }
+.cout211 { grid-area: 16 / 4 / 17 / 5; }
+.cout212 { grid-area: 18 / 4 / 19 / 5; }
+.cout213 { grid-area: 19 / 4 / 20 / 5; }
+.cout214 { grid-area: 20 / 4 / 21 / 5; }
+.cout215 { grid-area: 21 / 4 / 22 / 5; }
+.cout30 { grid-area: 2 / 5 / 3 / 6; }
+.cout31 { grid-area: 4 / 5 / 5 / 6; }
+.cout32 { grid-area: 5 / 5 / 6 / 6; }
+.cout33 { grid-area: 6 / 5 / 7 / 6; }
+.cout34 { grid-area: 8 / 5 / 9 / 6; }
+.cout35 { grid-area: 9 / 5 / 10 / 6; }
+.cout36 { grid-area: 10 / 5 / 11 / 6; }
+.cout37 { grid-area: 11 / 5 / 12 / 6; }
+.cout38 { grid-area: 13 / 5 / 14 / 6; }
+.cout39 { grid-area: 14 / 5 / 15 / 6; }
+.cout310 { grid-area: 15 / 5 / 16 / 6; }
+.cout311 { grid-area: 16 / 5 / 17 / 6; }
+.cout312 { grid-area: 18 / 5 / 19 / 6; }
+.cout313 { grid-area: 19 / 5 / 20 / 6; }
+.cout314 { grid-area: 20 / 5 / 21 / 6; }
+.cout315 { grid-area: 21 / 5 / 22 / 6; }
+.cout40 { grid-area: 2 / 6 / 3 / 7; }
+.cout41 { grid-area: 4 / 6 / 5 / 7; }
+.cout42 { grid-area: 5 / 6 / 6 / 7; }
+.cout43 { grid-area: 6 / 6 / 7 / 7; }
+.cout44 { grid-area: 8 / 6 / 9 / 7; }
+.cout45 { grid-area: 9 / 6 / 10 / 7; }
+.cout46 { grid-area: 10 / 6 / 11 / 7; }
+.cout47 { grid-area: 11 / 6 / 12 / 7; }
+.cout48 { grid-area: 13 / 6 / 14 / 7; }
+.cout49 { grid-area: 14 / 6 / 15 / 7; }
+.cout410 { grid-area: 15 / 6 / 16 / 7; }
+.cout411 { grid-area: 16 / 6 / 17 / 7; }
+.cout412 { grid-area: 18 / 6 / 19 / 7; }
+.cout413 { grid-area: 19 / 6 / 20 / 7; }
+.cout414 { grid-area: 20 / 6 / 21 / 7; }
+.cout415 { grid-area: 21 / 6 / 22 / 7; }
+.cout50 { grid-area: 2 / 7 / 3 / 8; }
+.cout51 { grid-area: 4 / 7 / 5 / 8; }
+.cout52 { grid-area: 5 / 7 / 6 / 8; }
+.cout53 { grid-area: 6 / 7 / 7 / 8; }
+.cout54 { grid-area: 8 / 7 / 9 / 8; }
+.cout55 { grid-area: 9 / 7 / 10 / 8; }
+.cout56 { grid-area: 10 / 7 / 11 / 8; }
+.cout57 { grid-area: 11 / 7 / 12 / 8; }
+.cout58 { grid-area: 13 / 7 / 14 / 8; }
+.cout59 { grid-area: 14 / 7 / 15 / 8; }
+.cout510 { grid-area: 15 / 7 / 16 / 8; }
+.cout511 { grid-area: 16 / 7 / 17 / 8; }
+.cout512 { grid-area: 18 / 7 / 19 / 8; }
+.cout513 { grid-area: 19 / 7 / 20 / 8; }
+.cout514 { grid-area: 20 / 7 / 21 / 8; }
+.cout515 { grid-area: 21 / 7 / 22 / 8; }
 
 /*==Objet left==*/
 .objetLeft {
   text-align: left;
   margin-left: 2em;
 }
+/*==Gallery ==*/
+  .gallery {
+    margin: 100px auto 0;
+    padding: 0 20px;
+    max-width:100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    grid-gap: 5px;
+    justify-content: center;
+  }
+
+  .item {
+    min-height: auto;
+    min-width: auto;
+    background: var(--main-background-color);
+    color: var(--main-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--main-radius);
+  }
 
 /**===id JavaScript===*/
 

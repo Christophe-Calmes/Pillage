@@ -1,7 +1,7 @@
 <?php
 Class GetFactions {
   public function getGroupFactions ($auteur, $valide, $factionPrivate) {
-    $select = "SELECT `nomFaction`, `descriptionFaction`, `valide`, `auteur`, `factionPrivate`
+    $select = "SELECT `idFaction`, `nomFaction`, `descriptionFaction`, `valide`, `auteur`, `factionPrivate`
     FROM `Factions`
     WHERE `auteur` = :auteur AND `valide` = :valide AND `factionPrivate` = :factionPrivate
     ORDER BY `nomFaction`";
@@ -51,4 +51,5 @@ Class GetFactions {
     $readDB = new RCUD($select, $param);
     return $readDB->READ();
   }
+
 }

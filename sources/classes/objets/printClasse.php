@@ -6,7 +6,7 @@ class PrintClasses extends Classes {
 
     if($valide == 1){echo '<h2>Classes valides</h2>';}
     if($valide == 0){echo '<h2>Classes non-valides</h2>';}
-    echo '<div class="GridClasse">
+    echo '<div class="GridClasse headGrid">
         <div class="nomClasse"><h3>Nom</h3></div>
         <div class="abrevClasse"><h3>Abréviation</h3></div>
         <div class="deplacementClasse"><h3>Déplacement</h3></div>

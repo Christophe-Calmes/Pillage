@@ -6,7 +6,7 @@ class PrintSpecialRules extends SpecialRules {
       if($valide == 1) {echo '<h2>Règles spéciales valides</h2>';}
       if($valide == 0) {echo '<h2>Règles spéciales non-valides</h2>';}
       // Entête du tableau des règles spéciales
-      echo '<div class="GridRS">
+      echo '<div class="GridRS headGrid">
               <div class="nomRS"><h3>Nom</h3></div>
               <div class="descriptionRS"><h3>Description</h3></div>
               <div class="prixRS"><h3>Prix (PO)</h3></div>';

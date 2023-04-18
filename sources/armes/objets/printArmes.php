@@ -8,7 +8,7 @@ Class PrintArmes extends GetArmes {
   if($type == 1) {
     echo '<h3>Armes de tirs</h3>';
   }
-  echo '<div class="arrayWeapon">
+  echo '<div class="arrayWeapon headGrid">
     <div class="nomWeapon"><h3>Nom d\'arme</h3></div>
     <div class="descriptionWeapon"><h3>Description</h3></div>
     <div class="close"><h3>Type</h3></div>';
