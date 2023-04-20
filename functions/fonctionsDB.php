@@ -88,3 +88,11 @@ function findTargetRoute($id) {
   $route = $findRoute->READ();
   return 'index.php?idNav='.$route[0]['targetRoute'];
 }
+// Function spécifique pillage
+function controlePO($PO) {
+  if($PO < -1 || $PO > 100) {
+    return 0;
+  } else {
+    return 1;
+  }
+}

@@ -50,7 +50,14 @@ a {
   justify-content: space-around;
   align-items: flex-start;
 }
-
+.alignLeft {
+  align-self: end;
+  margin-left: 1em;
+}
+.alignRigth {
+  padding-right: 1em;
+  margin-right: 1em;
+}
 .flex-colonne {
   display: flex;
   flex-direction: column;
@@ -450,7 +457,6 @@ grid-row-gap: 0px;
 .labelGrid {
   grid-area: 1 / 1 / 2 / 2;
   text-align: left;
-  width: auto;
  }
 .selectGrid { grid-area: 1 / 2 / 2 / 3; }
 
