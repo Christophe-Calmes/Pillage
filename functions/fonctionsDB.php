@@ -96,3 +96,59 @@ function controlePO($PO) {
     return 1;
   }
 }
+function controleGrille($data) {
+  $arrayControle = [];
+  $arrayPO = [];
+
+    // contrôle idFaction valide
+    $param = [['prep'=>':idFaction', 'variable'=>$data['idFaction']]];
+
+    $select = "SELECT `idFaction` FROM `Factions` WHERE `idFaction` = :idFaction";
+    $controleId = new RCUD($select, $param);
+    $idFaction = $controleId->READ();
+    if($idFaction[0]['idFaction'] == $data['idFaction']) {
+      array_push($arrayControle, 1);
+      array_push($arrayPO, 1);
+    } else {
+      array_push($arrayControle, 1);
+      array_push($arrayPO, 0);
+    }
+
+    // Contrôle adresse nomColonne
+    if($data['indexType'] < 0 || $data['indexType'] > 6) {
+      array_push($arrayControle, 1);
+      array_push($arrayPO, 0);
+    } else {
+      array_push($arrayControle, 1);
+      array_push($arrayPO, 1);
+    }
+    // Controle pour éviter les doublons de colonne dans la même grille
+    $param = [['prep'=>':idFaction', 'variable'=>$data['idFaction']],
+              ['prep'=>':indexType', 'variable'=>$data['indexType']]];
+    $select = "SELECT `idCout` FROM `cout` WHERE `idFaction` = :idFaction AND `indexType`= :indexType";
+    $controleDoublon = new RCUD($select, $param);
+    $idCout = $controleDoublon->READ();
+    if($idCout == []) {
+      array_push($arrayControle, 1);
+      array_push($arrayPO, 1);
+    } else {
+      array_push($arrayControle, 1);
+      array_push($arrayPO, 0);
+    }
+
+
+    // Controle Valeur PO
+  foreach ($_POST as $key => $value) {
+    if($key != 'idFaction' || $key != 'indexType') {
+      array_push($arrayControle, 1);
+      array_push($arrayPO, controlePO($value));
+    }
+  }
+  if($arrayControle == $arrayPO) {
+    //print_r($arrayControle);
+    //print_r($arrayPO);
+    return true;
+  } else {
+    return false;
+  }
+}

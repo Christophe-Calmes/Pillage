@@ -1,4 +1,5 @@
 <?php
+/*
 $arrayControle = [];
 $arrayPO = [];
 
@@ -45,16 +46,10 @@ foreach ($_POST as $key => $value) {
     array_push($arrayControle, 1);
     array_push($arrayPO, controlePO($value));
   }
-}
-/*if($arrayControle == $arrayPO) {
-  echo '1';
-} else {
-  echo '0';
 }*/
 
-
 // Contrôle si toute les sommes sont entre -1  et 100
-if($arrayControle == $arrayPO) {
+if(controleGrille($_POST)) {
   $insert = "INSERT INTO `cout`(`indexType`, `coutBase`, `idFaction`, `SP`,
     `armure`, `bouclier`, `armeImp`, `lance`, `armeDeBase`, `hacheD`, `fronde`,
     `javelot`, `arc`, `arbalete`, `cheval`, `banniere`, `corDG`, `chienDG`)
