@@ -49,7 +49,7 @@ foreach ($_POST as $key => $value) {
 }*/
 
 // Contrôle si toute les sommes sont entre -1  et 100
-if(controleGrille($_POST)) {
+if(controleGrille($_POST, 1)) {
   $insert = "INSERT INTO `cout`(`indexType`, `coutBase`, `idFaction`, `SP`,
     `armure`, `bouclier`, `armeImp`, `lance`, `armeDeBase`, `hacheD`, `fronde`,
     `javelot`, `arc`, `arbalete`, `cheval`, `banniere`, `corDG`, `chienDG`)

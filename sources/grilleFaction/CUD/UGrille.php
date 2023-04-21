@@ -1,5 +1,5 @@
 <?php
-print_r(controleGrille($_POST));
+print_r(controleGrille($_POST, 1));
 /*if(controleGrille($_POST)) {
   //$update = "";
 

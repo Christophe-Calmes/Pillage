@@ -96,10 +96,10 @@ function controlePO($PO) {
     return 1;
   }
 }
-function controleGrille($data) {
+function controleGrille($data, $type) {
+  // $type 0 -> Create controle / 1-> update controle
   $arrayControle = [];
   $arrayPO = [];
-
     // contrôle idFaction valide
     $param = [['prep'=>':idFaction', 'variable'=>$data['idFaction']]];
 
@@ -133,7 +133,7 @@ function controleGrille($data) {
       array_push($arrayPO, 1);
     } else {
       array_push($arrayControle, 1);
-      array_push($arrayPO, 0);
+      array_push($arrayPO, $type);
     }
 
 
@@ -145,10 +145,16 @@ function controleGrille($data) {
     }
   }
   if($arrayControle == $arrayPO) {
-    //print_r($arrayControle);
-    //print_r($arrayPO);
+    echo '<ul>';
+      echo '<li>';print_r($arrayControle);echo '</li>';
+      echo '<li>';print_r($arrayPO);echo '</li>';
+    echo '</ul>';
     return true;
   } else {
+    echo '<ul>';
+      echo '<li>';print_r($arrayControle);echo '</li>';
+      echo '<li>';print_r($arrayPO);echo '</li>';
+    echo '</ul>';
     return false;
   }
 }
