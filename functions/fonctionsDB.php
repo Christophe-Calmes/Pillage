@@ -145,16 +145,16 @@ function controleGrille($data, $type) {
     }
   }
   if($arrayControle == $arrayPO) {
-    echo '<ul>';
+    /*echo '<ul>';
       echo '<li>';print_r($arrayControle);echo '</li>';
       echo '<li>';print_r($arrayPO);echo '</li>';
-    echo '</ul>';
+    echo '</ul>';*/
     return true;
   } else {
-    echo '<ul>';
+    /*echo '<ul>';
       echo '<li>';print_r($arrayControle);echo '</li>';
       echo '<li>';print_r($arrayPO);echo '</li>';
-    echo '</ul>';
+    echo '</ul>';*/
     return false;
   }
 }

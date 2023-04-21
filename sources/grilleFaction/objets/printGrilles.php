@@ -145,7 +145,7 @@ echo '</div>';
     if($dataFaction != []) {
       $nameFaction = $dataFaction[0]['nomFaction'];
         // Génération de la grilles vierge
-        echo '<h3>Grille du '.$nameFaction.'</h3>';
+        echo '<h3>Grille '.$nameFaction.'</h3>';
         echo '<div class="flex-rows">';
         for ($i=0; $i < count($this->typeTroupe) ; $i++) {
           //Visualisation des éléments pas encore définis
@@ -185,7 +185,7 @@ echo '</div>';
         array_shift($arrayIndex);
       }
       // Affichage des élément déjà créer
-      echo '<h3>Grille du '.$nameFaction.'</h3>';
+      echo '<h3>Grille '.$nameFaction.'</h3>';
       echo '<div class="flex-rows">';
       for ($l=0; $l <count($arrayIndexOk) ; $l++) {
         foreach ($variable as $key => $value) {
