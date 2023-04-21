@@ -134,6 +134,24 @@ echo '<div class="protection headGrid">Protections</div>
 echo '</div>';
   }
 
+  public function voidFormGrille($idFaction) {
+    // Permet d'afficher un formulaire de grilles quand aucune données n'est encore enregistré.
+    // Etape 1 : Recherche du nom de la faction
+    $nameFaction = '';
+    $param = [['prep'=>':idFaction', 'variable'=>$idFaction]];
+    $select = "SELECT`nomFaction` FROM `Factions` WHERE `idFaction` = :idFaction AND `valide` = 1";
+    $readDB = new RCUD($select, $param);
+    $dataFaction = $readDB->READ();
+    if($dataFaction != []) {
+      $nameFaction = $dataFaction[0]['nomFaction'];
+    } else {
+      // Sécurité parce que tentative de hacking
+      require 'modules/securiter/deconnexion.php';
+    }
+    print_r($nameFaction);
+
+  }
+
     public function formGrille ($variable, $idNav) {
       $nameFaction = $variable[0]['nomFaction'];
       $id = $variable[0]['idFaction'];

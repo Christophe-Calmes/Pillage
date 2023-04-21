@@ -1,6 +1,7 @@
 <?php
 Class GetGrilles {
   public function getFactionData($idFaction) {
+
     $param = [['prep'=> ':idFaction', 'variable'=>$idFaction]];
     $select="SELECT `idCout`, `indexType`, `coutBase`,
     `SP`, `armure`, `bouclier`, `armeImp`,
@@ -11,6 +12,12 @@ Class GetGrilles {
     INNER JOIN `Factions` ON `cout`.`idFaction` = `Factions`.`idFaction`
     WHERE `cout`.`idFaction` = :idFaction";
     $readDB = new RCUD($select, $param);
-    return $readDB->READ();
+    $dataFaction = $readDB->READ();
+    if($dataFaction == []) {
+      return $idFaction;
+    } else {
+      return $dataFaction;
+    }
   }
+
 }
