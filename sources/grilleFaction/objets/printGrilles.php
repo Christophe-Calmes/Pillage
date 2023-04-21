@@ -134,7 +134,7 @@ echo '<div class="protection headGrid">Protections</div>
 echo '</div>';
   }
 
-  public function voidFormGrille($idFaction) {
+  public function voidFormGrille($idFaction, $idNav) {
     // Permet d'afficher un formulaire de grilles quand aucune données n'est encore enregistré.
     // Etape 1 : Recherche du nom de la faction
     $nameFaction = '';
@@ -144,11 +144,28 @@ echo '</div>';
     $dataFaction = $readDB->READ();
     if($dataFaction != []) {
       $nameFaction = $dataFaction[0]['nomFaction'];
+        // Génération de la grilles vierge
+        echo '<h3>Grille du '.$nameFaction.'</h3>';
+        echo '<div class="flex-rows">';
+        for ($i=0; $i < count($this->typeTroupe) ; $i++) {
+          //Visualisation des éléments pas encore définis
+            echo '<form class="formulaireClassique"action="'.encodeRoutage(32).'" method="post">';
+            echo '<h4>'.$this->typeTroupe[$i].'</h4>';
+            for ($o=0; $o <count($this->champs) ; $o++) {
+              selectPO ($this->champs[$o], $this->nomTypes [$o]);
+            }
+            echo '<input type="hidden" name="idFaction" value="'.$idFaction.'"/>
+                  <input type="hidden" name="indexType" value="'.$i.'"/>
+                  <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
+                  echo '</form>';
+        }
+
+        echo '</div>';
     } else {
       // Sécurité parce que tentative de hacking
       require 'modules/securiter/deconnexion.php';
     }
-    print_r($nameFaction);
+
 
   }
 

@@ -3,7 +3,8 @@ $arrayControle = [];
 $arrayPO = [];
 
   // contrôle idFaction valide
-  $param = [['prep'=>':idFaction', 'variable'=>$_POST['idFaction']];
+  $param = [['prep'=>':idFaction', 'variable'=>$_POST['idFaction']]];
+
   $select = "SELECT `idFaction` FROM `Factions` WHERE `idFaction` = :idFaction";
   $controleId = new RCUD($select, $param);
   $idFaction = $controleId->READ();
@@ -14,6 +15,7 @@ $arrayPO = [];
     array_push($arrayControle, 0);
     array_push($arrayPO, 0);
   }
+
   // Contrôle adresse nomColonne
   if($_POST['indexType'] < 0 || $_POST['indexType'] > 6) {
     array_push($arrayControle, 0);
@@ -23,18 +25,19 @@ $arrayPO = [];
     array_push($arrayPO, 1);
   }
   // Controle pour éviter les doublons de colonne dans la même grille
-   $param = [['prep'=>':idFaction', 'variable'=>$_POST['idFaction'],
-            ['prep'=>':indexType', 'variable'=>$_POST['indexType']];
-  $select = "SELECT `idCout` FROM `cout` WHERE `idFaction` = :idFaction AND `indexType`=:indexType";
+  $param = [['prep'=>':idFaction', 'variable'=>$_POST['idFaction']],
+            ['prep'=>':indexType', 'variable'=>$_POST['indexType']]];
+  $select = "SELECT `idCout` FROM `cout` WHERE `idFaction` = :idFaction AND `indexType`= :indexType";
   $controleDoublon = new RCUD($select, $param);
   $idCout = $controleDoublon->READ();
-  if($idCout[0]['idCout'] != null) {
+  if($idCout != []) {
     array_push($arrayControle, 0);
     array_push($arrayPO, 0);
   } else {
     array_push($arrayControle, 1);
     array_push($arrayPO, 1);
   }
+
 
   // Controle Valeur PO
 foreach ($_POST as $key => $value) {
@@ -43,15 +46,15 @@ foreach ($_POST as $key => $value) {
     array_push($arrayPO, controlePO($value));
   }
 }
-if($arrayControle == $arrayPO) {
+/*if($arrayControle == $arrayPO) {
   echo '1';
 } else {
   echo '0';
-}
+}*/
 
 
 // Contrôle si toute les sommes sont entre -1  et 100
-/*if($arrayControle == $arrayPO) {
+if($arrayControle == $arrayPO) {
   $insert = "INSERT INTO `cout`(`indexType`, `coutBase`, `idFaction`, `SP`,
     `armure`, `bouclier`, `armeImp`, `lance`, `armeDeBase`, `hacheD`, `fronde`,
     `javelot`, `arc`, `arbalete`, `cheval`, `banniere`, `corDG`, `chienDG`)
@@ -62,7 +65,7 @@ if($arrayControle == $arrayPO) {
   $param = $parametre->creationPrep($_POST);
   $action = new RCUD($insert, $param);
   $action->CUD();
-  header('location:../index.php?idNav='.$idNav.'&idFaction='.$_POST['idFaction'].'&message=Grille mise à jour.');*/
+  header('location:../index.php?idNav='.$idNav.'&idFaction='.$_POST['idFaction'].'&message=Grille mise à jour.');
 } else {
-  //header('location:../index.php?idNav='.$idNav.'&idFaction='.$_POST['idFaction'].'&message=Soucis d\'enregistrement.');
+  header('location:../index.php?idNav='.$idNav.'&idFaction='.$_POST['idFaction'].'&message=Soucis d\'enregistrement.');
 }
