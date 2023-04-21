@@ -140,4 +140,16 @@ Class PrintFactions extends GetFactions {
     }
     echo '</div>';
   }
+  public function listFactionsDisplay($variable, $admin) {
+    if($admin) {
+      $adresse = 108;
+    } else {
+      $adresse = 109;
+    }
+    echo '<div class="gallery">';
+    foreach ($variable as $key => $value) {
+      echo '<a class="item" href='.findTargetRoute($adresse).'&idFaction='.$value['idFaction'].'>'.$value['nomFaction'].'</a>';
+    }
+    echo '</div>';
+  }
 }
