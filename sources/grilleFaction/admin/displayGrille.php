@@ -5,4 +5,4 @@ require 'sources/grilleFaction/objets/printGrilles.php';
   $idFaction = filter($_GET['idFaction']);
   $Grilles = new PrintGrilles();
   $dataGrilles = $Grilles->getFactionData($idFaction);
-  echo 'Coucou';
+  $Grilles->DisplayGrilleOpti($dataGrilles);

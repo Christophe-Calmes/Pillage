@@ -9,7 +9,7 @@ function blackOrFree ($cout) {
           return 'Non applicable';
           break;
       default:
-          return $cout;
+          return $cout.' PO';
   }
 }
 function selectPO ($champs, $name) {
@@ -61,6 +61,8 @@ Class PrintGrilles extends GetGrilles {
   private $typeTroupe;
   private $nomColonne;
   private $champs;
+  private $classCSSFirstCol;
+  private $nomColonneDisplayGrilles;
   private $debug;
 
   public function __construct() {
@@ -69,6 +71,11 @@ Class PrintGrilles extends GetGrilles {
     'Arme improvisé', 'Lance', 'Arme standard', 'Hache danoise', 'Arme de tir',
     'Fronde', 'Javelot', 'Arc', 'Arbalète','Equipement spéciaux',
     'Cheval', 'Bannière', 'Cor de guerre', 'Chiens de guerre'];
+    $this->nomColonneDisplayGrilles = ['','Coût de base', 'Protections','Sans Protection', 'Armure', 'Bouclier', 'Arme de contact',
+    'Arme improvisé', 'Lance', 'Arme standard', 'Hache danoise', 'Arme de tir',
+    'Fronde', 'Javelot', 'Arc', 'Arbalète','Equipement spéciaux',
+    'Cheval', 'Bannière', 'Cor de guerre', 'Chiens de guerre'];
+
     $this->nomTypes = ['Coût de base', 'Sans Protection', 'Armure', 'Bouclier',
     'Arme improvisé', 'Lance', 'Arme standard', 'Hache danoise',
     'Fronde', 'Javelot', 'Arc', 'Arbalète', 'Cheval', 'Bannière',
@@ -76,62 +83,31 @@ Class PrintGrilles extends GetGrilles {
     $this->champs = ['coutBase', 'SP', 'armure', 'bouclier', 'armeImp',
     'lance', 'armeDeBase', 'hacheD', 'fronde', 'javelot', 'arc',
     'arbalete', 'cheval', 'banniere', 'corDG', 'chienDG'];
+    $this->classCSSFirstCol = ['zoneBlanche','cout', 'protection', 'sansProtection', 'armure', 'bouclier', 'armesClose',
+    'armesImp', 'Lance', 'ArmeBase', 'HacheD', 'armesTir', 'fronde', 'javelot', 'arc', 'arbalete',
+    'equipementSpe', 'cheval', 'banniere', 'cor', 'chien'];
     $this->debug = true;
   }
-
-  public function DisplayGrille($variable){
-    echo '<div class="grilleFaction">';
-  for ($i=0; $i < count($this->typeTroupe); $i++) {
-    echo '<div class="'.$this->typeTroupe[$i].' headGrid">'.$this->typeTroupe[$i].'</div>';
-  }
-
-
-
-echo '<div class="zoneBlanche headGrid"></div>
-      <div class="cout headGrid">'.$this->nomColonne[0].'</div>';
-
-echo '<div class="protection headGrid">Protections</div>
-      <div class="sansProtection headGrid">'.$this->nomColonne[1].'</div>
-      <div class="armure headGrid">'.$this->nomColonne[2].'</div>
-      <div class="bouclier headGrid">'.$this->nomColonne[3].'</div>
-      <div class="armesClose headGrid">Arme de contact</div>
-      <div class="armesImp headGrid">'.$this->nomColonne[4].'</div>
-      <div class="Lance headGrid">'.$this->nomColonne[5].'</div>
-      <div class="ArmeBase headGrid">'.$this->nomColonne[6].'</div>
-      <div class="HacheD headGrid">'.$this->nomColonne[7].'</div>
-      <div class="armesTir headGrid">Arme de tir</div>
-      <div class="fronde headGrid">'.$this->nomColonne[8].'</div>
-      <div class="javelot headGrid">'.$this->nomColonne[9].'</div>
-      <div class="arc headGrid">'.$this->nomColonne[10].'</div>
-      <div class="arbalete headGrid">'.$this->nomColonne[11].'</div>
-      <div class="equipementSpe headGrid">Equipements spéciales</div>
-      <div class="cheval headGrid">'.$this->nomColonne[12].'</div>
-      <div class="banniere headGrid">'.$this->nomColonne[13].'</div>
-      <div class="cor headGrid">'.$this->nomColonne[14].'</div>
-      <div class="chien headGrid">'.$this->nomColonne[15].'</div>';
-  foreach ($variable as $key => $value) {
-    for ($i=0; $i < count($this->typeTroupe ) ; $i++) {
-      if($value['indexType'] == $i) {
-        echo '<div class="cout'.$value['indexType'] .'1">'.blackOrFree($value['SP']).'</div>
-              <div class="cout'.$value['indexType'] .'0">'.blackOrFree($value['coutBase']).'</div>
-              <div class="cout'.$value['indexType'] .'2">'.blackOrFree($value['armure']).'</div>
-              <div class="cout'.$value['indexType'] .'3">'.blackOrFree($value['bouclier']).'</div>
-              <div class="cout'.$value['indexType'] .'4">'.blackOrFree($value['armeImp']).'</div>
-              <div class="cout'.$value['indexType'] .'5">'.blackOrFree($value['lance']).'</div>
-              <div class="cout'.$value['indexType'] .'6">'.blackOrFree($value['armeDeBase']).'</div>
-              <div class="cout'.$value['indexType'] .'7">'.blackOrFree($value['hacheD']).'</div>
-              <div class="cout'.$value['indexType'] .'8">'.blackOrFree($value['fronde']).'</div>
-              <div class="cout'.$value['indexType'] .'9">'.blackOrFree($value['javelot']).'</div>
-              <div class="cout'.$value['indexType'] .'10">'.blackOrFree($value['arc']).'</div>
-              <div class="cout'.$value['indexType'] .'11">'.blackOrFree($value['arbalete']).'</div>
-              <div class="cout'.$value['indexType'] .'12">'.blackOrFree($value['cheval']).'</div>
-              <div class="cout'.$value['indexType'] .'13">'.blackOrFree($value['banniere']).'</div>
-              <div class="cout'.$value['indexType'] .'14">'.blackOrFree($value['corDG']).'</div>
-              <div class="cout'.$value['indexType'] .'15">'.blackOrFree($value['chienDG']).'</div>';
+  public function DisplayGrilleOpti($variable) {
+    echo '<h3>Faction '.$variable[0]['nomFaction'].'</h3>';
+      echo '<div class="grilleFaction">';
+      for ($i=0; $i < count($this->typeTroupe); $i++) {
+        echo '<div class="'.$this->typeTroupe[$i].' headGrid">'.$this->typeTroupe[$i].'</div>';
       }
-    }
-  }
-echo '</div>';
+      for ($i=0; $i < count($this->nomColonneDisplayGrilles) ; $i++) {
+        echo '<div class="'.$this->classCSSFirstCol[$i].' headGrid">'.$this->nomColonneDisplayGrilles[$i].'</div>';
+
+      }
+      foreach ($variable as $key => $value) {
+        for ($i=0; $i < count($this->typeTroupe ) ; $i++) {
+          if($value['indexType'] == $i) {
+              for ($index=0; $index <count($this->champs) ; $index++) {
+                  echo '<div class="cout'.$value['indexType'].$index.'">'.blackOrFree($value[$this->champs[$index]]).'</div>';
+              }
+          }
+        }
+      }
+      echo '</div>';
   }
 
   public function voidFormGrille($idFaction, $idNav) {
