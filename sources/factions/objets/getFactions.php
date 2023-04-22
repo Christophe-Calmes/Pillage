@@ -1,5 +1,14 @@
 <?php
 Class GetFactions {
+  public function getFactionPublic () {
+    $select = "SELECT `idFaction`, `nomFaction`, `descriptionFaction`
+    FROM `Factions` WHERE `valide` = 1 AND `factionPrivate` = 0;";
+    $void = [];
+    $readDB = new RCUD($select, $void);
+    return $readDB->READ();
+  }
+
+
   public function getGroupFactions ($auteur, $valide, $factionPrivate) {
     $select = "SELECT `idFaction`, `nomFaction`, `descriptionFaction`, `valide`, `auteur`, `factionPrivate`
     FROM `Factions`
