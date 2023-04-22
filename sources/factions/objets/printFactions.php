@@ -120,12 +120,14 @@ Class PrintFactions extends GetFactions {
     echo '<label for="nomFaction">Nom de la faction </label>
       <input id="nomFaction" type="text" name="nomFaction" value="'.$data[0]['nomFaction'].'" required>
       <label for="descriptionFaction">Description de la nouvelle faction</label>
-      <textarea id="descriptionFaction" name="descriptionFaction" rows="5" cols="33" required>'.$data[0]['descriptionFaction'].'</textarea>
-      <label for="factionPrivate">Faction privé ?</label>
-      <select id="factionPrivate" name="factionPrivate">';
-      echo selected($data[0]['factionPrivate']);
-      echo'</select>
-      <label for="valide">Faction valide ?</label>
+      <textarea id="descriptionFaction" name="descriptionFaction" rows="5" cols="33" required>'.$data[0]['descriptionFaction'].'</textarea>';
+        if($type) {
+          echo '<label for="factionPrivate">Faction privé ?</label>
+                <select id="factionPrivate" name="factionPrivate">';
+          echo selected($data[0]['factionPrivate']);
+          echo '</select>';
+        }
+      echo '<label for="valide">Faction valide ?</label>
       <select id="valide" name="valide">';
       echo selected($data[0]['valide']);
       echo'</select>

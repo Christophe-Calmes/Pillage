@@ -2,7 +2,6 @@
 $update = "UPDATE `Factions`
 SET `nomFaction`= :nomFaction,
 `descriptionFaction`= :descriptionFaction,
-`factionPrivate`= :factionPrivate,
 `valide`= :valide
 WHERE `idFaction` = :idFaction AND `auteur` = :idUser";
 $parametre = new Preparation();
