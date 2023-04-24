@@ -110,7 +110,12 @@ Class PrintGrilles extends GetGrilles {
       echo '</div>';
   }
 
-  public function voidFormGrille($idFaction, $idNav) {
+  public function voidFormGrille($idFaction, $idNav, $admin) {
+    if($admin) {
+      $route = 32;
+    } else {
+      $route = 34;
+    }
     // Permet d'afficher un formulaire de grilles quand aucune données n'est encore enregistré.
     // Etape 1 : Recherche du nom de la faction
     $nameFaction = '';
@@ -125,7 +130,7 @@ Class PrintGrilles extends GetGrilles {
         echo '<div class="flex-rows">';
         for ($i=0; $i < count($this->typeTroupe) ; $i++) {
           //Visualisation des éléments pas encore définis
-            echo '<form class="formulaireClassique"action="'.encodeRoutage(32).'" method="post">';
+            echo '<form class="formulaireClassique"action="'.encodeRoutage($route).'" method="post">';
             echo '<h4>'.$this->typeTroupe[$i].'</h4>';
             for ($o=0; $o <count($this->champs) ; $o++) {
               selectPO ($this->champs[$o], $this->nomTypes [$o]);
@@ -145,7 +150,14 @@ Class PrintGrilles extends GetGrilles {
 
   }
 
-    public function formGrille ($variable, $idNav) {
+    public function formGrille ($variable, $idNav, $admin) {
+      if($admin) {
+        $route = 33;
+      } else {
+        $route = 35;
+      }
+
+
       $nameFaction = $variable[0]['nomFaction'];
       $id = $variable[0]['idFaction'];
       $arrayIndexOk = [];
@@ -166,7 +178,7 @@ Class PrintGrilles extends GetGrilles {
       for ($l=0; $l <count($arrayIndexOk) ; $l++) {
         foreach ($variable as $key => $value) {
           if($value['indexType'] == $arrayIndexOk[$l]) {
-            echo '<form class="formulaireClassique"action="'.encodeRoutage(33).'" method="post">';
+            echo '<form class="formulaireClassique"action="'.encodeRoutage($route).'" method="post">';
             echo '<h4>Modifier '.$this->typeTroupe[$l].'</h4>';
             for ($i=0; $i <count($this->champs) ; $i++) {
               selectPOSelected ($this->champs[$i], $this->nomTypes [$i], $value[$this->champs[$i]]);

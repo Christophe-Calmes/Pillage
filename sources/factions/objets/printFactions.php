@@ -135,10 +135,15 @@ Class PrintFactions extends GetFactions {
       <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>
     </form>';
   }
-  public function listFactions($variable) {
+  public function listFactions($variable, $admin) {
+    if($admin) {
+      $adresse = 107;
+    } else {
+      $adresse = 114;
+    }
     echo '<div class="gallery">';
     foreach ($variable as $key => $value) {
-      echo '<a class="item" href='.findTargetRoute(107).'&idFaction='.$value['idFaction'].'>'.$value['nomFaction'].'</a>';
+      echo '<a class="item" href='.findTargetRoute($adresse).'&idFaction='.$value['idFaction'].'>'.$value['nomFaction'].'</a>';
     }
     echo '</div>';
   }
