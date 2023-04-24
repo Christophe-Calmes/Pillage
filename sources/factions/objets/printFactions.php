@@ -146,7 +146,7 @@ Class PrintFactions extends GetFactions {
     if($admin) {
       $adresse = 108;
     } else {
-      $adresse = 109;
+      $adresse = 111;
     }
     echo '<div class="gallery">';
     foreach ($variable as $key => $value) {
