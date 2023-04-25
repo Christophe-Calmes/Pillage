@@ -208,5 +208,13 @@ Class PrintGrilles extends GetGrilles {
       echo '</div>';
       echo '</div>';
     }
+    public function selectType() {
+      echo '<label for="typeTroupe">Type de troupe</label>';
+      echo '<select name="typeTroupe">';
+      for ($i=0; $i <count($this->typeTroupe) ; $i++) {
+        echo '<option value="'.$i.'">'.$this->typeTroupe[$i].'</option>';
+      }
+      echo '</select>';
+    }
 
 }
