@@ -24,6 +24,7 @@ if($dataOwner != []) {
     WHERE `indexType` = :indexType AND`idFaction` = :idFaction";
     $action = new RCUD($update, $param);
     $action->CUD();
+    print_r($param);
     header('location:../index.php?idNav='.$idNav.'&idFaction='.$_POST['idFaction'].'&message=Grille mise à jour.');
   } else {
     header('location:../index.php?idNav='.$idNav.'&idFaction='.$_POST['idFaction'].'&message=Soucis d\'enregistrement.');

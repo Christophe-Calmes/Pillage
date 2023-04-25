@@ -153,7 +153,9 @@ Class PrintGrilles extends GetGrilles {
     public function formGrille ($variable, $idNav, $admin) {
       if($admin) {
         $route = 33;
+        $updateRoute = 32;
       } else {
+        $updateRoute = 34;
         $route = 35;
       }
 
@@ -193,7 +195,7 @@ Class PrintGrilles extends GetGrilles {
       // Intialisation boucle
         for ($i=count($arrayIndexOk); $i < count($this->typeTroupe) ; $i++) {
           //Visualisation des éléments pas encore définis
-            echo '<form class="formulaireClassique"action="'.encodeRoutage(32).'" method="post">';
+            echo '<form class="formulaireClassique"action="'.encodeRoutage($updateRoute).'" method="post">';
             echo '<h4>'.$this->typeTroupe[$i].'</h4>';
             for ($o=0; $o <count($this->champs) ; $o++) {
               selectPO ($this->champs[$o], $this->nomTypes [$o]);
