@@ -163,13 +163,13 @@ Class PrintFactions extends GetFactions {
     echo '<label for="factionTroupe">Type de troupe</label>';
     echo '<select name="factionTroupe">';
     foreach ($dataUser as $key => $value) {
-      echo '<option value="'.$value['idFaction'].'">'.$value['nomFaction'].'</option>';
+      echo '<option value="'.$value['idFaction'].'">Vos factions : '.$value['nomFaction'].'</option>';
     }
     foreach ($dataPublic as $key => $value) {
-      echo '<option value="'.$value['idFaction'].'">'.$value['nomFaction'].'</option>';
+      echo '<option value="'.$value['idFaction'].'">Les factions officiel : '.$value['nomFaction'].'</option>';
     }
 
     echo '</select>';
   }
-  
+
 }

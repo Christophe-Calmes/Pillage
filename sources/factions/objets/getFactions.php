@@ -2,7 +2,8 @@
 Class GetFactions {
   public function getFactionPublic () {
     $select = "SELECT `idFaction`, `nomFaction`, `descriptionFaction`
-    FROM `Factions` WHERE `valide` = 1 AND `factionPrivate` = 0;";
+    FROM `Factions` WHERE `valide` = 1 AND `factionPrivate` = 0
+    ORDER BY `nomFaction`";
     $void = [];
     $readDB = new RCUD($select, $void);
     return $readDB->READ();
