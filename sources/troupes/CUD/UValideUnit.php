@@ -18,8 +18,6 @@ if($dataCheck[0]['valide'] == 1 &&  $dataCheck[0]['auteur'] == $idUser) {
 } else {
   // Ejection
   header('location:../index.php?idNav='.$idNav.'&message=Vous n\'êtes pas propriétaire de cette troupe.');
-
-
 }
 if(isset($update)) {
   $action = new RCUD($update, $param);

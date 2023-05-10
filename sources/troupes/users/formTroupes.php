@@ -24,18 +24,24 @@ echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">C
 </form>';
 $user = new Controles ();
 $idUser = $user->idUser($_SESSION['tokenConnexion']);
-$array = [['titre'=>'Vos troupes de factions générales', 'valide'=> 1, 'private'=> 0],
-          ['titre'=>'Vos troupes de faction privé', 'valide'=> 1, 'private'=> 1],
-          ['titre'=>'Vos troupes de faction privé non valide', 'valide'=> 0, 'private'=> 1],
-          ['titre'=>'Vos troupes de faction générale non valide', 'valide'=> 0, 'private'=> 0]];
 
-foreach ($array as $key => $value) {
-  $dataTroupe = $troupes->readTroupe ($value['valide'], $idUser, $value['private']);
-  if($dataTroupe != []){
-    echo '<section>';
-    echo '<h3>'.$value['titre'].'</h3>';
-    // false zone non admin
-    $troupes->simpleTroupes($dataTroupe, false, $idNav);
-    echo '</section>';
+$array  = [['titre'=>'Troupe valide', 'valide'=>1], ['titre'=>'Troupe non valide', 'valide'=>0]];
+
+// Factions publique - Troupe valide
+$dataFactions = $factions->factionPrivatePublic ($idUser);
+foreach ($array as $First => $valued) {
+  echo '<h3>'.$valued['titre'].'</h3>';
+  foreach ($dataFactions as $key => $value) {
+    $message = NULL;
+    if ($value['factionPrivate'] == 1) {$message = 'Votre faction : ';}
+    $dataTroupe = $troupes->readTroupe ($valued['valide'], $idUser, $value['factionPrivate'], $value['idFaction']);
+    if(!empty($dataTroupe)){
+      echo '<h3>'.$message.' '.$value['nomFaction'].'</h3>';
+      //print_r($dataTroupe);
+      echo '<section>';
+      // false zone non admin
+      $troupes->simpleTroupes($dataTroupe, false, $idNav);
+      echo '</section>';
+    }
   }
 }
