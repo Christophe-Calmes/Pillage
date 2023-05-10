@@ -56,4 +56,12 @@ Class PrintNavigation extends GetNavigation {
       }
     echo '</ul>';
   }
+  public function listNavId($variable) {
+    $droit = ['Visiteur', 'Membre', 'Administrateur'];
+    echo '<ul>';
+    foreach ($variable as $key => $value) {
+      echo '<li class="formLi">'.$value['idNav'].' - '.$value['nomNav'].' - '.$value['cheminNav'].' - '.  $droit[$value['niveau']].'</li>';
+    }
+    echo '</ul>';
+  }
 }

@@ -36,4 +36,14 @@ Class GetNavigation {
       $readData = new RCUD($select, $void);
       return $readData->READ();
   }
+  public function getNavId () {
+    $select = "SELECT `idNav`, `nomNav`, `cheminNav`, `niveau`
+    FROM `navigation`
+    WHERE `menuVisible` = 0
+    ORDER BY `niveau`, `nomNav`";
+    $void = array();
+    $readData = new RCUD($select, $void);
+    return $readData->READ();
+
+  }
 }

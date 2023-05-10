@@ -26,3 +26,7 @@
 
 <button class="buttonForm" type="submit" name="idNav" value="<?=$idNav?>">Ajouter</button>
 </form>
+<h3>Liste des menus hors menus carousselle haut</h3>
+<?php
+  $data = $readNav->getNavId();
+  $readNav->listNavId($data);

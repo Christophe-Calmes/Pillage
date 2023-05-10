@@ -13,10 +13,14 @@ Class PrintTroupes extends GetTroupes {
     if (!$admin) {
       // Valide / Unvalide
       $route = 37;
+      // Update
+      $update = 39;
       // Delette
       $routeDel = 38;
+      //Designer
+      $design = 117;
     } else {
-      $route = 39;
+      $route = 40;
     }
     // Permet d'afficher les troupes créer par l'utilisateur
     echo '<ul>';
@@ -31,13 +35,13 @@ Class PrintTroupes extends GetTroupes {
         echo '<input type="hidden" name="idTroupe" value="'.$value['idTroupe'].'"/>';
         echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$message.'</button>';
         echo '</form>';
-        if($value['valide'] == 0) {
-          echo '<form class="formulaireClassique" action="'.encodeRoutage($routeDel).'" method="post">';
-          echo '<input type="hidden" name="idTroupe" value="'.$value['idTroupe'].'"/>';
-          echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>';
-          echo '</form>';
-        }
-
+        echo '<a href='.findTargetRoute($design).'&idTroupe='.$value['idTroupe'].'>Définir</a>';
+          if($value['valide'] == 0) {
+            echo '<form class="formulaireClassique" action="'.encodeRoutage($routeDel).'" method="post">';
+            echo '<input type="hidden" name="idTroupe" value="'.$value['idTroupe'].'"/>';
+            echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer</button>';
+            echo '</form>';
+          }
         echo $value['nomTroupe'].' Faction : '.$value['nomFaction'].'
         Type de Troupe : '.$this->typeTroupe[$value['typeTroupe']].'
         Valide :'.yes($value['valide']);
