@@ -116,7 +116,7 @@ footer {
 	list-style: none;
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	align-items: baseline;
 }
 /*Bouton lien*/
 /*Variable CSS boutton*/
@@ -145,6 +145,7 @@ a {
   font-size: var(--main-font-size);
   cursor: var(--main-cursor);
   border-radius: var(--main-radius);
+  margin-right: 0.5vw;
 }
 .lienNav {
   background-color: var(--main-background-color);
