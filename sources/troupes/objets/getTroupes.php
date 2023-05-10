@@ -1,5 +1,6 @@
 <?php
-Class GetTroupes {
+Class GetTroupes extends PrintGrilles {
+
   public function readTroupe ($valide, $auteur, $private) {
     $select = "SELECT `idTroupe`, `typeTroupe`, `nomTroupe`, `factionTroupe`, `nomFaction`, `Troupes`.`valide`
               FROM `Troupes`
