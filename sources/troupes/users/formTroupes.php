@@ -34,7 +34,8 @@ foreach ($array as $key => $value) {
   if($dataTroupe != []){
     echo '<section>';
     echo '<h3>'.$value['titre'].'</h3>';
-    $troupes->simpleTroupes($dataTroupe);
+    // false zone non admin
+    $troupes->simpleTroupes($dataTroupe, false, $idNav);
     echo '</section>';
   }
 }

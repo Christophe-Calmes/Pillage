@@ -112,6 +112,12 @@ footer {
   margin-right: 1em;
   text-align: center;
 }
+.formLi {
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
 /*Bouton lien*/
 /*Variable CSS boutton*/
 
