@@ -216,5 +216,8 @@ Class PrintGrilles extends GetGrilles {
       }
       echo '</select>';
     }
+    public function setChamps() {
+      return $this->champs;
+    }
 
 }

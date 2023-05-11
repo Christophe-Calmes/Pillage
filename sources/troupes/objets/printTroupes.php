@@ -70,20 +70,18 @@ Class PrintTroupes extends GetTroupes {
         return $data;
       }
     }
-
     function loop ($dataCout, $array) {
       foreach ($array as $key => $value) {
         if(testValue ($dataCout[0][$value['id']])) {
           echo '<li class="formLi">
                   <label for="'.$dataCout[0][$value['id']].'">'.$value['message'].' coût : '.freeStuff($dataCout[0][$value['id']]).' PO</label>
-                  <input id="'.$dataCout[0][$value['id']].'" type="checkbox" name="'.$dataCout[0][$value['id']].'"/>
+                  <input id="'.$dataCout[0][$value['id']].'" type="checkbox" name="'.$value['id'].'"/>
                 </li>';
         } else {
           echo '<li class="formLi">Pas de données disponible</li>';
         }
       }
     }
-
     echo '<section class="flex-rows">';
       echo '<article>';
           echo '<h3>Création du profil de votre unité</h3>';
@@ -94,7 +92,7 @@ Class PrintTroupes extends GetTroupes {
                   <li class="formLi">Description : '.$dataTroupe[0]['descriptionTroupe'].'</li>
                 </ul>';
           if(!empty($dataCout)) {
-          echo '<form class="formulaireClassique" action="'.encodeRoutage(1).'" method="post">';
+          echo '<form class="formulaireClassique" action="'.encodeRoutage(39).'" method="post">';
           echo '<ul>';
           echo '<li class="formLi"><h4>Type de protection</h4></li>';
           echo '<li class="formLi"><fieldset class="flex-colonne">';
@@ -124,10 +122,9 @@ Class PrintTroupes extends GetTroupes {
                       ['id'=>'arbalete', 'message'=>'Arbalete']];
           loop($dataCout, $weaponShoot);
           echo '<li class="formLi"><h4>Equipements</h4></li>';
-          $specialRules = [['id'=>'cheval', 'message'=>'Fonde'],
-                      ['id'=>'corDG', 'message'=>'Javelot'],
-                      ['id'=>'chienDG', 'message'=>'Arc'],
-                      ['id'=>'arbalete', 'message'=>'Arbalete']];
+          $specialRules = [['id'=>'cheval', 'message'=>'Cheval'],
+                      ['id'=>'corDG', 'message'=>'Cor de guerre'],
+                      ['id'=>'chienDG', 'message'=>'Chien de Guerre']];
             loop($dataCout, $specialRules);
 
           echo '<input type="hidden" name="idTroupe" value="'.$dataTroupe[0]['idTroupe'].'"/>';
