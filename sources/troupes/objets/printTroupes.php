@@ -51,6 +51,38 @@ Class PrintTroupes extends GetTroupes {
     echo '</ul>';
   }
   public function designTroupe($dataTroupe, $dataCout, $idNav) {
+    function testValue ($data) {
+      switch ($data) {
+        case NULL:
+          return false;
+          break;
+        case $data < 0:
+          return false;
+          break;
+        default:
+          return true;
+      }
+    }
+    function freeStuff($data) {
+      if($data == 0) {
+        return 'Gratuit';
+      } else {
+        return $data;
+      }
+    }
+
+    function loop ($dataCout, $array) {
+      foreach ($array as $key => $value) {
+        if(testValue ($dataCout[0][$value['id']])) {
+          echo '<li class="formLi">
+                  <label for="'.$dataCout[0][$value['id']].'">'.$value['message'].' coût : '.freeStuff($dataCout[0][$value['id']]).' PO</label>
+                  <input id="'.$dataCout[0][$value['id']].'" type="checkbox" name="'.$dataCout[0][$value['id']].'"/>
+                </li>';
+        } else {
+          echo '<li class="formLi">Pas de données disponible</li>';
+        }
+      }
+    }
 
     echo '<section class="flex-rows">';
       echo '<article>';
@@ -58,78 +90,46 @@ Class PrintTroupes extends GetTroupes {
           echo '<ul>
                   <li class="formLi">'.$dataTroupe[0]['nomFaction'].'</li>
                   <li class="formLi">'.$dataTroupe[0]['nomTroupe'].'</li>
+                  <li class="formLi">'.$this->typeTroupe[$dataTroupe[0]['typeTroupe']].'</li>
                   <li class="formLi">Description : '.$dataTroupe[0]['descriptionTroupe'].'</li>
                 </ul>';
           if(!empty($dataCout)) {
           echo '<form class="formulaireClassique" action="'.encodeRoutage(1).'" method="post">';
           echo '<ul>';
           echo '<li class="formLi"><h4>Type de protection</h4></li>';
-            echo'<li class="formLi"><label for="SP">Sans protection (SP) coût : '.$dataCout[0]['SP'].' PO</label>
-                  <input id="SP" type="checkbox" name="P1"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="armure">Armure (PP) coût : '.$dataCout[0]['armure'].' PO</label>
-                  <input id="armure" type="checkbox" name="P2"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="bouclier">Bouclier (PP) coût : '.$dataCout[0]['bouclier'].' PO</label>
-                  <input id="armure" type="checkbox" name="P3"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="bouclier">Armure + Bouclier (PC) coût : '.($dataCout[0]['bouclier'] + $dataCout[0]['armure']).' PO</label>
-                  <input id="armure" type="checkbox" name="P4"/>
-                </li>';
+          echo '<li class="formLi"><fieldset class="flex-colonne">';
+            $radio = [['id'=>'sp', 'value'=>'0', 'message'=>'Sans protection', 'cout'=>$dataCout[0]['SP']],
+                      ['id'=>'armure', 'value'=>'1', 'message'=>'Armure', 'cout'=>$dataCout[0]['armure']],
+                      ['id'=>'Bouclier', 'value'=>'2', 'message'=>'Bouclier' , 'cout'=>$dataCout[0]['bouclier']],
+                      ['id'=>'CC', 'value'=>'3', 'message'=>'Armure et bouclier', 'cout'=>($dataCout[0]['armure'] + $dataCout[0]['SP'])]];
+                      foreach ($radio as $key => $value) {
+                        if(testValue ($value['cout'])) {
+                            echo '<div class="flex-rows">
+                                    <input id="'.$value['id'].'" type="radio" name="classe" value="'.$value['value'].'"/>
+                                    <label  for="'.$value['id'].'">'.$value['message'].' Coût : '.$value['cout'].'</label>
+                                  </div>';
+                        }
+                      }
+          echo '</li></fieldset>';
           echo '<li class="formLi"><h4>Armes de mêlée</h4></li>';
-          echo '<li class="formLi">
-                  <label for="armeImp">Arme Improvisé coût : '.$dataCout[0]['armeImp'].' PO</label>
-                  <input id="armure" type="checkbox" name="armeImp"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="lance">Lance coût : '.$dataCout[0]['lance'].' PO</label>
-                  <input id="lance" type="checkbox" name="lance"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="armeDeBase">Arme à une main coût : '.$dataCout[0]['armeDeBase'].' PO</label>
-                  <input id="armeDeBase" type="checkbox" name="armeDeBase"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="hacheD">Hache Danoise coût : '.$dataCout[0]['hacheD'].' PO</label>
-                  <input id="hacheD" type="checkbox" name="hacheD"/>
-                </li>';
+          $weapon = [['id'=>'armeImp', 'message'=>'Arme Improvisé'],
+                      ['id'=>'lance', 'message'=>'Lance'],
+                      ['id'=>'armeDeBase', 'message'=>'Arme à une main'],
+                      ['id'=>'hacheD', 'message'=>'Hache Danoise']];
+          loop($dataCout, $weapon);
           echo '<li class="formLi"><h4>Armes de tir</h4></li>';
-          echo '<li class="formLi">
-                  <label for="fronde">Fronde coût : '.$dataCout[0]['fronde'].' PO</label>
-                  <input id="fronde" type="checkbox" name="fronde"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="javelot">Javelot coût : '.$dataCout[0]['javelot'].' PO</label>
-                  <input id="javelot" type="checkbox" name="javelot"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="arc">Arc coût : '.$dataCout[0]['arc'].' PO</label>
-                  <input id="arc" type="checkbox" name="arc"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="arbalete">Arbalète coût : '.$dataCout[0]['arbalete'].' PO</label>
-                  <input id="arbalete" type="checkbox" name="arbalete"/>
-                </li>';
+          $weaponShoot = [['id'=>'fronde', 'message'=>'Fonde'],
+                      ['id'=>'javelot', 'message'=>'Javelot'],
+                      ['id'=>'arc', 'message'=>'Arc'],
+                      ['id'=>'arbalete', 'message'=>'Arbalete']];
+          loop($dataCout, $weaponShoot);
           echo '<li class="formLi"><h4>Equipements</h4></li>';
-          echo '<li class="formLi">
-                  <label for="cheval">Cheval coût : '.$dataCout[0]['cheval'].' PO</label>
-                  <input id="cheval" type="checkbox" name="cheval"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="banniere">Bannière coût : '.$dataCout[0]['banniere'].' PO</label>
-                  <input id="abanniere" type="checkbox" name="banniere"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="corDG">Cor de guerre coût : '.$dataCout[0]['corDG'].' PO</label>
-                  <input id="corDG" type="checkbox" name="corDG"/>
-                </li>';
-          echo '<li class="formLi">
-                  <label for="chienDG">Chien de guerre coût : '.$dataCout[0]['chienDG'].' PO</label>
-                  <input id="chienDG" type="checkbox" name="chienDG"/>
-                </li>';
+          $specialRules = [['id'=>'cheval', 'message'=>'Fonde'],
+                      ['id'=>'corDG', 'message'=>'Javelot'],
+                      ['id'=>'chienDG', 'message'=>'Arc'],
+                      ['id'=>'arbalete', 'message'=>'Arbalete']];
+            loop($dataCout, $specialRules);
+
           echo '<input type="hidden" name="idTroupe" value="'.$dataTroupe[0]['idTroupe'].'"/>';
           echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>';
           echo '</form>';
