@@ -60,7 +60,7 @@ function selectPOSelected ($champs, $name, $value) {
 Class PrintGrilles extends GetGrilles {
   protected $typeTroupe;
   private $nomColonne;
-  private $champs;
+  public $champs;
   private $classCSSFirstCol;
   private $nomColonneDisplayGrilles;
   private $debug;

@@ -53,11 +53,11 @@ Class PrintTroupes extends GetTroupes {
   public function designTroupe($dataTroupe, $dataCout, $idNav) {
     function testValue ($data) {
       switch ($data) {
-        case NULL:
+        case -1:
           return false;
           break;
-        case $data < 0:
-          return false;
+        case 0:
+          return true;
           break;
         default:
           return true;
