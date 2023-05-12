@@ -11,10 +11,9 @@ $select = "SELECT `factionPrivate` FROM `Factions`
 WHERE `idFaction` = :idFaction AND `auteur`= :auteur AND `valide` = 1";
 $checkOwner = new RCUD($select, $param);
 $dataOwner = $checkOwner->READ();
-if($dataOwner != []) {
 
-
-  if(controleGrille($_POST, 1)) {
+if(!empty($dataOwner)) {
+  if(controleGrille($_POST, filter($_POST['indexType']))) {
     $insert = "INSERT INTO `cout`(`indexType`, `coutBase`, `idFaction`, `SP`,
       `armure`, `bouclier`, `armeImp`, `lance`, `armeDeBase`, `hacheD`, `fronde`,
       `javelot`, `arc`, `arbalete`, `cheval`, `banniere`, `corDG`, `chienDG`)

@@ -75,7 +75,7 @@ Class PrintTroupes extends GetTroupes {
         if(testValue ($dataCout[0][$value['id']])) {
           echo '<li class="formLi">
                   <label for="'.$dataCout[0][$value['id']].'">'.$value['message'].' coût : '.freeStuff($dataCout[0][$value['id']]).' PO</label>
-                  <input id="'.$dataCout[0][$value['id']].'" type="checkbox" name="'.$value['id'].'"/>
+                  <input id="'.$dataCout[0][$value['id']].'" type="checkbox" name="'.$value['id'].'" value="1"/>
                 </li>';
         } else {
           echo '<li class="formLi">Pas de données disponible</li>';
@@ -102,10 +102,11 @@ Class PrintTroupes extends GetTroupes {
                       ['id'=>'CC', 'value'=>'3', 'message'=>'Armure et bouclier', 'cout'=>($dataCout[0]['armure'] + $dataCout[0]['SP'])]];
                       foreach ($radio as $key => $value) {
                         if(testValue ($value['cout'])) {
-                            echo '<div class="flex-rows">
+                          echo '<div class="flex-rows">
                                     <input id="'.$value['id'].'" type="radio" name="classe" value="'.$value['value'].'"/>
                                     <label  for="'.$value['id'].'">'.$value['message'].' Coût : '.$value['cout'].'</label>
                                   </div>';
+
                         }
                       }
           echo '</li></fieldset>';
