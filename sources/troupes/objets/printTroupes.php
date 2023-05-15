@@ -139,6 +139,9 @@ Class PrintTroupes extends GetTroupes {
         echo '<h3>Profil actuel</h3>';
       echo '</article>';
     echo '</section>';
-
+  }
+  public function printTroupeDesign($idTroupe, $idUser) {
+    $dataTroupe = $this->readOneTroupe($idTroupe, $idUser);
+    print_r($dataTroupe);
   }
 }

@@ -6,7 +6,7 @@ class TroupeRecord extends PrintGrilles {
     $this->arrayCA = [['champs'=>'`SP`', 'set'=>', :SP', 'updateSet' => '`SP` = 1'],
                       ['champs'=>'`armure`', 'set'=>', :armure' , 'updateSet' => '`armure` = 1'],
                       ['champs'=>'`bouclier`', 'set'=>', :bouclier', 'updateSet' => '`bouclier` = 1'],
-                      ['champs'=>'`armure`, `bouclier`', 'set'=>', :armure, :bouclier', 'updateSet' => '`armure` = 1, `bouclier` = 1']];
+                      ['champs'=>'`armure` + `bouclier`', 'set'=>', :armure, :bouclier', 'updateSet' => '`armure` = 1, `bouclier` = 1']];
     $this->post = $post;
 
   }
@@ -35,6 +35,8 @@ class TroupeRecord extends PrintGrilles {
     }
   }
   public function sumTroupe ($token) {
+
+
     // transfert $this->post
     $postCost = $this->post;
     $Faction = $this->searchIdFaction($token);
@@ -59,11 +61,22 @@ class TroupeRecord extends PrintGrilles {
     $select =  "SELECT {$sum} FROM `cout` WHERE `idFaction` = :idFaction AND`indexType` = :indexType";
     $param = [['prep'=>':idFaction', 'variable'=>$Faction[0]['factionTroupe']],
               ['prep'=>':indexType', 'variable'=>$Faction[0]['typeTroupe']]];
+    // seach price
+    //print_r($select);
     $read = new RCUD($select, $param);
     $data = $read->READ();
     return $data[0]['price'];
   }
   public function recordDatasTroupe($price, $idNav) {
+    //Reset debut
+    $reset = "UPDATE `Troupes` SET `classe`= 0,`monture`= 0,`prixTroupe`= 0,`arbalete`= 0,`arc`= 0,`armeDeBase`= 0,
+    `armeImp`= 0,`armure`= 0,`banniere`= 0,`bouclier`= 0,`cheval`= 0,`chienDG`= 0,`corDG`= 0,`fronde`= 0,`hacheD`= 0,
+    `javelot`= 0, `lance`= 0,`SP`= 0
+    WHERE `idTroupe` = :idTroupe";
+    $param = [['prep'=>':idTroupe', 'variable'=> filter($this->post['idTroupe'])]];
+    $action = new RCUD($reset,$param);
+    $action->CUD();
+    //Reset debut
     $set = NULL;
     $postSet= $this->post;
     // Construire la requête
@@ -77,14 +90,17 @@ class TroupeRecord extends PrintGrilles {
     $set = $set.', '.$classe;
     $parametre = new Preparation();
     $param = $parametre->creationPrepIdUser ($this->post);
+
+    // New equipement
     $update = "UPDATE `Troupes` SET
-              `classe` = :classe
+              `classe` = :classe,
+              `prixTroupe` = {$price}
               {$set}
               WHERE `idTroupe` = :idTroupe
               AND `auteur` = :idUser";
-    //  ajouter armure, SP et bouclier dans param...
     $action = new RCUD($update, $param);
     $action->CUD();
+    // New equipement
     header('location:../index.php?idNav='.$idNav.'&idTroupe='.filter($this->post['idTroupe']).'&message=Modification prise en compte.');
   }
 }

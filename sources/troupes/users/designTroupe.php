@@ -10,3 +10,4 @@ $idUser = $zool->idUser($_SESSION['tokenConnexion']);
 $dataTroupe = $troupes->dataTroupe ($idTroupe, $idUser);
 $dataCout = $troupes->readGrille ($idTroupe, $idUser);
 $troupes->designTroupe($dataTroupe, $dataCout, $idNav);
+$troupes->printTroupeDesign($idTroupe, $idUser);
