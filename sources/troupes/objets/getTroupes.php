@@ -1,5 +1,8 @@
 <?php
 Class GetTroupes extends PrintGrilles {
+  public function __construct() {
+      parent::__construct();
+  }
 
   public function readTroupe ($valide, $auteur, $private, $idFaction) {
     $select = "SELECT `idTroupe`, `typeTroupe`, `nomTroupe`, `factionTroupe`, `nomFaction`, `Troupes`.`valide`
@@ -65,7 +68,7 @@ Class GetTroupes extends PrintGrilles {
   protected function readOneTroupe($idTroupe, $idUser) {
     $select = "SELECT `idTroupe`, `typeTroupe`, `nomTroupe`, `factionTroupe`, `descriptionTroupe`, `classe`,
     `monture`, `Troupes`.`valide`, `prixTroupe`, `arbalete`, `arc`, `armeDeBase`, `armeImp`, `armure`,
-    `banniere`, `bouclier`, `cheval`, `chienDG`, `corDG`, `fronde`, `hacheD`, `javelot`, `lance`, `SP`
+    `banniere`, `bouclier`, `cheval`, `chienDG`, `corDG`, `fronde`, `hacheD`, `javelot`, `lance`, `SP`, `nomFaction`
     FROM `Troupes`
     INNER JOIN `Factions` ON `factionTroupe` =  `idFaction`
     WHERE `idTroupe` = :idTroupe AND `Troupes`.`auteur` = :idUser AND `Troupes`.`valide` = 1";

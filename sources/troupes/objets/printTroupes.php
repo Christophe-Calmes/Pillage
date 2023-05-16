@@ -6,7 +6,31 @@ function yes($data) {
     return 'Non';
   }
 }
+function affichageProfil($value, $key) {
+  if($value == 1) {
+    echo '<li class="formLi">'.$key.'</li>';
+  }
+}
 Class PrintTroupes extends GetTroupes {
+  private $weapon;
+  private $weaponShoot;
+  private $specialRules;
+  public function __construct() {
+      parent::__construct();
+      $this->weapon = [['id'=>'armeImp', 'message'=>'Arme Improvisé'],
+                  ['id'=>'lance', 'message'=>'Lance'],
+                  ['id'=>'armeDeBase', 'message'=>'Arme à une main'],
+                  ['id'=>'hacheD', 'message'=>'Hache Danoise']];
+      $this->weaponShoot = [['id'=>'fronde', 'message'=>'Fonde'],
+                  ['id'=>'javelot', 'message'=>'Javelot'],
+                  ['id'=>'arc', 'message'=>'Arc'],
+                  ['id'=>'arbalete', 'message'=>'Arbalete']];
+      $this->specialRules = [['id'=>'cheval', 'message'=>'Cheval'],
+                    ['id'=>'corDG', 'message'=>'Cor de guerre'],
+                    ['id'=>'chienDG', 'message'=>'Chien de Guerre']];
+  }
+
+
   public function simpleTroupes($variable, $admin, $idNav) {
     // $ admin false / true
     if (!$admin) {
@@ -84,7 +108,7 @@ Class PrintTroupes extends GetTroupes {
     }
     echo '<section class="flex-rows">';
       echo '<article>';
-          echo '<h3>Création du profil de votre unité</h3>';
+          echo '<h3>Création du profil de votre unité de la faction : '.$dataTroupe[0]['nomFaction'].'</h3>';
           echo '<ul>
                   <li class="formLi">'.$dataTroupe[0]['nomFaction'].'</li>
                   <li class="formLi">'.$dataTroupe[0]['nomTroupe'].'</li>
@@ -92,8 +116,10 @@ Class PrintTroupes extends GetTroupes {
                   <li class="formLi">Description : '.$dataTroupe[0]['descriptionTroupe'].'</li>
                 </ul>';
           if(!empty($dataCout)) {
-          echo '<form class="formulaireClassique" action="'.encodeRoutage(39).'" method="post">';
           echo '<ul>';
+          echo '<li class="formLi">Coût de base du '.$this->typeTroupe[$dataTroupe[0]['typeTroupe']].' : '.$dataCout[0]['coutBase'].' PO</li>';
+          echo '<form class="formulaireClassique" action="'.encodeRoutage(39).'" method="post">';
+
           echo '<li class="formLi"><h4>Type de protection</h4></li>';
           echo '<li class="formLi"><fieldset class="flex-colonne">';
             $radio = [['id'=>'sp', 'value'=>'0', 'message'=>'Sans protection', 'cout'=>$dataCout[0]['SP']],
@@ -111,23 +137,11 @@ Class PrintTroupes extends GetTroupes {
                       }
           echo '</li></fieldset>';
           echo '<li class="formLi"><h4>Armes de mêlée</h4></li>';
-          $weapon = [['id'=>'armeImp', 'message'=>'Arme Improvisé'],
-                      ['id'=>'lance', 'message'=>'Lance'],
-                      ['id'=>'armeDeBase', 'message'=>'Arme à une main'],
-                      ['id'=>'hacheD', 'message'=>'Hache Danoise']];
-          loop($dataCout, $weapon);
+          loop($dataCout, $this->weapon);
           echo '<li class="formLi"><h4>Armes de tir</h4></li>';
-          $weaponShoot = [['id'=>'fronde', 'message'=>'Fonde'],
-                      ['id'=>'javelot', 'message'=>'Javelot'],
-                      ['id'=>'arc', 'message'=>'Arc'],
-                      ['id'=>'arbalete', 'message'=>'Arbalete']];
-          loop($dataCout, $weaponShoot);
+          loop($dataCout, $this->weaponShoot);
           echo '<li class="formLi"><h4>Equipements</h4></li>';
-          $specialRules = [['id'=>'cheval', 'message'=>'Cheval'],
-                      ['id'=>'corDG', 'message'=>'Cor de guerre'],
-                      ['id'=>'chienDG', 'message'=>'Chien de Guerre']];
-            loop($dataCout, $specialRules);
-
+          loop($dataCout, $this->specialRules);
           echo '<input type="hidden" name="idTroupe" value="'.$dataTroupe[0]['idTroupe'].'"/>';
           echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>';
           echo '</form>';
@@ -137,11 +151,9 @@ Class PrintTroupes extends GetTroupes {
       echo '</article>';
       echo '<article>';
         echo '<h3>Profil actuel</h3>';
+        //$this->printTroupeDesign($dataTroupe[0]['idTroupe'], $dataTroupe[0]['auteur']);
       echo '</article>';
     echo '</section>';
   }
-  public function printTroupeDesign($idTroupe, $idUser) {
-    $dataTroupe = $this->readOneTroupe($idTroupe, $idUser);
-    print_r($dataTroupe);
-  }
+
 }
