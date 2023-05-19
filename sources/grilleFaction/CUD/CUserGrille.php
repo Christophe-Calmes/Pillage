@@ -12,7 +12,9 @@ WHERE `idFaction` = :idFaction AND `auteur`= :auteur AND `valide` = 1";
 $checkOwner = new RCUD($select, $param);
 $dataOwner = $checkOwner->READ();
 
+
 if(!empty($dataOwner)) {
+
   if(controleGrille($_POST, filter($_POST['indexType']))) {
     $insert = "INSERT INTO `cout`(`indexType`, `coutBase`, `idFaction`, `SP`,
       `armure`, `bouclier`, `armeImp`, `lance`, `armeDeBase`, `hacheD`, `fronde`,
@@ -28,6 +30,7 @@ if(!empty($dataOwner)) {
   } else {
     header('location:../index.php?idNav='.$idNav.'&idFaction='.$_POST['idFaction'].'&message=Soucis d\'enregistrement.');
   }
+
 
 } else {
   // Tester, en cas de tentative de piratage => Déconnexion

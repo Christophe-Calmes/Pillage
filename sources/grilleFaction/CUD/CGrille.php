@@ -1,4 +1,5 @@
 <?php
+//encoderoutage 31
 // Contrôle si toute les sommes sont entre -1  et 100
 if(controleGrille($_POST, filter($_POST['indexType']))) {
   $insert = "INSERT INTO `cout`(`indexType`, `coutBase`, `idFaction`, `SP`,

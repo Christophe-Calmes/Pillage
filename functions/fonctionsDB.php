@@ -98,6 +98,7 @@ function controlePO($PO) {
 }
 function controleGrille($data, $type) {
   // $type 0 -> Create controle / 1-> update controle
+  print_r($data).'$data<br/>';
   $arrayControle = [];
   $arrayPO = [];
     // contrôle idFaction valide
@@ -115,7 +116,7 @@ function controleGrille($data, $type) {
     }
 
     // Contrôle adresse nomColonne
-    if($data['indexType'] < 0 || $data['indexType'] > 6) {
+    if($data['indexType'] < 0 || $data['indexType'] >= 6) {
       array_push($arrayControle, 1);
       array_push($arrayPO, 0);
     } else {
@@ -123,6 +124,7 @@ function controleGrille($data, $type) {
       array_push($arrayPO, 1);
     }
     // Controle pour éviter les doublons de colonne dans la même grille
+    echo print_r($data['indexType']).'indexType<br/>';
     $param = [['prep'=>':idFaction', 'variable'=>$data['idFaction']],
               ['prep'=>':indexType', 'variable'=>$data['indexType']]];
     $select = "SELECT `idCout` FROM `cout` WHERE `idFaction` = :idFaction AND `indexType`= :indexType";
@@ -130,9 +132,11 @@ function controleGrille($data, $type) {
     $idCout = $controleDoublon->READ();
     if($idCout == []) {
       array_push($arrayControle, 1);
+      echo '$type='.$type.'<br/>';
       array_push($arrayPO, 1);
     } else {
       array_push($arrayControle, 1);
+      echo '$type='.$type.'<br/>';
       array_push($arrayPO, $type);
     }
 
@@ -146,14 +150,14 @@ function controleGrille($data, $type) {
   }
   if($arrayControle == $arrayPO) {
     /*echo '<ul>';
-      echo '<li>';print_r($arrayControle);echo '</li>';
-      echo '<li>';print_r($arrayPO);echo '</li>';
+      echo '<li> arrayControle :<br/>';print_r($arrayControle);echo '</li>';
+      echo '<li> arrayPO :<br/>';print_r($arrayPO);echo '</li>';
     echo '</ul>';*/
     return true;
   } else {
     /*echo '<ul>';
-      echo '<li>';print_r($arrayControle);echo '</li>';
-      echo '<li>';print_r($arrayPO);echo '</li>';
+      echo '<li> arrayControle :<br/>';print_r($arrayControle);echo '</li>';
+      echo '<li> arrayPO :<br/>';print_r($arrayPO);echo '</li>';
     echo '</ul>';*/
     return false;
   }
