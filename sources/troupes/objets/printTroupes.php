@@ -17,14 +17,14 @@ Class PrintTroupes extends GetTroupes {
   private $specialRules;
   public function __construct() {
       parent::__construct();
-      $this->weapon = [['id'=>'armeImp', 'message'=>'Arme Improvisé'],
-                  ['id'=>'lance', 'message'=>'Lance'],
-                  ['id'=>'armeDeBase', 'message'=>'Arme à une main'],
-                  ['id'=>'hacheD', 'message'=>'Hache Danoise']];
-      $this->weaponShoot = [['id'=>'fronde', 'message'=>'Fonde'],
-                  ['id'=>'javelot', 'message'=>'Javelot'],
-                  ['id'=>'arc', 'message'=>'Arc'],
-                  ['id'=>'arbalete', 'message'=>'Arbalete']];
+      $this->weapon = [['id'=>'armeImp', 'message'=>'Arme Improvisé', 'range'=> NULL],
+                  ['id'=>'lance', 'message'=>'Lance', 'range'=> NULL],
+                  ['id'=>'armeDeBase', 'message'=>'Arme à une main', 'range'=> NULL],
+                  ['id'=>'hacheD', 'message'=>'Hache Danoise', 'range'=> NULL]];
+      $this->weaponShoot = [['id'=>'fronde', 'message'=>'Fonde', 'range'=> 15],
+                  ['id'=>'javelot', 'message'=>'Javelot', 'range'=> 6],
+                  ['id'=>'arc', 'message'=>'Arc', 'range'=> 20],
+                  ['id'=>'arbalete', 'message'=>'Arbalete', 'range'=> 20]];
       $this->specialRules = [['id'=>'cheval', 'message'=>'Cheval'],
                     ['id'=>'corDG', 'message'=>'Cor de guerre'],
                     ['id'=>'chienDG', 'message'=>'Chien de Guerre']];
@@ -74,6 +74,88 @@ Class PrintTroupes extends GetTroupes {
     }
     echo '</ul>';
   }
+  public function presentationOneTroupe ($idTroupe, $idUser) {
+    // Initialisation
+    $message = NULL;
+    $move = NULL;
+    $data = $this->readOneTroupe($idTroupe, $idUser);
+    if($data[0]['cheval'] == 1) {
+      $message = 'Cavalier';
+      switch ($data[0]['classe']) {
+        case  0:
+        $move = 14;
+        break;
+        case 1:
+        $move = 14;
+        break;
+        case 2:
+        $move = 14;
+        break;
+        case 3:
+        $move = 12;
+        break;
+      }
+    } else {
+      switch ($data[0]['classe']) {
+        case  0:
+        $move = 8;
+        break;
+        case 1:
+        $move = 7;
+        break;
+        case 2:
+        $move = 7;
+        break;
+        case 3:
+        $move = 6;
+        break;
+      }
+    }
+    echo '<ul>
+            <li class="formLi">'.$data[0]['nomFaction'].'</li>
+            <li class="formLi">'.$data[0]['nomTroupe'].'</li>
+            <li class="formLi">'.$message.' '.$this->typeTroupe[$data[0]['typeTroupe']].'</li>
+            <li class="formLi">Mouvement : '.$move.' "</li>';
+    echo '<h3>Equipements</h3>';
+    echo '<li class="formLi"> Classe d\'armure : ';
+    switch ($data[0]['classe']) {
+        case 0:
+          echo 'SP';
+        break;
+        case 1:
+          echo 'PP';
+        break;
+        case 2:
+          echo 'PP';
+        break;
+        case 3:
+          echo 'PC';
+        break;
+    }
+    echo'</li>';
+    echo '<li class="formLi"><h4>Armes de mêlée</h4></li>';
+    for ($i=0; $i <count($this->weapon) ; $i++) {
+      if($data[0][$this->weapon[$i]['id']] !=0) {
+        echo '<li class="formLi">'.$this->weapon[$i]['message'].'</li>';
+      }
+    }
+    echo '<li class="formLi"><h4>Armes de tir</h4></li>';
+    for ($i=0; $i <count($this->weaponShoot) ; $i++) {
+      if($data[0][$this->weaponShoot[$i]['id']] !=0) {
+        echo '<li class="formLi">'.$this->weaponShoot[$i]['message'].' Portée : '.$this->weaponShoot[$i]['range'].' "</li>';
+      }
+    }
+      echo '<li class="formLi"><h4>Equipements</h4></li>';
+      for ($i=0; $i <count($this->specialRules) ; $i++) {
+        if($data[0][$this->specialRules[$i]['id']] !=0) {
+          echo '<li class="formLi">'.$this->specialRules[$i]['message'].'</li>';
+        }
+      }
+      echo '<li class="formLi"><h4>Coût de l\'unité </h4></li>';
+      echo '<li class="formLi">Prix : '.$data[0]['prixTroupe'].' PO</li>';
+      echo '</ul>';
+  }
+
   public function designTroupe($dataTroupe, $dataCout, $idNav) {
     function testValue ($data) {
       switch ($data) {
@@ -118,7 +200,7 @@ Class PrintTroupes extends GetTroupes {
           if(!empty($dataCout)) {
           echo '<ul>';
           echo '<li class="formLi">Coût de base du '.$this->typeTroupe[$dataTroupe[0]['typeTroupe']].' : '.$dataCout[0]['coutBase'].' PO</li>';
-          echo '<form class="formulaireClassique" action="'.encodeRoutage(39).'" method="post">';
+          echo '<li class="formLi"><form class="formulaireClassique" action="'.encodeRoutage(39).'" method="post">';
 
           echo '<li class="formLi"><h4>Type de protection</h4></li>';
           echo '<li class="formLi"><fieldset class="flex-colonne">';
@@ -142,16 +224,16 @@ Class PrintTroupes extends GetTroupes {
           loop($dataCout, $this->weaponShoot);
           echo '<li class="formLi"><h4>Equipements</h4></li>';
           loop($dataCout, $this->specialRules);
-          echo '<input type="hidden" name="idTroupe" value="'.$dataTroupe[0]['idTroupe'].'"/>';
-          echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>';
-          echo '</form>';
+          echo '<input type="hidden" name="idTroupe" value="'.$dataTroupe[0]['idTroupe'].'"/>
+          <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>
+          </form></li>';
         } else {
           echo '<h3>Grille de coût indisponible</h3>';
         }
       echo '</article>';
       echo '<article>';
-        echo '<h3>Profil actuel</h3>';
-        //$this->printTroupeDesign($dataTroupe[0]['idTroupe'], $dataTroupe[0]['auteur']);
+        echo '<h3>Profil de l\'unité</h3>';
+        $this->presentationOneTroupe ($dataTroupe[0]['idTroupe'], $dataTroupe[0]['auteur']);
       echo '</article>';
     echo '</section>';
   }
