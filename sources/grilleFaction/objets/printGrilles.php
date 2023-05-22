@@ -123,6 +123,7 @@ Class PrintGrilles extends GetGrilles {
     $select = "SELECT`nomFaction` FROM `Factions` WHERE `idFaction` = :idFaction AND `valide` = 1";
     $readDB = new RCUD($select, $param);
     $dataFaction = $readDB->READ();
+    //
     if($dataFaction != []) {
       $nameFaction = $dataFaction[0]['nomFaction'];
         // Génération de la grilles vierge
@@ -172,26 +173,51 @@ Class PrintGrilles extends GetGrilles {
       }
       foreach ($variable as $key => $value) {
         array_push($arrayIndexOk, $value['indexType']);
-        array_shift($arrayIndex);
       }
       // Affichage des élément déjà créer
       echo '<h3>Grille '.$nameFaction.'</h3>';
       echo '<div class="flex-rows">';
-      for ($l=0; $l <count($arrayIndexOk) ; $l++) {
-        foreach ($variable as $key => $value) {
-          if($value['indexType'] == $arrayIndexOk[$l]) {
-            echo '<form class="formulaireClassique"action="'.encodeRoutage($route).'" method="post">';
-            echo '<h4>Modifier '.$this->typeTroupe[$l].'</h4>';
-            for ($i=0; $i <count($this->champs) ; $i++) {
-              selectPOSelected ($this->champs[$i], $this->nomTypes [$i], $value[$this->champs[$i]]);
-            }
-            echo '<input type="hidden" name="idFaction" value="'.$value['idFaction'].'"/>
-                  <input type="hidden" name="indexType" value="'.$value['indexType'].'"/>
-                  <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>';
-          echo '</form>';
+      $voidCout = array_diff($arrayIndex, $arrayIndexOk);
+      foreach ($variable as $key => $value) {
+
+        if(!empty($this->typeTroupe[$value['indexType']])) {
+          // Table pleine
+          echo '<form class="formulaireClassique"action="'.encodeRoutage($route).'" method="post">';
+          echo '<h4>Modifier '.$this->typeTroupe[$value['indexType']].'</h4>';
+          for ($i=0; $i <count($this->champs) ; $i++) {
+            selectPOSelected ($this->champs[$i], $this->nomTypes [$i], $value[$this->champs[$i]]);
           }
+          echo '<input type="hidden" name="idFaction" value="'.$value['idFaction'].'"/>
+                <input type="hidden" name="indexType" value="'.$value['indexType'].'"/>
+
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>';
+        echo '</form>';
+        }
+
+
+      }
+      if(!empty($voidCout)) {
+        foreach ($voidCout as $k => $v) {
+          //Visualisation des éléments pas encore définis
+            echo '<form class="formulaireClassique"action="'.encodeRoutage($updateRoute).'" method="post">';
+            echo '<h4>'.$this->typeTroupe[$v].'</h4>';
+            for ($o=0; $o <count($this->champs) ; $o++) {
+              selectPO ($this->champs[$o], $this->nomTypes [$o]);
+            }
+            echo '<input type="hidden" name="idFaction" value="'.$variable[0]['idFaction'].'"/>
+                  <input type="hidden" name="indexType" value="'.$v.'"/>
+                  <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
+                  echo '</form>';
         }
       }
+
+      // Grille de coût non encore rempli.
+
+
+
+
+
+/*
       // Intialisation boucle
         for ($i=count($arrayIndexOk); $i < count($this->typeTroupe) ; $i++) {
           //Visualisation des éléments pas encore définis
@@ -205,6 +231,7 @@ Class PrintGrilles extends GetGrilles {
                   <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
                   echo '</form>';
         }
+        */
       echo '</div>';
       echo '</div>';
     }

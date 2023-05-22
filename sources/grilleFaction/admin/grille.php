@@ -6,5 +6,5 @@ require 'sources/grilleFaction/headGrilles.php';
     echo '<h3>Pas encore de données dans les grilles</h3>';
     $Grilles->voidFormGrille($idFaction, $idNav, true) ;
   } else {
-    $Grilles->formGrille ($dataGrilles, $idNav, true);
+    $Grilles->formGrille($dataGrilles, $idNav, true);
   }

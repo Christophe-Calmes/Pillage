@@ -34,6 +34,46 @@ class TroupeRecord extends PrintGrilles {
       return false;
     }
   }
+  public function cavalierOrShooter($idTroupe) {
+    $select = "SELECT  `cheval`,`javelot`, `arc`, `arbalete`, `fronde`
+                FROM `Troupes`
+                WHERE `idTroupe` = :idTroupe";
+      $param = [['prep'=>':idTroupe', 'variable'=>$idTroupe]];
+      $readOneTroupe = new RCUD($select, $param);
+      $data = $readOneTroupe->READ();
+      $type = [];
+      //print_r($data);
+      if($data[0]['cheval'] != NULL) {
+        array_push($type, 1);
+      } else {
+        array_push($type, 0);
+      }
+      if(($data[0]['javelot'] != NULL)||($data[0]['arc'] != NULL)||($data[0]['arbalete'] != NULL)||($data[0]['fronde'] != NULL)) {
+          array_push($type, 1);
+      } else {
+          array_push($type, 0);
+      }
+    $update = "";
+    print_r($type);
+    switch ($type) {
+      case [1, 1]:
+        $update = "UPDATE `Troupes` SET `monture` = 1, `tireur` = 1 WHERE `idTroupe` = :idTroupe";
+        break;
+      case [0, 1]:
+        $update = "UPDATE `Troupes` SET `monture` = 0, `tireur` = 1 WHERE `idTroupe` = :idTroupe";
+        break;
+      case [1, 0]:
+        $update = "UPDATE `Troupes` SET `monture` = 1, `tireur` = 0 WHERE `idTroupe` = :idTroupe";
+        break;
+
+      default:
+        $update = "UPDATE `Troupes` SET `monture` = 2, `tireur` = 2 WHERE `idTroupe` = :idTroupe";
+        break;
+    }
+    $param = [['prep'=>':idTroupe', 'variable'=>$idTroupe]];
+    $action = new RCUD($update, $param);
+    $action->CUD();
+  }
   public function sumTroupe ($token) {
 
 
@@ -69,9 +109,9 @@ class TroupeRecord extends PrintGrilles {
   }
   public function recordDatasTroupe($price, $idNav) {
     //Reset debut
-    $reset = "UPDATE `Troupes` SET `classe`= 0,`monture`= 0,`prixTroupe`= 0,`arbalete`= 0,`arc`= 0,`armeDeBase`= 0,
-    `armeImp`= 0,`armure`= 0,`banniere`= 0,`bouclier`= 0,`cheval`= 0,`chienDG`= 0,`corDG`= 0,`fronde`= 0,`hacheD`= 0,
-    `javelot`= 0, `lance`= 0,`SP`= 0
+    $reset = "UPDATE `Troupes` SET `classe`= NULL,`monture`= 0,`prixTroupe`= NULL,`arbalete`= NULL,`arc`= NULL,`armeDeBase`= NULL,
+    `armeImp`= NULL,`armure`= NULL,`banniere`= NULL,`bouclier`= NULL,`cheval`= NULL,`chienDG`= NULL,`corDG`= NULL,`fronde`= NULL,`hacheD`= NULL,
+    `javelot`= NULL, `lance`= NULL,`SP`= 0, `monture`= 0, `tireur`= 0
     WHERE `idTroupe` = :idTroupe";
     $param = [['prep'=>':idTroupe', 'variable'=> filter($this->post['idTroupe'])]];
     $action = new RCUD($reset,$param);
@@ -101,6 +141,9 @@ class TroupeRecord extends PrintGrilles {
     $action = new RCUD($update, $param);
     $action->CUD();
     // New equipement
+    // Type de troupe
+    $this->cavalierOrShooter(filter($this->post['idTroupe']));
     header('location:../index.php?idNav='.$idNav.'&idTroupe='.filter($this->post['idTroupe']).'&message=Modification prise en compte.');
   }
+
 }

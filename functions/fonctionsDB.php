@@ -98,7 +98,7 @@ function controlePO($PO) {
 }
 function controleGrille($data, $type) {
   // $type 0 -> Create controle / 1-> update controle
-  print_r($data).'$data<br/>';
+
   $arrayControle = [];
   $arrayPO = [];
     // contrôle idFaction valide
@@ -124,19 +124,17 @@ function controleGrille($data, $type) {
       array_push($arrayPO, 1);
     }
     // Controle pour éviter les doublons de colonne dans la même grille
-    echo print_r($data['indexType']).'indexType<br/>';
     $param = [['prep'=>':idFaction', 'variable'=>$data['idFaction']],
               ['prep'=>':indexType', 'variable'=>$data['indexType']]];
     $select = "SELECT `idCout` FROM `cout` WHERE `idFaction` = :idFaction AND `indexType`= :indexType";
     $controleDoublon = new RCUD($select, $param);
     $idCout = $controleDoublon->READ();
+    print_r($idCout);
     if($idCout == []) {
       array_push($arrayControle, 1);
-      echo '$type='.$type.'<br/>';
       array_push($arrayPO, 1);
     } else {
       array_push($arrayControle, 1);
-      echo '$type='.$type.'<br/>';
       array_push($arrayPO, $type);
     }
 
@@ -148,17 +146,17 @@ function controleGrille($data, $type) {
       array_push($arrayPO, controlePO($value));
     }
   }
-  if($arrayControle == $arrayPO) {
-    /*echo '<ul>';
+  if($arrayControle === $arrayPO) {
+  /*  echo '<ul>';
       echo '<li> arrayControle :<br/>';print_r($arrayControle);echo '</li>';
       echo '<li> arrayPO :<br/>';print_r($arrayPO);echo '</li>';
     echo '</ul>';*/
-    return true;
+    return 1;
   } else {
-    /*echo '<ul>';
+    echo '<ul>';
       echo '<li> arrayControle :<br/>';print_r($arrayControle);echo '</li>';
       echo '<li> arrayPO :<br/>';print_r($arrayPO);echo '</li>';
-    echo '</ul>';*/
-    return false;
+    echo '</ul>';
+    return 0;
   }
 }

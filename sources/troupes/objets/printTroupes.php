@@ -135,24 +135,26 @@ Class PrintTroupes extends GetTroupes {
     echo'</li>';
     echo '<li class="formLi"><h4>Armes de mêlée</h4></li>';
     for ($i=0; $i <count($this->weapon) ; $i++) {
-      if($data[0][$this->weapon[$i]['id']] !=0) {
+      if($data[0][$this->weapon[$i]['id']] != NULL) {
         echo '<li class="formLi">'.$this->weapon[$i]['message'].'</li>';
       }
     }
     echo '<li class="formLi"><h4>Armes de tir</h4></li>';
     for ($i=0; $i <count($this->weaponShoot) ; $i++) {
-      if($data[0][$this->weaponShoot[$i]['id']] !=0) {
+      if($data[0][$this->weaponShoot[$i]['id']] != NULL) {
         echo '<li class="formLi">'.$this->weaponShoot[$i]['message'].' Portée : '.$this->weaponShoot[$i]['range'].' "</li>';
       }
     }
       echo '<li class="formLi"><h4>Equipements</h4></li>';
       for ($i=0; $i <count($this->specialRules) ; $i++) {
-        if($data[0][$this->specialRules[$i]['id']] !=0) {
+        if($data[0][$this->specialRules[$i]['id']] != NULL) {
           echo '<li class="formLi">'.$this->specialRules[$i]['message'].'</li>';
         }
       }
       echo '<li class="formLi"><h4>Coût de l\'unité </h4></li>';
-      echo '<li class="formLi">Prix : '.$data[0]['prixTroupe'].' PO</li>';
+      echo '<li class="formLi">Prix : '.$data[0]['prixTroupe'].' PO</li>
+            <li class="formLi">Tireur : '.yes($data[0]['tireur']).'</li>
+            <li class="formLi">Cavalier : '.yes($data[0]['monture']).'</li>';
       echo '</ul>';
   }
 

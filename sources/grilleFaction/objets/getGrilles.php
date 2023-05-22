@@ -10,7 +10,8 @@ Class GetGrilles {
     `banniere`, `corDG`, `chienDG`, `nomFaction`, `Factions`.`idFaction`
     FROM `cout`
     INNER JOIN `Factions` ON `cout`.`idFaction` = `Factions`.`idFaction`
-    WHERE `cout`.`idFaction` = :idFaction";
+    WHERE `cout`.`idFaction` = :idFaction
+    ORDER BY `indexType`";
     $readDB = new RCUD($select, $param);
     $dataFaction = $readDB->READ();
     if($dataFaction == []) {
