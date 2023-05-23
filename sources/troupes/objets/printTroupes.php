@@ -209,12 +209,12 @@ Class PrintTroupes extends GetTroupes {
             $radio = [['id'=>'sp', 'value'=>'0', 'message'=>'Sans protection', 'cout'=>$dataCout[0]['SP']],
                       ['id'=>'armure', 'value'=>'1', 'message'=>'Armure', 'cout'=>$dataCout[0]['armure']],
                       ['id'=>'Bouclier', 'value'=>'2', 'message'=>'Bouclier' , 'cout'=>$dataCout[0]['bouclier']],
-                      ['id'=>'CC', 'value'=>'3', 'message'=>'Armure et bouclier', 'cout'=>($dataCout[0]['armure'] + $dataCout[0]['SP'])]];
+                      ['id'=>'CC', 'value'=>'3', 'message'=>'Armure et bouclier', 'cout'=>($dataCout[0]['armure'] + $dataCout[0]['bouclier'])]];
                       foreach ($radio as $key => $value) {
                         if(testValue ($value['cout'])) {
                           echo '<div class="flex-rows">
                                     <input id="'.$value['id'].'" type="radio" name="classe" value="'.$value['value'].'"/>
-                                    <label  for="'.$value['id'].'">'.$value['message'].' Coût : '.$value['cout'].'</label>
+                                    <label  for="'.$value['id'].'">'.$value['message'].' Coût : '.$value['cout'].' PO</label>
                                   </div>';
 
                         }
