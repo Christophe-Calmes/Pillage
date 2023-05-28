@@ -175,33 +175,41 @@ Class PrintTroupes extends GetTroupes {
       if($data == 0) {
         return 'Gratuit';
       } else {
-        return $data;
+        return $data.' PO';
       }
     }
     function loop ($dataCout, $array) {
       foreach ($array as $key => $value) {
         if(testValue ($dataCout[0][$value['id']])) {
-          echo '<li class="formLi">
-                  <label for="'.$dataCout[0][$value['id']].'">'.$value['message'].' coût : '.freeStuff($dataCout[0][$value['id']]).' PO</label>
-                  <input id="'.$dataCout[0][$value['id']].'" type="checkbox" name="'.$value['id'].'" value="1"/>
+          $rand = rand(0, 1000);
+          echo '<li class="formCheck">
+                  <p class="pLabel">'.$value['message'].' coût : '.freeStuff($dataCout[0][$value['id']]).'</p>
+
+                  <input type="checkbox" class="checkbox"  id="switch'.$rand.'"  name="'.$value['id'].'" value="1"/>
+                  <label for="switch'.$rand.'" class="toggle">
+                    <p class="checkedText">'.$value['message'].' - '.freeStuff($dataCout[0][$value['id']]).'</p>
+                  </label>
                 </li>';
         } else {
-          echo '<li class="formLi">Pas de données disponible</li>';
+          //echo '<li class="formLi">Pas de données disponible</li>';
         }
       }
     }
     echo '<section class="flex-rows">';
-      echo '<article>';
-          echo '<h3>Création du profil de votre unité de la faction : '.$dataTroupe[0]['nomFaction'].'</h3>';
-          echo '<ul>
-                  <li class="formLi">'.$dataTroupe[0]['nomFaction'].'</li>
-                  <li class="formLi">'.$dataTroupe[0]['nomTroupe'].'</li>
-                  <li class="formLi">'.$this->typeTroupe[$dataTroupe[0]['typeTroupe']].'</li>
-                  <li class="formLi">Description : '.$dataTroupe[0]['descriptionTroupe'].'</li>
-                </ul>';
+      echo '<article class="designTroupe">';
+          echo '<h3>Création du profil de la faction '.$dataTroupe[0]['nomFaction'].'</h3>';
+          echo '<ul class="presentationTroupe">
+                  <li class="formLi">Nom troupe : '.$dataTroupe[0]['nomTroupe'].'</li>
+                  <li class="formLi">Type : '.$this->typeTroupe[$dataTroupe[0]['typeTroupe']].'</li>
+                  <li class="flex-colonne">
+                    <div><h4>Description</h4></div>
+                    <div>'.$dataTroupe[0]['descriptionTroupe'].'</div>
+                  </li>';
           if(!empty($dataCout)) {
-          echo '<ul>';
+
           echo '<li class="formLi">Coût de base du '.$this->typeTroupe[$dataTroupe[0]['typeTroupe']].' : '.$dataCout[0]['coutBase'].' PO</li>';
+          echo '</ul>';
+          echo '<ul class="flex-rows">';
           echo '<li class="formLi"><form class="formulaireClassique" action="'.encodeRoutage(39).'" method="post">';
 
           echo '<li class="formLi"><h4>Type de protection</h4></li>';
@@ -214,22 +222,31 @@ Class PrintTroupes extends GetTroupes {
                         if(testValue ($value['cout'])) {
                           echo '<div class="flex-rows">
                                     <input id="'.$value['id'].'" type="radio" name="classe" value="'.$value['value'].'"/>
-                                    <label  for="'.$value['id'].'">'.$value['message'].' Coût : '.$value['cout'].' PO</label>
+                                    <label class="labelRadio"  for="'.$value['id'].'">'.$value['message'].' Coût : '.$value['cout'].' PO</label>
                                   </div>';
 
                         }
                       }
           echo '</li></fieldset>';
-          echo '<li class="formLi"><h4>Armes de mêlée</h4></li>';
+          echo '</ul>';
+          echo '<ul class="flex-rows">';
+          echo '<div class="box">';
+          echo '<li class="formLi"><h4 class="hForm">Armes de mêlée</h4></li>';
           loop($dataCout, $this->weapon);
-          echo '<li class="formLi"><h4>Armes de tir</h4></li>';
+          echo '</div>';
+          echo '<div class="box">';
+          echo '<li class="formLi"><h4 class="hForm">Armes de tir</h4></li>';
           loop($dataCout, $this->weaponShoot);
-          echo '<li class="formLi"><h4>Equipements</h4></li>';
+          echo '</div>';
+          echo '<div class="box">';
+          echo '<li class="formLi"><h4 class="hForm">Equipements</h4></li>';
           loop($dataCout, $this->specialRules);
+          echo '</div></li></ul>';
           echo '<input type="hidden" name="idTroupe" value="'.$dataTroupe[0]['idTroupe'].'"/>
           <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>
-          </form></li>';
+          </form>';
         } else {
+          echo '<ul>';
           echo '<h3>Grille de coût indisponible</h3>';
         }
       echo '</article>';
@@ -238,6 +255,9 @@ Class PrintTroupes extends GetTroupes {
         $this->presentationOneTroupe ($dataTroupe[0]['idTroupe'], $dataTroupe[0]['auteur']);
       echo '</article>';
     echo '</section>';
+  }
+  public function noFindTroop() {
+    echo '<p>Nous ne trouvons pas votre troupe</p>';
   }
 
 }

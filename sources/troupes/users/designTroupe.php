@@ -8,5 +8,9 @@ $idTroupe = filter($_GET['idTroupe']);
 $zool = new Controles();
 $idUser = $zool->idUser($_SESSION['tokenConnexion']);
 $dataTroupe = $troupes->dataTroupe ($idTroupe, $idUser);
-$dataCout = $troupes->readGrille ($idTroupe, $idUser);
-$troupes->designTroupe($dataTroupe, $dataCout, $idNav);
+if(!empty($dataTroupe)) {
+  $dataCout = $troupes->readGrille ($idTroupe, $idUser);
+  $troupes->designTroupe($dataTroupe, $dataCout, $idNav);
+} else {
+  $troupes->noFindTroop();
+}

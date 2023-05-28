@@ -7,14 +7,25 @@ $khaki: rgba(172, 167, 155, 1);
 $tan: rgba(203, 171, 137, 1);
 
 */
+/* font
+@import url('https://fonts.googleapis.com/css2?family=Artifika&display=swap');
+font-family: 'Artifika', serif;
+*/
+
 
 /*Présentation Graine*/
 /*Variables CSS*/
 :root {
   /*Variable lier au boutton*/
+  --main-color-frech: rgba(172, 167, 155, 1);
   --main-background-color: rgba(162, 112, 84, 1);
   --main-border: 1px solid rgba(203, 171, 137, 1);
   --main-color-interne: rgba(240, 240, 240, 1);
+  /*Checkbox color style*/
+
+  --main-color-interneCBox: rgba(37, 24, 18, 1);
+  --main-color-bordureCBox: rgba(46, 34, 29, 1);
+  --main-color-checkedCBox: rgba(172, 167, 155, 1);
   --main-color: white;
   --main-padding: 15px 32px;
   --main-text-align: center;
@@ -26,18 +37,23 @@ $tan: rgba(203, 171, 137, 1);
   /*Autres variable*/
 }
 /*Presentation basique*/
+/*Import font*/
+@import url('https://fonts.googleapis.com/css2?family=Artifika&display=swap');
 html {
   background-color: rgba(172, 167, 155, 1);
 }
 
 h1, h2 {
   font-size: 2em;
+  font-family: 'Artifika', serif;
 }
 h3 {
   font-size: 1.5em;
+  font-family: 'Artifika', serif;
 }
 a {
   text-decoration: none;
+  font-family: 'Artifika', serif;
 }
 .listeProfil {
   list-style: none;
@@ -66,6 +82,15 @@ a {
 }
 
 /*Formulaire*/
+.designTroupe {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--main-background-color);
+    padding: 1em;
+    border-radius: 10px;
+    border: 2px solid var(--main-color-interne);
+}
+
 .formulaireClassique {
   display: flex;
   flex-direction: column;
@@ -84,6 +109,124 @@ input {
 .buttonForm {
   margin: 0.5em;
 }
+body {
+  background-color: var(--main-border);
+}
+
+/*formulaire*/
+.pLabel {
+  font-size: 1.2em;
+}
+.hForm {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+  /*Input type radio*/
+  input[type="radio"] ~ label {
+
+    /*color: rgba(172, 167, 155, 1);*/
+    color:var(--main-color-frech);
+  }
+  input[type="radio"]:checked ~ label {
+    /*color: rgba(162, 112, 84, 1);*/
+    color: var(--main-background-color);
+  }
+  fieldset {
+    background-color: var(--main-color-interneCBox);
+    /*background-color: rgba(37, 24, 18, 1);*/
+    border-radius: 10px;
+    border: 2px solid var(--main-color-interne);
+  }
+
+
+  /*CheckBox*/
+    /* toggle in label designing */
+    .toggle {
+        position : relative ;
+        display : inline-block;
+        vertical-align: middle;
+        line-height: normal;
+        width : 12em;
+        height : 2em;
+        background-color: var(--main-color-interneCBox);
+        border-radius: 30px;
+        border: 3px solid var(--main-color-bordureCBox);
+
+    }
+
+    /* After slide changes */
+    .toggle:after {
+        content: '';
+        position: absolute;
+        width: 2em;
+        height: 2em;
+        border-radius: 50%;
+        background-color: var(--main-background-color);
+        top: 0px;
+        left: 0px;
+        transition:  all 0.2s;
+    }
+
+    /* Toggle text */
+    .checkedText {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 0.75em;
+        display: flex;
+        padding-left: 1em;
+        padding-bottom: 5em;
+        color: var(--main-color-interneCBox);
+    }
+
+    /* Checkbox checked effect */
+    .checkbox:checked + .toggle::after {
+         left : 9.966em;
+    }
+
+    /* Checkbox checked toggle label bg color */
+    .checkbox:checked + .toggle {
+        background-color: var(--main-color-checkedCBox);
+
+    }
+
+    /* Checkbox vanished */
+    .checkbox {
+        display : none;
+    }
+  /*CheckBox*/
+  /*Radio*/
+.labelRadio {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1.2em;
+}
+input[type="radio"] ~ label {
+  color: var(--main-color-frech:);
+  display: inline-block;
+  vertical-align: middle;
+}
+input[type="radio"]:checked ~ label {
+  color: var(--main-background-color);
+
+}
+input[type="radio"] {
+   /* Masquer le bouton radio par défaut */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Définir la taille du bouton */
+  width: 1.2em;
+  height: 1.2em;
+  /* Définir la forme carrée */
+  border-radius: 3px;
+  /* Ajouter une bordure */
+  border: 1px solid #000;
+}
+input[type="radio"]:checked {
+  background-color: var(--main-background-color);
+
+}
+/*Radio*/
 /*Fin formulaire*/
 /*Titre et sousTitre*/
 .hautPage {
@@ -117,6 +260,12 @@ footer {
 	display: flex;
 	flex-direction: row;
 	align-items: baseline;
+}
+.formCheck {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  align-items: inherit;
 }
 /*Bouton lien*/
 /*Variable CSS boutton*/
@@ -493,6 +642,17 @@ grid-row-gap: 0px;
     align-items: center;
     justify-content: center;
     border-radius: var(--main-radius);
+  }
+
+/*Presnetation troupe*/
+  .presentationTroupe {
+    list-style: none;
+    font-size: 1.3em;
+    padding-top: inherit;
+    padding-bottom: inherit;
+  }
+  .box {
+    margin-right: 1em;
   }
 
 /**===id JavaScript===*/
