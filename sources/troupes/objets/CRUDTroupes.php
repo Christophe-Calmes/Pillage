@@ -12,6 +12,21 @@ class TroupeRecord extends PrintGrilles {
   }
   public function controlePost() {
     //Controle que classe existe bien.
+    for ($i = 0; $i < count($this->champs); $i++) {
+        $champ = $this->champs[$i];
+
+        if (isset($this->post['radioChooseCC']) && $this->post['radioChooseCC'] == $champ) {
+            unset($this->post['radioChooseCC']);
+            $this->post[$champ] = 1;
+            //array_unshift($this->post, [$champ => 1]);
+        }
+        if (isset($this->post['radioChooseCT']) && $this->post['radioChooseCT'] == $champ) {
+            unset($this->post['radioChooseCT']);
+            $this->post[$champ] = 1;
+            //array_unshift($this->post, [$champ => 1]);
+        }
+
+    }
     if(empty($this->post['classe'])) {
       header('location:../index.php?message=Soucis d\'enregistrement.');
     }
@@ -54,7 +69,7 @@ class TroupeRecord extends PrintGrilles {
           array_push($type, 0);
       }
     $update = "";
-    print_r($type);
+    //print_r($type);
     switch ($type) {
       case [1, 1]:
         $update = "UPDATE `Troupes` SET `monture` = 1, `tireur` = 1 WHERE `idTroupe` = :idTroupe";
@@ -75,10 +90,10 @@ class TroupeRecord extends PrintGrilles {
     $action->CUD();
   }
   public function sumTroupe ($token) {
-
-
+    //$this->printPost();
     // transfert $this->post
     $postCost = $this->post;
+    // Sanitize $postCost
     $Faction = $this->searchIdFaction($token);
     if(!$Faction) {
       return false;
@@ -90,8 +105,9 @@ class TroupeRecord extends PrintGrilles {
     $index = filter($postCost['classe']);
     $classe = $this->arrayCA[$index]['champs'];
     // [classe] delete
+    unset($postCost['classe']);
+    unset($postCost['idTroupe']);
     array_shift($postCost);
-    array_pop($postCost);
     // construction de la requête
       foreach ($postCost as $key => $value) {
         $set = '`'.$key.'` + '.$set;
@@ -101,14 +117,16 @@ class TroupeRecord extends PrintGrilles {
     $select =  "SELECT {$sum} FROM `cout` WHERE `idFaction` = :idFaction AND`indexType` = :indexType";
     $param = [['prep'=>':idFaction', 'variable'=>$Faction[0]['factionTroupe']],
               ['prep'=>':indexType', 'variable'=>$Faction[0]['typeTroupe']]];
-    // seach price
     //print_r($select);
+    // seach price
     $read = new RCUD($select, $param);
     $data = $read->READ();
     return $data[0]['price'];
   }
   public function recordDatasTroupe($price, $idNav) {
     //Reset debut
+    $this->printPost();
+
     $reset = "UPDATE `Troupes` SET `classe`= NULL,`monture`= 0,`prixTroupe`= NULL,`arbalete`= NULL,`arc`= NULL,`armeDeBase`= NULL,
     `armeImp`= NULL,`armure`= NULL,`banniere`= NULL,`bouclier`= NULL,`cheval`= NULL,`chienDG`= NULL,`corDG`= NULL,`fronde`= NULL,`hacheD`= NULL,
     `javelot`= NULL, `lance`= NULL,`SP`= 0, `monture`= 0, `tireur`= 0
@@ -122,8 +140,15 @@ class TroupeRecord extends PrintGrilles {
     // Construire la requête
     $index = filter($this->post['classe']);
     $classe = $this->arrayCA[$index]['updateSet'];
+    echo '<br/>';
+    echo 'avant';
+    print_r($postSet);
+    echo '<br/>';
     array_shift($postSet);
-    array_pop($postSet);
+    //unset($postSet['classe']);
+    //array_pop($postSet);
+    echo 'après';
+    print_r($postSet);
       foreach ($postSet as $key => $value) {
         $set = ', `'.$key.'` = :'.$key.$set;
       }
@@ -140,10 +165,12 @@ class TroupeRecord extends PrintGrilles {
               AND `auteur` = :idUser";
     $action = new RCUD($update, $param);
     $action->CUD();
+    print_r($update);
     // New equipement
     // Type de troupe
     $this->cavalierOrShooter(filter($this->post['idTroupe']));
     header('location:../index.php?idNav='.$idNav.'&idTroupe='.filter($this->post['idTroupe']).'&message=Modification prise en compte.');
+
   }
 
 }

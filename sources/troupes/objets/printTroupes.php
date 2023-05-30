@@ -13,8 +13,8 @@ function affichageProfil($value, $key) {
 }
 Class PrintTroupes extends GetTroupes {
   private $weapon;
-  private $weaponShoot;
-  private $specialRules;
+  protected $weaponShoot;
+  protected $specialRules;
   public function __construct() {
       parent::__construct();
       $this->weapon = [['id'=>'armeImp', 'message'=>'Arme Improvisé', 'range'=> NULL],
@@ -111,6 +111,9 @@ Class PrintTroupes extends GetTroupes {
         break;
       }
     }
+    echo '<section class="flex-rows">';
+    echo '<article class="designTroupe">';
+    echo '<h3>Profil de l\'unité</h3>';
     echo '<ul>
             <li class="formLi">'.$data[0]['nomFaction'].'</li>
             <li class="formLi">'.$data[0]['nomTroupe'].'</li>
@@ -156,6 +159,8 @@ Class PrintTroupes extends GetTroupes {
             <li class="formLi">Tireur : '.yes($data[0]['tireur']).'</li>
             <li class="formLi">Cavalier : '.yes($data[0]['monture']).'</li>';
       echo '</ul>';
+      echo '</article>';
+      echo '</section>';
   }
 
   public function designTroupe($dataTroupe, $dataCout, $idNav) {
@@ -178,10 +183,12 @@ Class PrintTroupes extends GetTroupes {
         return $data.' PO';
       }
     }
-    function loop ($dataCout, $array) {
+    function loop ($dataCout, $array, $check, $rich) {
       foreach ($array as $key => $value) {
         if(testValue ($dataCout[0][$value['id']])) {
           $rand = rand(0, 1000);
+
+          if($check){
           echo '<li class="formCheck">
                   <p class="pLabel">'.$value['message'].' coût : '.freeStuff($dataCout[0][$value['id']]).'</p>
 
@@ -190,6 +197,17 @@ Class PrintTroupes extends GetTroupes {
                     <p class="checkedText">'.$value['message'].' - '.freeStuff($dataCout[0][$value['id']]).'</p>
                   </label>
                 </li>';
+              } else {
+
+                echo '<li class="formCheck">
+                        <p class="pLabel">'.$value['message'].' coût : '.freeStuff($dataCout[0][$value['id']]).'</p>
+                        <input type="radio" class="checkbox"  id="switch'.$rand.'"  name="radioChoose'.$rich.'" value="'.$value['id'].'"/>
+                        <label for="switch'.$rand.'" class="toggle">
+                          <p class="checkedText">'.$value['message'].' - '.freeStuff($dataCout[0][$value['id']]).'</p>
+                        </label>
+                    </li>';
+
+              }
         } else {
           //echo '<li class="formLi">Pas de données disponible</li>';
         }
@@ -232,15 +250,20 @@ Class PrintTroupes extends GetTroupes {
           echo '<ul class="flex-rows">';
           echo '<div class="box">';
           echo '<li class="formLi"><h4 class="hForm">Armes de mêlée</h4></li>';
-          loop($dataCout, $this->weapon);
+          if($dataTroupe[0]['typeTroupe'] == 3) {
+            $choice = true;
+          } else {
+            $choice = false;
+          }
+          loop($dataCout, $this->weapon, $choice, 'CC');
           echo '</div>';
           echo '<div class="box">';
           echo '<li class="formLi"><h4 class="hForm">Armes de tir</h4></li>';
-          loop($dataCout, $this->weaponShoot);
+          loop($dataCout, $this->weaponShoot, false, 'CT');
           echo '</div>';
           echo '<div class="box">';
           echo '<li class="formLi"><h4 class="hForm">Equipements</h4></li>';
-          loop($dataCout, $this->specialRules);
+          loop($dataCout, $this->specialRules, true, '');
           echo '</div></li></ul>';
           echo '<input type="hidden" name="idTroupe" value="'.$dataTroupe[0]['idTroupe'].'"/>
           <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>
@@ -250,11 +273,9 @@ Class PrintTroupes extends GetTroupes {
           echo '<h3>Grille de coût indisponible</h3>';
         }
       echo '</article>';
-      echo '<article>';
-        echo '<h3>Profil de l\'unité</h3>';
+
         $this->presentationOneTroupe ($dataTroupe[0]['idTroupe'], $dataTroupe[0]['auteur']);
-      echo '</article>';
-    echo '</section>';
+
   }
   public function noFindTroop() {
     echo '<p>Nous ne trouvons pas votre troupe</p>';

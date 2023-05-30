@@ -8,23 +8,22 @@ class PrintClasses extends Classes {
     if($valide == 0){echo '<h2>Classes non-valides</h2>';}
     echo '<div class="GridClasse headGrid">
         <div class="nomClasse"><h3>Nom</h3></div>
-        <div class="abrevClasse"><h3>Abréviation</h3></div>
-        <div class="deplacementClasse"><h3>Déplacement</h3></div>
-        <div class="descriptionClasses">
-        </div>';
-        if($_SESSION['role'] == 2){echo'<div class="zoneForm"><h3>Administrer</h3></div>';}
+        <div class="abrevClasse borderLeft"><h3>Abréviation</h3></div>
+        <div class="deplacementClasse borderLeft centerClasse"><h3>Déplacement</h3></div>
+        <div class="descriptionClasse borderLeft"><h3>Description</h3></div>';
+        if($_SESSION['role'] == 2){echo'<div class="zoneForm centerClasse borderLeft"><h3>Administrer</h3></div>';}
         echo '</div>';
   }
     foreach ($data as $key) {
       echo '<div class="GridClasse">
           <div class="nomClasse">'.$key['nomClasse'].'</div>
-          <div class="abrevClasse">'.$key['codeClasse'].'</div>
-          <div class="deplacementClasse">'.$key['deplacement'].' "</div>
-          <div class="descriptionClasses">
+          <div class="abrevClasse borderLeft">'.$key['codeClasse'].'</div>
+          <div class="deplacementClasse borderLeft centerClasse">'.$key['deplacement'].' "</div>
+          <div class="descriptionClasse borderLeft">
             '.$key['descriptionClasse'].'
           </div>';
           if($key['valide'] == 1 && $_SESSION['role'] == 2) {
-          echo'<div class="zoneForm">
+          echo'<div class="zoneForm centerClasse borderLeft">
             <form class="formulaireClassique" action="'.encodeRoutage(21).'" method="post">
               <input type="hidden" name="idClasse" value="'.$key['idClasse'].'"/>
               <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Non valide</button>
@@ -33,7 +32,7 @@ class PrintClasses extends Classes {
         } else {
           if($_SESSION['role'] == 2) {
           $message = ['Delete', 'Valider'];
-          echo '<div class="zoneForm">';
+          echo '<div class="zoneForm centerClasse borderLeft">';
           for ($i=21; $i <=22 ; $i++) {
             echo'<form class="formulaireClassique" action="'.encodeRoutage($i).'" method="post">
                 <input type="hidden" name="idClasse" value="'.$key['idClasse'].'"/>

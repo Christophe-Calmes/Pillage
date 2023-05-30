@@ -25,13 +25,13 @@ Class PrintFactions extends GetFactions {
   public function printFaction($variable, $idNav) {
 
   echo '<div class="adminFaction headGrid">
-          <div class="nomFaction headGrid">Nom</div>
-          <div class="descriptionFaction headGrid">Description</div>
-          <div class="login headGrid">Auteur</div>
-          <div class="private headGrid">Faction Privé</div>
-          <div class="valide headGrid">Valide</div>
-          <div class="update headGrid">Modifier</div>
-          <div class="delete headGrid">Effacer</div>
+          <div class="nomFaction"><h3>Nom</h3></div>
+          <div class="descriptionFaction"><h3>Description</h3></div>
+          <div class="login"><h3>Auteur</h3></div>
+          <div class="private"><h3>Faction Privé</h3></div>
+          <div class="valide"><h3>Valide</h3></div>
+          <div class="update"><h3>Modifier</h3></div>
+          <div class="delete"><h3>Effacer</h3></div>
         </div>';
     foreach ($variable as $key => $value) {
     echo '<div class="adminFaction">
