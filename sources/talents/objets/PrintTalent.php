@@ -93,16 +93,16 @@ class PrintTalent extends GetTalent {
         $factions = new GetFactions();
         $datasFactions = $factions->getLinkTalentFaction ($idTalent);
         // Présentation d'un talent
-        echo '<section class="navigationBandeau">
+    echo '<section class="navigationBandeau">
           <div class="talent">
-              <div class="nomTalent">'.$data[0]['nomTalent'].'</div>
+              <div class="nomTalent"><h3>'.$data[0]['nomTalent'].'</h3></div>
               <div class="descriptionTalent">
                 '.$data[0]['descriptionTalent'].'
                 <br/>
                 Talent de troupe : '.yes($data[0]['talentDeTroupe']).'
               </div>
-              <div class="prixTalent">Prix :'.$data[0]['prixTalent'].' PO</div>
-              <div class="factionTalent">';
+              <div>Prix : '.$data[0]['prixTalent'].' PO</div>
+              <div>';
               if(!empty($datasFactions)){
                 echo'<ul>
                   <li class="formLi"><h3>Ce talent est disponible pour :</h3></li>';
@@ -122,22 +122,42 @@ class PrintTalent extends GetTalent {
   }
 
   public function affecterTalentFaction($idTalent, $idNav) {
-    $this->displayOneTalent ($idTalent);
+    echo '<div class="flex-rows">';
+
     $factions = new GetFactions();
     $dataFactions = $factions->getFactionPublic();
-    echo '<form class="formulaireClassique"action="'.encodeRoutage(43).'" method="post">';
+    echo '<form class="formulaireClassique designTroupe" action="'.encodeRoutage(43).'" method="post">';
     echo '<h3>Affecter les factions valides pour ce talent</h3>';
-    foreach ($dataFactions as $key => $value) {
-      echo '<li class="formCheck">
-            <p>'.$value['nomFaction'].'</p>
-              <input type="checkbox" class="checkbox"  id="'.$value['nomFaction'].'"  name="'.$value['nomFaction'].'" value="1"/>
-              <label for="'.$value['nomFaction'].'" class="toggle">
-                <p class="checkedText">Affecté à '.$value['nomFaction'].'</p>
-              </label>
-            </li>';
-    }
+      foreach ($dataFactions as $key => $value) {
+        echo '<li class="formCheck">
+              <p>'.$value['nomFaction'].'</p>
+                <input type="checkbox" class="checkbox"  id="'.$value['nomFaction'].'"  name="'.$value['nomFaction'].'" value="1"/>
+                <label for="'.$value['nomFaction'].'" class="toggle">
+                  <p class="checkedText">Affecté à '.$value['nomFaction'].'</p>
+                </label>
+              </li>';
+      }
       echo '<input type="hidden" name="idTalent" value="'.$idTalent.'"/>';
       echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Affecter</button>';
     echo '</form>';
+    $this->displayOneTalent ($idTalent);
+    echo'</div>';
+  }
+  public function displayTalentUser ($first, $parPage){
+    $data = $this->paginationTalent($first, $parPage);
+    echo '<div class="GridClasse headGrid">
+              <div class="nomClasse"><h3>Talent</h3></div>
+              <div class="deplacementClasse"><h3>Déplacement</h3></div>
+              <div class="abrevClasse"><h3>Talent de troupe</h3></div>
+              <div class="descriptionClasse centerClasse"><h3>Prix</h3></div>
+            </div>';
+    foreach ($data as $key => $value) {
+      echo '<div class="GridClasse">
+                <div class="nomClasse"><h4>'.$value['nomTalent'].'</h4></div>
+                <div class="deplacementClasse">'.$value['descriptionTalent'].'</div>
+                <div class="abrevClasse">'.yes($value['talentDeTroupe']).'</div>
+                <div class="descriptionClasse centerClasse">'.$value['prixTalent'].' PO</div>
+              </div>';
+    }
   }
 }

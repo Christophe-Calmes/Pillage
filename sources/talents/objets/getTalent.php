@@ -14,4 +14,19 @@ Class GetTalent {
     $read = new RCUD($select, $param);
     return $read->READ();
   }
+    public function nombreTalents() {
+      $count = "SELECT COUNT(`idTalent`) AS `nbrTalent` FROM `Talents` WHERE `valide` = 1";
+      $nrbC = new RCUD($count, []);
+      $dataNbrC = $nrbC->READ();
+      return $dataNbrC[0]['nbrTalent'];
+
+    }
+    public function paginationTalent($first, $parPage) {
+      $select = "SELECT `idTalent`, `nomTalent`, `descriptionTalent`, `talentDeTroupe`, `prixTalent`, `valide`
+        FROM `Talents`
+        WHERE `valide` = 1
+        ORDER BY `nomTalent` DESC LIMIT {$first}, {$parPage};";
+        $read = new RCUD($select, []);
+        return $read->READ();
+    }
 }
