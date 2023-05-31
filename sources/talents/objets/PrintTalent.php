@@ -121,11 +121,23 @@ class PrintTalent extends GetTalent {
     }
   }
 
-  public function affecterTalentFaction($idTalent) {
+  public function affecterTalentFaction($idTalent, $idNav) {
     $this->displayOneTalent ($idTalent);
     $factions = new GetFactions();
     $dataFactions = $factions->getFactionPublic();
-    print_r($dataFactions);
-
+    echo '<form class="formulaireClassique"action="'.encodeRoutage(43).'" method="post">';
+    echo '<h3>Affecter les factions valides pour ce talent</h3>';
+    foreach ($dataFactions as $key => $value) {
+      echo '<li class="formCheck">
+            <p>'.$value['nomFaction'].'</p>
+              <input type="checkbox" class="checkbox"  id="'.$value['nomFaction'].'"  name="'.$value['nomFaction'].'" value="1"/>
+              <label for="'.$value['nomFaction'].'" class="toggle">
+                <p class="checkedText">Affecté à '.$value['nomFaction'].'</p>
+              </label>
+            </li>';
+    }
+      echo '<input type="hidden" name="idTalent" value="'.$idTalent.'"/>';
+      echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Affecter</button>';
+    echo '</form>';
   }
 }

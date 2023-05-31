@@ -70,13 +70,12 @@ Class GetFactions {
     $readDB = new RCUD($select, $param);
     return $readDB->READ();
   }
-  public function getLinkTalentFaction ($idFaction) {
+  public function getLinkTalentFaction ($idTalent) {
     $select = "SELECT `nomFaction`
               FROM `lienTalentFaction`
-              INNER JOIN `Factions` ON `lienTalentFaction`.`idFaction` = `Factions`.`idFaction`
-              WHERE `lienTalentFaction`.`idFaction`=:idFaction AND `Factions`.`valide` = 1
-              ORDER BY `nomFaction`";
-    $param = [['prep'=>':idFaction', 'variable'=>$idFaction]];
+              INNER JOIN `Factions` ON `Factions`.`idFaction` = `lienTalentFaction`.`idFaction`
+              WHERE `idTalent` = :idTalent";
+    $param = [['prep'=>':idTalent', 'variable'=>$idTalent]];
     $readDB = new RCUD($select, $param);
     return $readDB->READ();
   }
