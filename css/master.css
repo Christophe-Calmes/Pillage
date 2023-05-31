@@ -88,9 +88,10 @@ a {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     /*background-color: var(--main-background-color);*/
     background: linear-gradient(to top left, var(--main-background-color), var(--main-color-interne));
-    padding: 1em;
     border-radius: 10px;
     border: 2px solid var(--main-color-interne);
+    padding: 1em;
+
 }
 
 .formulaireClassique {
@@ -348,6 +349,30 @@ transition: display 3s;
   justify-content: center;
 }
 /*Bibliothèque Grid*/
+.talent {
+  width: 70%;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  /*Presentation*/
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  /*background-color: var(--main-background-color);*/
+  background: linear-gradient(to top left, var(--main-background-color), var(--main-color-interne));
+  border-radius: 10px;
+  border: 2px solid var(--main-color-interne);
+  padding: 1em;
+}
+
+.nomTalent { grid-area: 1 / 1 / 2 / 2; }
+.descriptionTalent { grid-area: 1 / 2 / 2 / 3; }
+.prixTalent { grid-area: 2 / 1 / 3 / 2; }
+.FactionsTalent { grid-area: 2 / 2 / 3 / 3; }
+
+
+
+
 .headGrid {
   /*background-color: var(--main-background-color);*/
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;

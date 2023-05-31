@@ -1,4 +1,7 @@
 <?php
+// Instance
+require 'sources/factions/objets/getFactions.php';
+
 function yes ($data) {
   if($data == 1 ) {
     return 'Oui';
@@ -6,6 +9,7 @@ function yes ($data) {
     return 'Non';
   }
 }
+
 class PrintTalent extends GetTalent {
   public function formTalent($idNav, $route) {
     echo '<div class="objetLeft">
@@ -68,6 +72,8 @@ class PrintTalent extends GetTalent {
                   <input type="hidden" name="idTalent" value="'.$value['idTalent'].'"/>
                   <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$button.'</button>
                 </form>';
+                // Fait apparaitre l'option pour les talents valide uniquement.
+                if($value['valide'] == 1) { echo '<a class="item" href='.findTargetRoute(119).'&idTalent='.$value['idTalent'].'>'.$value['nomTalent'].'</a>';}
                 if($value['valide'] == 0) {
                 echo '<form class="formulaireClassique" action="'.encodeRoutage(42).'" method="post">
                         <input type="hidden" name="idTalent" value="'.$value['idTalent'].'"/>
@@ -81,4 +87,45 @@ class PrintTalent extends GetTalent {
               }
         }
       }
+  public function displayOneTalent ($idTalent) {
+    $data = $this->getOneTalent($idTalent);
+      if(!empty($data)) {
+        $factions = new GetFactions();
+        $datasFactions = $factions->getLinkTalentFaction ($idTalent);
+        // Présentation d'un talent
+        echo '<section class="navigationBandeau">
+          <div class="talent">
+              <div class="nomTalent">'.$data[0]['nomTalent'].'</div>
+              <div class="descriptionTalent">
+                '.$data[0]['descriptionTalent'].'
+                <br/>
+                Talent de troupe : '.yes($data[0]['talentDeTroupe']).'
+              </div>
+              <div class="prixTalent">Prix :'.$data[0]['prixTalent'].' PO</div>
+              <div class="factionTalent">';
+              if(!empty($datasFactions)){
+                echo'<ul>
+                  <li class="formLi"><h3>Ce talent est disponible pour :</h3></li>';
+                  foreach ($datasFactions as $key => $value) {
+                      echo'<li class="formLi">'.$value['nomFaction'].'</li>';
+                  }
+                echo '</ul>';
+              } else {
+                echo '<p>Pas de données disponible</p>';
+              }
+            echo '</div>
+          </div>
+          </section>';
+    } else {
+      header('location:../index.php?message=Soucis avec les talents sélectionné.');
+    }
+  }
+
+  public function affecterTalentFaction($idTalent) {
+    $this->displayOneTalent ($idTalent);
+    $factions = new GetFactions();
+    $dataFactions = $factions->getFactionPublic();
+    print_r($dataFactions);
+
+  }
 }
