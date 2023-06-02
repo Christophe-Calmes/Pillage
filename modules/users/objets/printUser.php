@@ -63,5 +63,22 @@ private $yes;
       }
     echo '</ul>';
   }
+  public function formDelUser($idUser, $idNav, $role) {
+    switch ($role) {
+      case 1:
+        $route = 46;
+        break;
+        case 2:
+          $route = 47;
+          break;
+      default:
+        header('location:../index.php');
+        break;
+    }
+      echo '<form action="'.encodeRoutage($route).'" method="post">
+            <label for="valide">Supprimer mon compte ?</label>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Oui</button>
+            </form>';
+  }
 
 }

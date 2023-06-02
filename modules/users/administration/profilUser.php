@@ -24,5 +24,6 @@
                         ['name'=>'mdpA', 'message'=>'Confirmer votre nouveau mot de passe', 'type'=>9, 'lastInput'=>'????']];
     $button = 'Modifier mot de passe';
   formModification(18, $formModifierProfil, $idNav, $button);
+  $user->formDelUser($dataUser[0]['idUser'], $idNav, $_SESSION['role']);
   echo '</aside>';
 echo '</div>';

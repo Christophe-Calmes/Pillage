@@ -98,7 +98,6 @@ function controlePO($PO) {
 }
 function controleGrille($data, $type) {
   // $type 0 -> Create controle / 1-> update controle
-
   $arrayControle = [];
   $arrayPO = [];
     // contrôle idFaction valide
@@ -137,8 +136,6 @@ function controleGrille($data, $type) {
       array_push($arrayControle, 1);
       array_push($arrayPO, $type);
     }
-
-
     // Controle Valeur PO
   foreach ($_POST as $key => $value) {
     if($key != 'idFaction' || $key != 'indexType') {

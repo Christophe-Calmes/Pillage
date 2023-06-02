@@ -7,7 +7,7 @@ Class GetUser {
     return $readUsersPage->READ();
   }
   public function getProfil($token) {
-    $select = "SELECT `token`, `email`, `prenom`, `nom`, `login`,`role`, `dateCreation`
+    $select = "SELECT `idUser`,`token`, `email`, `prenom`, `nom`, `login`,`role`, `dateCreation`
     FROM `users`
     WHERE `token` = :token";
     $param = [['prep'=>':token', 'variable'=>$token]];
