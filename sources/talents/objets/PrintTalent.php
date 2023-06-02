@@ -87,7 +87,7 @@ class PrintTalent extends GetTalent {
               }
         }
       }
-  public function displayOneTalent ($idTalent) {
+  public function displayOneTalent ($idTalent, $idNav) {
     $data = $this->getOneTalent($idTalent);
       if(!empty($data)) {
         $factions = new GetFactions();
@@ -107,7 +107,14 @@ class PrintTalent extends GetTalent {
                 echo'<ul>
                   <li class="formLi"><h3>Ce talent est disponible pour :</h3></li>';
                   foreach ($datasFactions as $key => $value) {
-                      echo'<li class="formLi">'.$value['nomFaction'].'</li>';
+                      echo'<li class="formLi">
+                            <form class="formulaireClassique" action="'.encodeRoutage(44).'" method="post">
+                            <input type="hidden" name="idlienTF" value="'.$value['idlienTF'].'"/>
+                            <input type="hidden" name="idTalent" value="'.$idTalent.'"/>
+                            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Del</button>
+                            </form>
+                            '.$value['nomFaction'].'
+                          </li>';
                   }
                 echo '</ul>';
               } else {
@@ -128,6 +135,13 @@ class PrintTalent extends GetTalent {
     $dataFactions = $factions->getFactionPublic();
     echo '<form class="formulaireClassique designTroupe" action="'.encodeRoutage(43).'" method="post">';
     echo '<h3>Affecter les factions valides pour ce talent</h3>';
+    echo '<li class="formCheck">
+            <p>Tous valider</p>
+            <input type="checkbox" class="checkbox" id="checkAll"/>
+            <label for="checkAll" class="toggle">
+                <p class="checkedText">Tous valider</p>
+            </label>
+          </li>';
       foreach ($dataFactions as $key => $value) {
         echo '<li class="formCheck">
               <p>'.$value['nomFaction'].'</p>
@@ -140,7 +154,7 @@ class PrintTalent extends GetTalent {
       echo '<input type="hidden" name="idTalent" value="'.$idTalent.'"/>';
       echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Affecter</button>';
     echo '</form>';
-    $this->displayOneTalent ($idTalent);
+    $this->displayOneTalent ($idTalent, $idNav);
     echo'</div>';
   }
   public function displayTalentUser ($first, $parPage){

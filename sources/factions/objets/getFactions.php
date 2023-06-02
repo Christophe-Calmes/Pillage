@@ -71,7 +71,7 @@ Class GetFactions {
     return $readDB->READ();
   }
   public function getLinkTalentFaction ($idTalent) {
-    $select = "SELECT `nomFaction`
+    $select = "SELECT `nomFaction`, `idlienTF`
               FROM `lienTalentFaction`
               INNER JOIN `Factions` ON `Factions`.`idFaction` = `lienTalentFaction`.`idFaction`
               WHERE `idTalent` = :idTalent";

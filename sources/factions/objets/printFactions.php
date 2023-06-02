@@ -58,13 +58,13 @@ Class PrintFactions extends GetFactions {
   public function printFactionUserAdmin($variable, $idNav) {
 
   echo '<div class="adminFaction headGrid">
-          <div class="nomFaction headGrid">Nom</div>
-          <div class="descriptionFaction headGrid">Description</div>
-          <div class="login headGrid">Auteur</div>
-          <div class="private headGrid">Faction Privé</div>
-          <div class="valide headGrid">Valide</div>
-          <div class="update headGrid">Modifier</div>
-          <div class="delete headGrid">Effacer</div>
+          <div class="nomFaction">Nom</div>
+          <div class="descriptionFaction">Description</div>
+          <div class="login">Auteur</div>
+          <div class="private">Faction Privé</div>
+          <div class="valide">Valide</div>
+          <div class="update">Modifier</div>
+          <div class="delete">Effacer</div>
         </div>';
     foreach ($variable as $key => $value) {
     echo '<div class="adminFaction">
@@ -93,11 +93,11 @@ Class PrintFactions extends GetFactions {
   public function printFactionUser($variable) {
 
   echo '<div class="userFaction headGrid">
-          <div class="nomFaction headGrid">Nom</div>
-          <div class="descriptionFaction headGrid">Description</div>
-          <div class="login headGrid">Auteur</div>
-          <div class="private headGrid">Faction Privé</div>
-          <div class="valide headGrid">Valide</div>
+          <div class="nomFaction">Nom</div>
+          <div class="descriptionFaction">Description</div>
+          <div class="login">Auteur</div>
+          <div class="private">Faction Privé</div>
+          <div class="valide">Valide</div>
         </div>';
     foreach ($variable as $key => $value) {
     echo '<div class="userFaction">

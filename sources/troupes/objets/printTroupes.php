@@ -12,7 +12,7 @@ function affichageProfil($value, $key) {
   }
 }
 Class PrintTroupes extends GetTroupes {
-  private $weapon;
+  protected $weapon;
   protected $weaponShoot;
   protected $specialRules;
   public function __construct() {
