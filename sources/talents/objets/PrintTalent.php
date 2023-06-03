@@ -21,7 +21,7 @@ class PrintTalent extends GetTalent {
     echo '<label for="nomTalent">Nom du talent</label>';
     echo '<input type="text" name="nomTalent" id="nomTalent" placehoder="Nom du talent"/>';
     echo '<label for="descriptionTalent">Description du talent</label>';
-    echo '<textarea name="descriptionTalent" rows="8" cols="70">Description de votre nouveau talent.</textarea>';
+    echo '<textarea name="descriptionTalent" rows="8" cols="60">Description de votre nouveau talent.</textarea>';
     echo '<label for="prixTalent">Prix du talent</label>';
     echo '<select name="prixTalent" id="priceTalent">';
     for ($i=0; $i <= 100 ; $i = $i + 10) {
