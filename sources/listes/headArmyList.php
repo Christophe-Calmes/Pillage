@@ -1,5 +1,5 @@
 <?php
-// Dépendance
+// Dépendances
 require 'sources/factions/objets/getFactions.php';
 require 'sources/factions/objets/printFactions.php';
 require 'sources/grilleFaction/objets/getGrilles.php';
