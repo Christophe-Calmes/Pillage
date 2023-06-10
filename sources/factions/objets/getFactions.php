@@ -11,8 +11,7 @@ Class GetFactions {
   public function factionPrivatePublic ($idUser) {
     $select = "SELECT `idFaction`, `nomFaction`, `descriptionFaction`, `valide`, `auteur`, `factionPrivate`
     FROM `Factions`
-    WHERE `factionPrivate` = 0
-    OR (`factionPrivate` = 1 AND `auteur` = :idUser);";
+    WHERE `factionPrivate` = 1 AND `auteur` = :idUser;";
     $param = [['prep'=>':idUser', 'variable'=>$idUser]];
     $readDB = new RCUD($select, $param);
     return $readDB->READ();

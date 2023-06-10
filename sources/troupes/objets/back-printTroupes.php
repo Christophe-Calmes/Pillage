@@ -277,31 +277,6 @@ Class PrintTroupes extends GetTroupes {
         $this->presentationOneTroupe ($dataTroupe[0]['idTroupe'], $dataTroupe[0]['auteur']);
 
   }
-  public function addFormTroupe ($idUser, $idNav) {
-    $Grilles = new PrintGrilles();
-    $factions = new PrintFactions();
-    $dataFactionsPublic = $factions->getFactionPublic();
-    $dataFactionUser = $factions->getAdminFactionsUser(1, 1, $idUser);
-    echo '<div class="objetLeft">
-          <h2>Ajouter une troupe</h2>
-            <button type="button" id="magic" class="open">Ouvrir le formulaire</button>
-        </div>
-        <div id="hiddenForm">';
-          echo '<form class="formulaireClassique" action="'.encodeRoutage(36).'" method="post">';
-          echo '<label for="nomTroupe">Nom de votre unité</label>';
-          echo '<input type="text" id="nomTroupe" name="nomTroupe" placeholder="nom de votre unité" />';
-                $Grilles->selectType();
-                $factions->selectFaction($dataFactionUser, $dataFactionsPublic);
-          echo '<label for="descriptionTroupe">Description de votre nouvelle unitée :</label>';
-          echo '<textarea id="descriptionTroupe" name="descriptionTroupe" rows="10" cols="55" placeholder="Votre description." required></textarea>';
-          echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>
-          </form>';
-        echo '</div>';
-      include 'javaScript/magicButton.php';
-  }
-
-
-
   public function noFindTroop() {
     echo '<p>Nous ne trouvons pas votre troupe</p>';
   }
