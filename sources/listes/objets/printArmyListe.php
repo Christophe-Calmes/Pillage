@@ -55,11 +55,10 @@ class PrintArmy extends GetArmy
   //print_r($data);
   }
   public function rooster($idListe, $idUser) {
-    // Information sur la liste
-    //$dataFaction = $this->getFactionTroupe($idListe);
-    //print_r($dataFaction);
-    //$dataTroupe = $this->getFactionTroupe($dataFaction[0]['idFaction'], $idUser);
-    //print_r($dataTroupe);
+    // Trier les troupes de la faction
+    $idFaction = $this->findIdFaction($idListe);
+    $troupes = new PrintTroupes();
+    $troupes->printListingTroupe($idFaction, $idUser);
   }
 
   public function __destruct()

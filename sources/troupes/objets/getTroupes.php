@@ -77,6 +77,16 @@ Class GetTroupes extends PrintGrilles {
                 ['prep'=>':idUser', 'variable'=>$idUser]];
       $readOneTroupe = new RCUD($select, $param);
       return $readOneTroupe->READ();
-
   }
+    protected function listingTroupes($idFaction, $idUser) {
+      $select = "SELECT `idTroupe`, `typeTroupe`, `nomTroupe`, `factionTroupe`, `descriptionTroupe`, `classe`, `monture`, `Troupes`.`valide`,
+                `prixTroupe`, `arbalete`, `arc`, `armeDeBase`, `armeImp`, `armure`, `banniere`, `bouclier`, `cheval`, `chienDG`, `corDG`,
+                `fronde`, `hacheD`, `javelot`, `lance`, `SP`, `tireur`, `nomFaction`
+                FROM `Troupes`
+                INNER JOIN `Factions` ON `idFaction` = `factionTroupe`
+                WHERE `factionTroupe` = :factionTroupe AND `Troupes`.`auteur` = :idUser AND `Troupes`.`valide` = 1";
+      $param = [['prep'=>':factionTroupe', 'variable'=>$idFaction],['prep'=>':idUser', 'variable'=>$idUser]];
+      $readListTroupe = new RCUD($select, $param);
+      return $readListTroupe->READ();
+    }
 }

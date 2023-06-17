@@ -28,25 +28,11 @@ class GetArmy extends PrintTroupes
     $readData = new RCUD($select, $param);
     return $readData->READ();
   }
-/*  protected function getFactionTroupe ($idListe) {
-    $select = "SELECT `nomFaction`, `Listes`.`idFaction`
-              FROM `Listes`
-              INNER JOIN `Factions` ON `Listes`.`idFaction` = `Factions`.`idFaction`
-              WHERE `idListe` = :idListe";
+  protected function findIdFaction ($idListe) {
+    $select = "SELECT `idFaction` FROM `Listes` WHERE `idListe` = :idListe";
     $param = [['prep'=>':idListe', 'variable'=>$idListe]];
-    $readData = new RCUD($select, $param);
-    return $readData->READ();
+    $readIdFaction =  new RCUD($select, $param);
+    $data = $readIdFaction->READ();
+    return $data[0]['idFaction'];
   }
-  protected function getFactionTroupe($idFaction, $idUser) {
-    $select = "SELECT `idTroupe`, `typeTroupe`, `nomTroupe`, `factionTroupe`, `descriptionTroupe`, `classe`, `monture`, `valide`,
-    `auteur`, `prixTroupe`, `arbalete`, `arc`, `armeDeBase`, `armeImp`, `armure`, `banniere`, `bouclier`, `cheval`, `chienDG`,
-    `corDG`, `fronde`, `hacheD`, `javelot`, `lance`, `SP`, `tireur`
-    FROM `Troupes`
-    WHERE `factionTroupe` = :factionTroupe
-    AND`valide` = 1 AND `auteur` = :idUser";
-    $param = [['prep'=>':factionTroupe', 'variable'=>$idFaction],
-              ['prep'=>':idUser', 'variable'=>$idUser]];
-    $readData = new RCUD($select, $param);
-    return $readData->READ();
-  }*/
 }

@@ -299,7 +299,11 @@ Class PrintTroupes extends GetTroupes {
         echo '</div>';
       include 'javaScript/magicButton.php';
   }
+  public function printListingTroupe($idFaction, $idUser) {
 
+    $dataListing = $this->listingTroupes($idFaction, $idUser);
+    print_r($dataListing);
+  }
 
 
   public function noFindTroop() {
