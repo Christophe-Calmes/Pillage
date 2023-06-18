@@ -84,7 +84,7 @@ Class GetTroupes extends PrintGrilles {
                 `fronde`, `hacheD`, `javelot`, `lance`, `SP`, `tireur`, `nomFaction`
                 FROM `Troupes`
                 INNER JOIN `Factions` ON `idFaction` = `factionTroupe`
-                WHERE `factionTroupe` = :factionTroupe AND `Troupes`.`auteur` = :idUser AND `Troupes`.`valide` = 1";
+                WHERE `factionTroupe` = :factionTroupe AND `Troupes`.`auteur` = :idUser AND `Troupes`.`valide` = 1 AND `prixTroupe` != ''";
       $param = [['prep'=>':factionTroupe', 'variable'=>$idFaction],['prep'=>':idUser', 'variable'=>$idUser]];
       $readListTroupe = new RCUD($select, $param);
       return $readListTroupe->READ();

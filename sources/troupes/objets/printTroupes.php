@@ -11,6 +11,62 @@ function affichageProfil($value, $key) {
     echo '<li class="formLi">'.$key.'</li>';
   }
 }
+function classArmor ($data) {
+  $class = '';
+  switch ($data) {
+      case 0:
+        $class = 'SP';
+      break;
+      case 1:
+        $class = 'PP';
+      break;
+      case 2:
+        $class = 'PP';
+      break;
+      case 3:
+        $class = 'PC';
+      break;
+  }
+  return $class;
+}
+function mouvementUnit($cavalier, $classe) {
+  $move = 0;
+  if($cavalier == 1) {
+    $message = 'Cavalier';
+    switch ($classe) {
+      case  0:
+      $move = 14;
+      break;
+      case 1:
+      $move = 14;
+      break;
+      case 2:
+      $move = 14;
+      break;
+      case 3:
+      $move = 12;
+      break;
+    }
+  } else {
+    switch ($classe) {
+      case  0:
+      $move = 8;
+      break;
+      case 1:
+      $move = 7;
+      break;
+      case 2:
+      $move = 7;
+      break;
+      case 3:
+      $move = 6;
+      break;
+    }
+  }
+  return $move;
+}
+
+
 Class PrintTroupes extends GetTroupes {
   protected $weapon;
   protected $weaponShoot;
@@ -299,15 +355,53 @@ Class PrintTroupes extends GetTroupes {
         echo '</div>';
       include 'javaScript/magicButton.php';
   }
-  public function printListingTroupe($idFaction, $idUser) {
-
-    $dataListing = $this->listingTroupes($idFaction, $idUser);
-    print_r($dataListing);
+  public function troupeCardRooster($data) {
+    //print_r($data);
+    echo '<div class="flex-colonne">';
+            echo '<ul>';
+              echo '<li class="formLi"><h4>'.$data['nomTroupe'].'</h4></li>';
+              echo '<li class="formLi">Type de troupe : '.$this->typeTroupe[$data['typeTroupe']].' - Prix troupe : '.$data['prixTroupe'].' PO</li>';
+              echo '<li class="formLi">Tireur : '.yes($data['tireur']).' - Cavalier : '.yes($data['monture']).'</li>';
+              echo '<li class="formLi">Classe d\'armure : '.classArmor ($data['classe']).' Mouvement : '.mouvementUnit($data['monture'], $data['classe']) .' pouces</li>';
+              // Création des listes d'armes
+              echo '<li class="formLi"><h4>Equipements</h4></li>';
+              echo '<li class="formLi"><h5>Arme de contact</h5></li>';
+                for ($i=0; $i <count($this->weapon) ; $i++) {
+                  if($data[$this->weapon[$i]['id']] != NULL) {
+                    echo '<li class="formLi">'.$this->weapon[$i]['message'].'</li>';
+                  }
+                }
+              if($data['tireur'] == 1) {
+                  echo '<li class="formLi"><h5>Arme de tir</h5></li>';
+                  for ($i=0; $i <count($this->weaponShoot) ; $i++) {
+                    if($data[$this->weaponShoot[$i]['id']] != NULL) {
+                      echo '<li class="formLi">'.$this->weaponShoot[$i]['message'].' Portée : '.$this->weaponShoot[$i]['range'].' pouces</li>';
+                    }
+                  }
+              }
+              if (($data['chienDG'] == 1)||($data['corDG'] == 1)) {
+                  echo '<li class="formLi">Chien de Guerre : '.yes($data['chienDG']).'</li>';
+                  echo '<li class="formLi">Core de Guerre : '.yes($data['corDG']).'</li>';
+              }
+            echo '</ul>';
+    echo '</div>';
   }
 
+  public function printListingTroupe($idFaction, $idUser) {
+    $dataListing = $this->listingTroupes($idFaction, $idUser);
 
+    if (empty($dataListing)) {
+      $this->noFindTroop();
+    } else {
+      for ($i=0; $i <count($dataListing) ; $i++) {
+        $this->troupeCardRooster($dataListing[$i]);
+        echo '<br/>';
+      }
+    }
+
+  }
   public function noFindTroop() {
-    echo '<p>Nous ne trouvons pas votre troupe</p>';
+    echo '<p>Nous ne trouvons pas votre troupe.</p>';
   }
 
 }

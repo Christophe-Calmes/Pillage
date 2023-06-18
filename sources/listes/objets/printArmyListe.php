@@ -58,7 +58,10 @@ class PrintArmy extends GetArmy
     // Trier les troupes de la faction
     $idFaction = $this->findIdFaction($idListe);
     $troupes = new PrintTroupes();
+    echo '<section>';
+    echo '<h3>Création de la liste</h3>';
     $troupes->printListingTroupe($idFaction, $idUser);
+    echo '</section>';
   }
 
   public function __destruct()
