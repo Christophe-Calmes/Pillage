@@ -54,13 +54,50 @@ class PrintArmy extends GetArmy
 
   //print_r($data);
   }
-  public function rooster($idListe, $idUser) {
+  public function rooster($idListe, $idUser, $idNav) {
     // Trier les troupes de la faction
     $idFaction = $this->findIdFaction($idListe);
     $troupes = new PrintTroupes();
     echo '<section>';
     echo '<h3>Création de la liste</h3>';
-    $troupes->printListingTroupe($idFaction, $idUser);
+    $troupes->printListingTroupe($idFaction, $idUser, $idNav, $idListe);
+    echo '</section>';
+  }
+  protected function resumeList($idListe) {
+    $message = NULL;
+    $resultList = $this->propotionList($idListe);
+    $price = $this->troopePrice ($idListe);
+    if(($resultList[3]> 25) ||($resultList[4]> 25)) {
+      $message = 'Non';
+    } else {
+      $message = 'Oui';
+    }
+    //print_r($resultList);
+    echo '<article>';
+    echo '<h3>Composition de la liste</h3>';
+    echo '<p>Prix de la liste : '.$price.' PO</p>';
+      echo '<div class="colums2">
+              <div class="col21">Nombre total figurines</div>
+              <div class="col22">'.$resultList[0].'</div>
+              <div class="col23">Nombre total de tireurs</div>
+              <div class="col24">'.$resultList[1].'/ '.$resultList[3].'%</div>
+              <div class="col25">Nombre total de cavalier</div>
+              <div class="col26">'.$resultList[2].'/ '.$resultList[4].'%</div>
+              <div class="col27">Liste légale ?</div>
+              <div class="col28">'.$message.'</div>
+            </div>';
+    echo '</article>';
+
+  }
+  public function diplayList($idListe, $idNav) {
+    echo '<section class="flex-colonne headGrid">';
+    $dataTroupeListe = $this->detailListe($idListe);
+    $this->resumeList($idListe);
+    //print_r($dataTroupeListe);
+    echo '<h3>Liste des troupes de la liste</h3>';
+    for ($i=0; $i <count($dataTroupeListe) ; $i++) {
+      $this->resumeTroupeFiche($dataTroupeListe[$i], $idNav);
+    }
     echo '</section>';
   }
 

@@ -6,4 +6,7 @@ require 'sources/listes/headArmyList.php';
   $idUser = $checkId->idUser($_SESSION['tokenConnexion']);
   $idListe = filter($_GET['idListe']);
 //print_r($idListe);
-  $dataFaction = $Army->rooster($idListe, $idUser);
+echo '<article class="flex-rows">';
+  $dataFaction = $Army->rooster($idListe, $idUser, $idNav, $idListe);
+  $Army->diplayList($idListe, $idNav);
+echo '</div>';
