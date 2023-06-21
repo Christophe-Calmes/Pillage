@@ -15,6 +15,11 @@ font-family: 'Artifika', serif;
 
 /*Présentation Graine*/
 /*Variables CSS*/
+/*Import font*/
+/* @import url('https://fonts.googleapis.com/css2?family=Artifika&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital@1&display=swap'); */
+
 :root {
   /*Variable lier au boutton*/
   --main-color-frech: rgba(172, 167, 155, 1);
@@ -35,25 +40,31 @@ font-family: 'Artifika', serif;
   --main-cursor: pointer;
   --main-radius: 5px;
   /*Autres variable*/
+  /* --main-font-family: 'Artifika', serif; */
+    --main-font-family: 'Playfair Display', serif; 
+   /* --main-font-family: 'Bodoni Moda', serif; */
+
 }
 /*Presentation basique*/
-/*Import font*/
-@import url('https://fonts.googleapis.com/css2?family=Artifika&display=swap');
+
+
+
+
 html {
   background-color: rgba(172, 167, 155, 1);
 }
 
 h1, h2 {
   font-size: 2em;
-  font-family: 'Artifika', serif;
+  font-family: var(--main-font-family);
 }
 h3 {
   font-size: 1.2em;
-  font-family: 'Artifika', serif;
+  font-family: var(--main-font-family);
 }
 a {
   text-decoration: none;
-  font-family: 'Artifika', serif;
+  font-family: var(--main-font-family);
 }
 .listeProfil {
   list-style: none;
