@@ -16,7 +16,7 @@ Class PrintNavigation extends GetNavigation {
           $dataTraiter = $readData->READ();
           echo ' <div class="dropdown-child">';
           foreach ($dataTraiter as $cle => $valeur) {
-              echo '<div><a href="index.php?idNav='.$valeur['targetRoute'].'">'.$valeur['nomNav'].'</a></div>';
+              echo '<div><a class="lienNav" href="index.php?idNav='.$valeur['targetRoute'].'">'.$valeur['nomNav'].'</a></div>';
           }
           echo '</div>';
           echo '</div>';

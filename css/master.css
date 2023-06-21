@@ -31,8 +31,10 @@ font-family: 'Artifika', serif;
   --main-color-interneCBox: rgba(37, 24, 18, 1);
   --main-color-bordureCBox: rgba(46, 34, 29, 1);
   --main-color-checkedCBox: rgba(172, 167, 155, 1);
-  --main-color: white;
-  --main-padding: 15px 32px;
+  /* --main-color: white; */
+  --main-color:  rgba(37, 24, 18, 1);
+  /* --main-padding: 15px 32px; */
+  --main-padding: 7px 16px;
   --main-text-align: center;
   --main-text-decoration: none;
   --main-display: inline-block;
@@ -41,7 +43,7 @@ font-family: 'Artifika', serif;
   --main-radius: 5px;
   /*Autres variable*/
   /* --main-font-family: 'Artifika', serif; */
-    --main-font-family: 'Playfair Display', serif; 
+    --main-font-family: 'Playfair Display', serif;
    /* --main-font-family: 'Bodoni Moda', serif; */
 
 }
@@ -271,6 +273,8 @@ main {
 }
 footer {
     text-align: center;
+    font-family: var(--main-font-family);
+
 }
 /*Navigation*/
 /*Navigation bandeau*/
@@ -320,6 +324,7 @@ button {
   text-decoration: var(--main-text-decoration);
   display: var(--main-display);
   font-size: var(--main-font-size);
+  font-family: var(--main-font-family);
   cursor: var(--main-cursor);
   border-radius: var(--main-radius);
 
@@ -333,6 +338,7 @@ a {
   text-decoration: var(--main-text-decoration);
   display: var(--main-display);
   font-size: var(--main-font-size);
+  font-family: var(--main-font-family);
   cursor: var(--main-cursor);
   border-radius: var(--main-radius);
   margin-right: 0.5vw;
@@ -353,8 +359,9 @@ a {
   cursor: var(--main-cursor);
 }
 .lienNav:hover {
-   border: 3px solid #302A39ff;
-   transition: border 0.7s;
+   border: 3px solid var(--main-color-frech);
+   font-size: 1em;
+   transition: border font-size 0.2s;
 }
 /*Menu bandeau Tester sur un autre projet*/
 .dropdown {
@@ -370,13 +377,12 @@ min-width: 250px;
   background-color: var(--main-background-color);
   border: var(--main-border);
   color: var(--main-color);
-  /* padding: var(--main-padding); */
+  padding: var(--main-padding);
   text-align: var(--main-text-align);
   text-decoration: var(--main-text-decoration);
   display: var(--main-display);
   font-size: var(--main-font-size);
   cursor: var(--main-cursor);
-  padding: 20px;
   display: block;
 }
 .dropdown:hover .dropdown-child {
