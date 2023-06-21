@@ -98,7 +98,7 @@ a {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     background: linear-gradient(to top left, var(--main-background-color), var(--main-color-interne));
     border-radius: var(--main-radius);
-    border: 2px solid var(--main-color-interne);
+    border: 1px solid var(--main-color-interne);
     margin-left: 0.5em;
     margin-right: 0.5em;
     width: auto;
@@ -113,8 +113,8 @@ a {
     /*background-color: var(--main-background-color);*/
     background: linear-gradient(to top left, var(--main-background-color), var(--main-color-interne));
     border-radius: var(--main-radius);
-    border: 2px solid var(--main-color-interne);
-    padding: 1em;
+    border: 1px solid var(--main-color-interne);
+    padding: 0.5em;
 }
 
 .formulaireClassique {
@@ -360,7 +360,7 @@ a {
 }
 .lienNav:hover {
    border: 3px solid var(--main-color-frech);
-   font-size: 1em;
+   font-size: 0.9em;
    transition: border font-size 0.2s;
 }
 /*Menu bandeau Tester sur un autre projet*/
@@ -483,13 +483,15 @@ margin-top: 1em;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   /*background-color: var(--main-background-color);*/
   background: linear-gradient(to top left, var(--main-background-color), var(--main-color-interne));
-  padding: 1em;
+  padding: 0.5em;
   border-radius: var(--main-radius);
-  border: 2px solid var(--main-color-interne);
+  /* border: 2px solid var(--main-color-interne); */
+  border: var(--main-border);
   /*==Presentation==*/
+  font-family: var(--main-font-family);
   font-size: 1em;
   font-weight: 800;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 .borderLeft {
   padding-left: 0.85em;
@@ -804,16 +806,17 @@ grid-row-gap: 0px;
 /**===id JavaScript===*/
 
 #hiddenForm {
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
   top: 30%;
   left: 35%;
-  background-color: #ffffff;
+  background-color: var(--main-color-frech);
   -webkit-box-shadow: 4px 0px 12px -6px #151515;
   box-shadow: 4px 0px 12px -6px #151515;
   position: absolute;
   width: 30%;
   display: none;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  border: var(--main-border);
   border-radius: var(--main-radius);
 }
