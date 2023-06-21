@@ -93,8 +93,8 @@ class PrintTalent extends GetTalent {
         $factions = new GetFactions();
         $datasFactions = $factions->getLinkTalentFaction ($idTalent);
         // Présentation d'un talent
-    echo '<section class="navigationBandeau">
-          <div class="talent">
+    echo '<section>
+          <div class="designTroupe">
               <div class="nomTalent"><h3>'.$data[0]['nomTalent'].'</h3></div>
               <div class="descriptionTalent">
                 '.$data[0]['descriptionTalent'].'

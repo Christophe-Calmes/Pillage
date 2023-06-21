@@ -1,7 +1,7 @@
 <?php
 Class PrintNavigation extends GetNavigation {
   public function bandeauHaut($variable){
-    echo '<nav><ul class="navigationBandeau">';
+    echo '<nav class="nav"><ul class="navigationBandeau">';
       foreach ($variable as $key => $value) {
         if(($value['zoneMenu'] == 0)&&($value['deroulant'] == 0)) {
           echo '<li><a href="index.php?idNav='.$value['targetRoute'].'">'.$value['nomNav'].'</a></li>';

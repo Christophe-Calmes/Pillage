@@ -31,7 +31,7 @@ font-family: 'Artifika', serif;
   --main-text-align: center;
   --main-text-decoration: none;
   --main-display: inline-block;
-  --main-font-size: 16px;
+  --main-font-size: 0.8em;
   --main-cursor: pointer;
   --main-radius: 5px;
   /*Autres variable*/
@@ -48,7 +48,7 @@ h1, h2 {
   font-family: 'Artifika', serif;
 }
 h3 {
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-family: 'Artifika', serif;
 }
 a {
@@ -81,6 +81,16 @@ a {
   align-items: flex-start;
   margin: 1em;
 }
+.nav {
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    background: linear-gradient(to top left, var(--main-background-color), var(--main-color-interne));
+    border-radius: var(--main-radius);
+    border: 2px solid var(--main-color-interne);
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    width: auto;
+}
+
 
 /*Formulaire*/
 .designTroupe {
@@ -89,10 +99,9 @@ a {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     /*background-color: var(--main-background-color);*/
     background: linear-gradient(to top left, var(--main-background-color), var(--main-color-interne));
-    border-radius: 10px;
+    border-radius: var(--main-radius);
     border: 2px solid var(--main-color-interne);
     padding: 1em;
-
 }
 
 .formulaireClassique {
@@ -417,7 +426,7 @@ margin-top: 1em;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   /*background-color: var(--main-background-color);*/
   background: linear-gradient(to top left, var(--main-background-color), var(--main-color-interne));
-  border-radius: 10px;
+  border-radius: var(--main-radius);
   padding: 1em;
   text-align: left;
   font-size: 1.2em;
@@ -458,7 +467,7 @@ margin-top: 1em;
   /*background-color: var(--main-background-color);*/
   background: linear-gradient(to top left, var(--main-background-color), var(--main-color-interne));
   padding: 1em;
-  border-radius: 10px;
+  border-radius: var(--main-radius);
   border: 2px solid var(--main-color-interne);
   /*==Presentation==*/
   font-size: 1em;
@@ -789,5 +798,5 @@ grid-row-gap: 0px;
   width: 30%;
   display: none;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: var(--main-radius);
 }
