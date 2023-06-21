@@ -485,7 +485,6 @@ margin-top: 1em;
   background: linear-gradient(to top left, var(--main-background-color), var(--main-color-interne));
   padding: 0.5em;
   border-radius: var(--main-radius);
-  /* border: 2px solid var(--main-color-interne); */
   border: var(--main-border);
   /*==Presentation==*/
   font-family: var(--main-font-family);

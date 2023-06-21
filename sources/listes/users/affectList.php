@@ -8,5 +8,6 @@ require 'sources/listes/headArmyList.php';
 //print_r($idListe);
 echo '<article class="flex-rows">';
   $dataFaction = $Army->rooster($idListe, $idUser, $idNav, $idListe);
+  
   $Army->diplayList($idListe, $idNav);
 echo '</div>';

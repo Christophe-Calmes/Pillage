@@ -7,6 +7,35 @@ class GetArmy extends PrintTroupes
   {
     parent::__construct();
   }
+
+  protected function extractTalent($idFaction) {
+    /*$select = "SELECT `idlienTF`, `idFaction`, `lienTalentFaction`.`idTalent`, `nomTalent`, `prixTalent`, `talentDeTroupe`
+              FROM `lienTalentFaction`
+              INNER JOIN `Talents` ON `lienTalentFaction`.`idTalent` = `Talents`.`idTalent`
+              WHERE `idFaction` = :idFaction AND `valide` = 1;";*/
+    $select = "SELECT `idlienTF`, `idFaction`, `lienTalentFaction`.`idTalent`, `nomTalent`, `prixTalent`, `talentDeTroupe`
+              FROM `lienTalentFaction`
+              INNER JOIN `Talents` ON `lienTalentFaction`.`idTalent` = `Talents`.`idTalent`
+              WHERE `lienTalentFaction`.`idTalent` NOT IN (SELECT `lienTalentListe`.`idTalent` FROM `lienTalentListe`)    AND `idFaction` = :idFaction;";
+    $param = [['prep'=>':idFaction', 'variable'=> $idFaction]];
+    $readTalent = new RCUD($select, $param);
+    return $readTalent->READ();
+  }
+  protected function affectedTalent($idListe) {
+    $select = "SELECT `idLTL`, `idListe`, `lienTalentListe`.`idTalent`, `nomTalent`, `prixTalent`, `talentDeTroupe`
+              FROM `lienTalentListe`
+              INNER JOIN `Talents` ON `lienTalentListe`.`idTalent` = `Talents`.`idTalent`
+              WHERE `idListe` = :idListe;";
+    $param = [['prep'=>':idListe', 'variable'=> $idListe]];
+    $readTalent = new RCUD($select, $param);
+    return $readTalent->READ();
+  }
+  /*protected function affectedTalent($idListe) {
+    $select = "SELECT `idTalent` FROM `lienTalentListe` WHERE `idListe` =:idListe";
+    $param = [['prep'=>':idliste', 'variable'=> $idListe]];
+    $readTalent = new RCUD($select, $param);
+    return $readTalent->READ();
+  }*/
   public function nbrYourList($idUser, $valide) {
     $select = "SELECT COUNT(`idListe`) AS `nbr` FROM `Listes` WHERE `auteurListe` = :idUser AND `valide` = :valide";
     $param = [['prep'=>':valide', 'variable'=>$valide],

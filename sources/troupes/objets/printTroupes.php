@@ -386,15 +386,15 @@ Class PrintTroupes extends GetTroupes {
               echo '<li class="formLiCol">
                     <h4>Ajouter dans la liste</h4>
                         <form class="formulaireClassique" action="'.encodeRoutage(48).'" method="post">
-                          <label for="nombreTroupe">Nombre de troupe</label>
-                          <select id="nombreTroupe" name="nombreTroupe">
-                          <option value="1">1 figurine</option>';
-                          for ($k=2; $k <= 12 ; $k++) {
-                            echo '<option value="'.$k.'">'.$k.' figurines</option>';
-                          }
-                          echo'</select>
-                          <input type="hidden" name="idTroupe" value="'.$data['idTroupe'].'"/>
-                          <input type="hidden" name="idListe" value="'.$idListe.'"/>
+                            <label for="nombreTroupe">Nombre de troupe</label>
+                            <select id="nombreTroupe" name="nombreTroupe">
+                              <option value="1">1 figurine</option>';
+                              for ($k=2; $k <= 12 ; $k++) {
+                                echo '<option value="'.$k.'">'.$k.' figurines</option>';
+                              }
+                              echo'</select>
+                            <input type="hidden" name="idTroupe" value="'.$data['idTroupe'].'"/>
+                            <input type="hidden" name="idListe" value="'.$idListe.'"/>
                           <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Ajouter</button>
                         </form>
                     </li>';

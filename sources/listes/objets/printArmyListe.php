@@ -54,23 +54,83 @@ class PrintArmy extends GetArmy
 
   //print_r($data);
   }
+  protected function displayOneTalents($data, $idNav, $idListe, $type) {
+    //print_r($data);
+    $message = NULL;
+    $route = NULL;
+      if($type) {
+        $message = "Ajouter";
+        $route = 51;
+      } else {
+        $message = "Efface";
+        $route = 52;
+      }
+
+      echo '<ul>';
+        echo '<li class=formLi>'.$data['nomTalent'].'</li>';
+        echo '<li class=formLi>'.$data['prixTalent'].' PO</li>';
+        echo '<li class="formLi">
+                <form class="formulaireClassique" action="'.encodeRoutage($route).'" method="post">
+                <input type="hidden" name="idTalent" value="'.$data['idTalent'].'"/>
+                <input type="hidden" name="idListe" value="'.$idListe.'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$message.'</button>
+                </form>
+              </li>';
+      echo '</ul>';
+
+  }
+
   public function rooster($idListe, $idUser, $idNav) {
     // Trier les troupes de la faction
     $idFaction = $this->findIdFaction($idListe);
+    $dataTalent = $this->extractTalent($idFaction);
+    $dataTalentAffected = $this->affectedTalent($idListe);
+    //$dataAffectedTalent = $this->affectedTalent($idListe);
     $troupes = new PrintTroupes();
     echo '<section>';
     echo '<h3>Création de la liste</h3>';
     $troupes->printListingTroupe($idFaction, $idUser, $idNav, $idListe);
     echo '</section>';
+    echo '<section>';
+    echo '<h3>Les talents de la faction</h3>';
+      for ($i=0; $i <count($dataTalent) ; $i++) {
+        $this->displayOneTalents($dataTalent[$i], $idNav, $idListe, true);
+      }
+      echo '<h3>Les talents affecté à la liste</h3>';
+        for ($i=0; $i <count($dataTalentAffected) ; $i++) {
+          $this->displayOneTalents($dataTalentAffected[$i], $idNav, $idListe, false);
+        }
+    echo '</section>';
+    // Test
+    /*$select = "SELECT `idlienTF`, `idFaction`, `idTalent`
+              FROM `lienTalentFaction`
+              WHERE `idFaction` = :idFaction AND `idTalent` = (SELECT `idTalent` FROM `lienTalentListe` WHERE `idListe`= :idListe);";
+    $param = [['prep'=>':idFaction', 'vairable'=>$idFaction], ['prep'=>':idListe', 'variable'=>$idListe]];
+    $readAffectedTalent = new RCUD($select, $param);
+    $dataAffectedT = $readAffectedTalent->READ();
+    print_r($dataAffectedT);*/
   }
   protected function resumeList($idListe) {
     $message = NULL;
+    $col24 = NULL;
+    $col26 = NULL;
+
     $resultList = $this->propotionList($idListe);
     $price = $this->troopePrice ($idListe);
     if(($resultList[3]> 25) ||($resultList[4]> 25)) {
       $message = 'Non';
     } else {
       $message = 'Oui';
+    }
+    if(($resultList[1] !=0 )&&(($resultList [3]!=0))) {
+      $col24 = $resultList[1].'/ '.$resultList[3].'%';
+    } else {
+      $col24 = 'Pas de tireur';
+    }
+    if(($resultList [2] !=0 )&&(($resultList [4]!=0))) {
+      $col26 = $resultList[2].'/ '.$resultList[4].'%';
+    } else {
+        $col26 = 'Pas de cavalier';
     }
     //print_r($resultList);
     echo '<article>';
@@ -80,14 +140,13 @@ class PrintArmy extends GetArmy
               <div class="col21">Nombre total figurines</div>
               <div class="col22">'.$resultList[0].'</div>
               <div class="col23">Nombre total de tireurs</div>
-              <div class="col24">'.$resultList[1].'/ '.$resultList[3].'%</div>
+              <div class="col24">'.$col24.'</div>
               <div class="col25">Nombre total de cavalier</div>
-              <div class="col26">'.$resultList[2].'/ '.$resultList[4].'%</div>
+              <div class="col26">'.$col26.'</div>
               <div class="col27">Liste légale ?</div>
               <div class="col28">'.$message.'</div>
             </div>';
     echo '</article>';
-
   }
   public function diplayList($idListe, $idNav) {
     echo '<section class="flex-colonne headGrid">';
