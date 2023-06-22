@@ -16,7 +16,7 @@ class GetArmy extends PrintTroupes
     $select = "SELECT `idlienTF`, `idFaction`, `lienTalentFaction`.`idTalent`, `nomTalent`, `prixTalent`, `talentDeTroupe`
               FROM `lienTalentFaction`
               INNER JOIN `Talents` ON `lienTalentFaction`.`idTalent` = `Talents`.`idTalent`
-              WHERE `lienTalentFaction`.`idTalent` NOT IN (SELECT `lienTalentListe`.`idTalent` FROM `lienTalentListe`)    AND `idFaction` = :idFaction;";
+              WHERE `lienTalentFaction`.`idTalent` NOT IN (SELECT `lienTalentListe`.`idTalent` FROM `lienTalentListe`) AND `idFaction` = :idFaction;";
     $param = [['prep'=>':idFaction', 'variable'=> $idFaction]];
     $readTalent = new RCUD($select, $param);
     return $readTalent->READ();
@@ -99,7 +99,7 @@ class GetArmy extends PrintTroupes
         return [0, 0, 0, 0, 0];
       }
   }
-  protected function troopePrice ($idListe) {
+  /*protected function troopePrice ($idListe) {
     $select = "SELECT  SUM(`nombreTroupe` * `prixTroupe`) AS `total`
               FROM `CompositionListe`
               INNER JOIN `Troupes` ON `CompositionListe`.`idTroupe`= `Troupes`.`idTroupe`
@@ -108,6 +108,24 @@ class GetArmy extends PrintTroupes
     $read =  new RCUD($select, $param);
     $data = $read->READ();
     return $data[0]['total'];
+  }*/
+  protected function troopePrice ($idListe) {
+    $select = "SELECT  SUM(`nombreTroupe` * `prixTroupe`) AS `total`
+              FROM `CompositionListe`
+              INNER JOIN `Troupes` ON `CompositionListe`.`idTroupe`= `Troupes`.`idTroupe`
+              WHERE `idListe` = :idListe;";
+    $param = [['prep'=>':idListe', 'variable'=>$idListe]];
+    $read =  new RCUD($select, $param);
+    $data = $read->READ();
+    $trooperPrice = $data[0]['total'];
+    // Calcul prix des Talent
+    $select ="SELECT SUM(`prixTalent`) AS `total`
+              FROM `Talents`
+              WHERE `idTalent` IN (SELECT `idTalent` FROM `lienTalentListe` WHERE `idListe` = :idListe);";
+    $read =  new RCUD($select, $param);
+    $data = $read->READ();
+    $talentPrice = $data[0]['total'];
+    return $talentPrice + $trooperPrice;
   }
   protected function detailListe($idListe) {
     $select = "SELECT `idCL`, `nombreTroupe`, `nomTroupe`, `typeTroupe`, `tireur`, `monture`, `prixTroupe`, `cheval`, `idListe`

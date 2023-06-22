@@ -78,5 +78,14 @@ Class GetFactions {
     $readDB = new RCUD($select, $param);
     return $readDB->READ();
   }
+  public function getLinkTalentPrivateFaction ($idTalent) {
+    $select = "SELECT `nomFaction`, `idlienTF`
+              FROM `lienTalentFaction`
+              INNER JOIN `Factions` ON `Factions`.`idFaction` = `lienTalentFaction`.`idFaction`
+              WHERE `idTalent` = :idTalent AND `factionPrivate` = 1;";
+    $param = [['prep'=>':idTalent', 'variable'=>$idTalent]];
+    $readDB = new RCUD($select, $param);
+    return $readDB->READ();
+  }
 
 }

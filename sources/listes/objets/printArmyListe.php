@@ -87,28 +87,29 @@ class PrintArmy extends GetArmy
     $dataTalentAffected = $this->affectedTalent($idListe);
     //$dataAffectedTalent = $this->affectedTalent($idListe);
     $troupes = new PrintTroupes();
-    echo '<section>';
-    echo '<h3>Création de la liste</h3>';
+    echo '<article>';
     $troupes->printListingTroupe($idFaction, $idUser, $idNav, $idListe);
-    echo '</section>';
-    echo '<section>';
-    echo '<h3>Les talents de la faction</h3>';
-      for ($i=0; $i <count($dataTalent) ; $i++) {
-        $this->displayOneTalents($dataTalent[$i], $idNav, $idListe, true);
-      }
-      echo '<h3>Les talents affecté à la liste</h3>';
-        for ($i=0; $i <count($dataTalentAffected) ; $i++) {
-          $this->displayOneTalents($dataTalentAffected[$i], $idNav, $idListe, false);
+    echo '</article>';
+    echo '<article class="headGrid">';
+    if(!empty($dataTalent)){
+      echo '<h3>Les talents de la faction</h3>';
+
+        for ($i=0; $i <count($dataTalent) ; $i++) {
+          $this->displayOneTalents($dataTalent[$i], $idNav, $idListe, true);
         }
-    echo '</section>';
-    // Test
-    /*$select = "SELECT `idlienTF`, `idFaction`, `idTalent`
-              FROM `lienTalentFaction`
-              WHERE `idFaction` = :idFaction AND `idTalent` = (SELECT `idTalent` FROM `lienTalentListe` WHERE `idListe`= :idListe);";
-    $param = [['prep'=>':idFaction', 'vairable'=>$idFaction], ['prep'=>':idListe', 'variable'=>$idListe]];
-    $readAffectedTalent = new RCUD($select, $param);
-    $dataAffectedT = $readAffectedTalent->READ();
-    print_r($dataAffectedT);*/
+    } else {
+        echo '<h3>Plus de talent à affecter.</h3>';
+    }
+    if(!empty($dataTalentAffected)){
+        echo '<h3>Les talents affecté à la liste</h3>';
+          for ($i=0; $i <count($dataTalentAffected) ; $i++) {
+            $this->displayOneTalents($dataTalentAffected[$i], $idNav, $idListe, false);
+          }
+      } else {
+        echo '<h3>Pas encore de talents affectés.</h3>';
+      }
+    echo '</article>';
+
   }
   protected function resumeList($idListe) {
     $message = NULL;

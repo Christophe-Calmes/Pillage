@@ -127,6 +127,46 @@ class PrintTalent extends GetTalent {
       header('location:../index.php?message=Soucis avec les talents sélectionné.');
     }
   }
+  public function displayOneTalentPrivate ($idTalent, $idNav) {
+    $data = $this->getOneTalent($idTalent);
+      if(!empty($data)) {
+        $factions = new GetFactions();
+        $datasFactions = $factions->getLinkTalentPrivateFaction($idTalent);
+        // Présentation d'un talent
+    echo '<section>
+          <div class="designTroupe">
+              <div class="nomTalent"><h3>'.$data[0]['nomTalent'].'</h3></div>
+              <div class="descriptionTalent">
+                '.$data[0]['descriptionTalent'].'
+                <br/>
+                Talent de troupe : '.yes($data[0]['talentDeTroupe']).'
+              </div>
+              <div>Prix : '.$data[0]['prixTalent'].' PO</div>
+              <div>';
+              if(!empty($datasFactions)){
+                echo'<ul>
+                  <li class="formLi"><h3>Ce talent est disponible pour :</h3></li>';
+                  foreach ($datasFactions as $key => $value) {
+                      echo'<li class="formLi">
+                            <form class="formulaireClassique" action="'.encodeRoutage(54).'" method="post">
+                            <input type="hidden" name="idlienTF" value="'.$value['idlienTF'].'"/>
+                            <input type="hidden" name="idTalent" value="'.$idTalent.'"/>
+                            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Del</button>
+                            </form>
+                            '.$value['nomFaction'].'
+                          </li>';
+                  }
+                echo '</ul>';
+              } else {
+                echo '<p>Pas de données disponible</p>';
+              }
+            echo '</div>
+          </div>
+          </section>';
+    } else {
+      header('location:../index.php?message=Soucis avec les talents sélectionné.');
+    }
+  }
 
   public function affecterTalentFaction($idTalent, $idNav) {
     echo '<div class="flex-rows">';
@@ -157,6 +197,11 @@ class PrintTalent extends GetTalent {
     $this->displayOneTalent ($idTalent, $idNav);
     echo'</div>';
   }
+  public function affectTalentPrivateFaction($idTalent) {
+    //print_r($idTalent);
+    echo '<a class="item" href='.findTargetRoute(123).'&idTalent='.$idTalent.'>administrer</a>';
+
+  }
   public function displayTalentUser ($first, $parPage){
     $data = $this->paginationTalent($first, $parPage);
     echo '<div class="GridClasse headGrid">
@@ -164,6 +209,7 @@ class PrintTalent extends GetTalent {
               <div class="deplacementClasse"><h3>Déplacement</h3></div>
               <div class="abrevClasse"><h3>Talent de troupe</h3></div>
               <div class="descriptionClasse centerClasse"><h3>Prix</h3></div>
+              <div class="zoneForm"><h3>Administrer</h3></div>
             </div>';
     foreach ($data as $key => $value) {
       echo '<div class="GridClasse">
@@ -171,7 +217,40 @@ class PrintTalent extends GetTalent {
                 <div class="deplacementClasse">'.$value['descriptionTalent'].'</div>
                 <div class="abrevClasse">'.yes($value['talentDeTroupe']).'</div>
                 <div class="descriptionClasse centerClasse">'.$value['prixTalent'].' PO</div>
+                <div class="zoneForm">';
+                  $this->affectTalentPrivateFaction($value['idTalent']);
+          echo'</div>
               </div>';
     }
   }
+  public function affecterTalentFactionPrivate($idTalent, $idNav, $idUser) {
+    echo '<div class="flex-rows">';
+
+    $factions = new GetFactions();
+    $dataFactions = $factions->factionPrivatePublic ($idUser);
+    echo '<form class="formulaireClassique designTroupe" action="'.encodeRoutage(53).'" method="post">';
+    echo '<h3>Affecter les factions valides pour ce talent</h3>';
+    /*echo '<li class="formCheck">
+            <p>Tous valider</p>
+            <input type="checkbox" class="checkbox" id="checkAll"/>
+            <label for="checkAll" class="toggle">
+                <p class="checkedText">Tous valider</p>
+            </label>
+          </li>';*/
+      foreach ($dataFactions as $key => $value) {
+        echo '<li class="formCheck">
+              <p>'.$value['nomFaction'].'</p>
+                <input type="checkbox" class="checkbox"  id="'.$value['nomFaction'].'"  name="'.$value['nomFaction'].'" value="1"/>
+                <label for="'.$value['nomFaction'].'" class="toggle">
+                  <p class="checkedText">Affecté à '.$value['nomFaction'].'</p>
+                </label>
+              </li>';
+      }
+      echo '<input type="hidden" name="idTalent" value="'.$idTalent.'"/>';
+      echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Affecter</button>';
+    echo '</form>';
+    $this->displayOneTalentPrivate($idTalent, $idNav);
+    echo'</div>';
+  }
+
 }
