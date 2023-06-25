@@ -356,52 +356,61 @@ Class PrintTroupes extends GetTroupes {
       include 'javaScript/magicButton.php';
   }
   public function troupeCardRooster($data, $idNav, $idListe) {
-    //print_r($data);
-    echo '<div class="flex-colonne designTroupe">';
-            echo '<ul>';
-              echo '<li class="formLi"><h4>'.$data['nomTroupe'].'</h4></li>';
-              echo '<li class="formLi">Type de troupe : '.$this->typeTroupe[$data['typeTroupe']].' - Prix troupe : '.$data['prixTroupe'].' PO</li>';
-              echo '<li class="formLi">Tireur : '.yes($data['tireur']).' - Cavalier : '.yes($data['monture']).'</li>';
-              echo '<li class="formLi">Classe d\'armure : '.classArmor ($data['classe']).' Mouvement : '.mouvementUnit($data['monture'], $data['classe']) .' pouces</li>';
-              // Création des listes d'armes
-              echo '<li class="formLi"><h5>Arme de contact</h5></li>';
-                for ($i=0; $i <count($this->weapon) ; $i++) {
-                  if($data[$this->weapon[$i]['id']] != NULL) {
-                    echo '<li class="formLi">'.$this->weapon[$i]['message'].'</li>';
-                  }
-                }
-              if($data['tireur'] == 1) {
-                  echo '<li class="formLi"><h5>Arme de tir</h5></li>';
-                  for ($i=0; $i <count($this->weaponShoot) ; $i++) {
-                    if($data[$this->weaponShoot[$i]['id']] != NULL) {
-                      echo '<li class="formLi">'.$this->weaponShoot[$i]['message'].' Portée : '.$this->weaponShoot[$i]['range'].' pouces</li>';
-                    }
-                  }
-              }
-              if (($data['chienDG'] == 1)||($data['corDG'] == 1)) {
-                  echo '<li class="formLi"><h4>Equipements supplémentaires</h4></li>';
-                  echo '<li class="formLi">Chien de Guerre : '.yes($data['chienDG']).'</li>';
-                  echo '<li class="formLi">Core de Guerre : '.yes($data['corDG']).'</li>';
-              }
-              echo '<li class="formLiCol">
-                    <h4>Ajouter dans la liste</h4>
-                        <form class="formulaireClassique" action="'.encodeRoutage(48).'" method="post">
-                            <label for="nombreTroupe">Nombre de troupe</label>
-                            <select id="nombreTroupe" name="nombreTroupe">
-                              <option value="1">1 figurine</option>';
-                              for ($k=2; $k <= 12 ; $k++) {
-                                echo '<option value="'.$k.'">'.$k.' figurines</option>';
-                              }
-                              echo'</select>
-                            <input type="hidden" name="idTroupe" value="'.$data['idTroupe'].'"/>
-                            <input type="hidden" name="idListe" value="'.$idListe.'"/>
-                          <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Ajouter</button>
-                        </form>
-                    </li>';
+    echo '<div class="troope">
+      <div class="information headGrid">
+        <div class="nom">'.$data['nomTroupe'].'</div>
+        <div class="type">'.$this->typeTroupe[$data['typeTroupe']].'</div>
+        <div class="Armure">Classe d\'armure : '.classArmor ($data['classe']).'</div>
+        <div class="move">Mouvement : '.mouvementUnit($data['monture'], $data['classe']) .' pouces</div>
+        <div class="price">Prix troupe : '.$data['prixTroupe'].' PO</div>
+      </div>
+      <div class="weapons headGrid">';
+      // Création des listes d'armes
+      echo '<li class="formLi"><h3>Arme de contact</h3></li>';
+        for ($i=0; $i <count($this->weapon) ; $i++) {
+          if($data[$this->weapon[$i]['id']] != NULL) {
+            echo '<li class="formLi">'.$this->weapon[$i]['message'].'</li>';
+          }
+          echo'</li>';
+        }
+      if($data['tireur'] == 1) {
+          echo '<li class="formLi"><h3>Arme de tir</h3></li>';
+          for ($i=0; $i <count($this->weaponShoot) ; $i++) {
+            if($data[$this->weaponShoot[$i]['id']] != NULL) {
+              echo '<li class="formLi">'.$this->weaponShoot[$i]['message'].' Portée : '.$this->weaponShoot[$i]['range'].' pouces</li>';
+            }
+          }
 
-            echo '</ul>';
-    echo '</div>';
+      }
+      if (($data['chienDG'] == 1)||($data['corDG'] == 1)) {
+          echo '<li class="formLi"><h4>Equipements supplémentaires</h4></li>';
+          echo '<li class="formLi">Chien de Guerre : '.yes($data['chienDG']).'</li>';
+          echo '<li class="formLi">Core de Guerre : '.yes($data['corDG']).'</li>';
+      }
+
+
+      echo'</div>
+            <div class="addTroop headGrid">';
+            echo '<li class="formLiCol">
+                  <h4>Ajouter dans la liste</h4>
+                      <form action="'.encodeRoutage(48).'" method="post">
+                          <label for="nombreTroupe">Nombre de troupe</label>
+                          <select id="nombreTroupe" name="nombreTroupe">
+                            <option value="1">1 figurine</option>';
+                            for ($k=2; $k <= 12 ; $k++) {
+                              echo '<option value="'.$k.'">'.$k.' figurines</option>';
+                            }
+                            echo'</select>
+                          <input type="hidden" name="idTroupe" value="'.$data['idTroupe'].'"/>
+                          <input type="hidden" name="idListe" value="'.$idListe.'"/>
+                        <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Ajouter</button>
+                      </form>
+                  </li>';
+      echo'</div>
+    </div>';
+
   }
+
 
   public function printListingTroupe($idFaction, $idUser, $idNav, $idListe) {
     $dataListing = $this->listingTroupes($idFaction, $idUser);
@@ -409,48 +418,68 @@ Class PrintTroupes extends GetTroupes {
     if (empty($dataListing)) {
       $this->noFindTroop();
     } else {
-      for ($i=0; $i <count($dataListing) ; $i++) {
-        $this->troupeCardRooster($dataListing[$i], $idNav, $idListe);
-
-      }
+        for ($i=0; $i <count($dataListing) ; $i++) {
+          $this->troupeCardRooster($dataListing[$i], $idNav, $idListe);
+        }
     }
-
   }
   public function resumeTroupeFiche($data, $idNav) {
-    //encodeRoutage(49)=> Modifier le nombre de troupe dans un groupe.
-    // print_r($data);
-    //Donnée
-    echo '<ul>';
-      echo '<li class="formLi">Nom : '.$data['nomTroupe'].'</li>';
-      echo '<li class="formLi">Type : '.$this->typeTroupe[$data['typeTroupe']].'</li>';
-      echo '<li class="formLi">Prix unitaire  :'.$data['prixTroupe'].' PO</li>';
-      echo '<li class="formLi">Prix total  :'.$data['prixTroupe'] * $data['nombreTroupe'].' PO</li>';
-      echo '<li class="formLi">Tireur : '.yes($data['tireur']).'</li>';
-      echo '<li class="formLi">Cavalier : '.yes($data['monture']).'</li>';
-      echo '<li class="formLi">
-            <form class="formulaireClassique" action="'.encodeRoutage(49).'" method="post">
-              <label for="nombreTroupe">Nombre de troupe</label>
-              <select id="nombreTroupe" name="nombreTroupe">';
-              for ($k=1; $k <= 12 ; $k++) {
-                if($data['nombreTroupe'] == $k) {
-                  echo '<option value="'.$k.'" selected>'.$k.' figurine(s)</option>';
-                }
-                echo '<option value="'.$k.'">'.$k.' figurine(s)</option>';
+    $unite = "unité";
+    if($data['nombreTroupe'] > 1) {
+      $unit = "unités";
+    }
+    echo '<div class="resumeList headGrid">
+      <div class="info">
+        <div class="Nom">';
+          echo '<li class="formLi">Nom : '.$data['nomTroupe'].'</li>';
+          echo '<li class="formLi">Type : '.$this->typeTroupe[$data['typeTroupe']].'</li>';
+          echo '<li class="formLi">Tireur : '.yes($data['tireur']).'</li>';
+          echo '<li class="formLi">Cavalier : '.yes($data['monture']).'</li>';
+        echo'</div>
+        <div class="Nombre">Nombre : '.$data['nombreTroupe'].' '.$unite.' </div>
+          <div class="prices">';
+          echo '<li class="formLi">Prix unitaire  :'.$data['prixTroupe'].' PO</li>';
+          echo '<li class="formLi">Prix total  :'.$data['prixTroupe'] * $data['nombreTroupe'].' PO</li>';
+        echo'</div>
+      </div>
+      <div class="form1">
+
+
+          <form action="'.encodeRoutage(49).'" method="post">
+            <label for="nombreTroupe">Nombre de troupe</label>
+            <select id="nombreTroupe" name="nombreTroupe">';
+            for ($k=1; $k <= 12 ; $k++) {
+              if($data['nombreTroupe'] == $k) {
+                echo '<option value="'.$k.'" selected>'.$k.' figurine(s)</option>';
               }
-              echo'</select>
-              <input type="hidden" name="idCL" value="'.$data['idCL'].'"/>
-              <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier nombre '.$data['nomTroupe'].'</button>
-            </form>
-            </li>';
-            echo '<li class="formLi">
-                  <form class="formulaireClassique" action="'.encodeRoutage(50).'" method="post">
-                    <input type="hidden" name="idCL" value="'.$data['idCL'].'"/>
-                    <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer '.$data['nomTroupe'].'</button>
-                  </form>
-                  </li>';
-    echo '</ul>';
+              echo '<option value="'.$k.'">'.$k.' figurine(s)</option>';
+            }
+            echo'</select>
+            <input type="hidden" name="idCL" value="'.$data['idCL'].'"/>
+            <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier nombre '.$data['nomTroupe'].'</button>
+
+
+        </form>
+
+        </div>
+        <div class="form2">
+        <form action="'.encodeRoutage(50).'" method="post">
+          <input type="hidden" name="idCL" value="'.$data['idCL'].'"/>
+          <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Effacer '.$data['nomTroupe'].'</button>
+        </form>
+        </div>
+
+    </div>';
+
 
   }
+  protected function PrintingOneTroupeListe($data) {
+    echo '<br/>';
+    print_r($data);
+
+  }
+
+
   public function noFindTroop() {
     echo '<p>Nous ne trouvons pas votre troupe.</p>';
   }

@@ -7,12 +7,22 @@ class GetArmy extends PrintTroupes
   {
     parent::__construct();
   }
+  private function returnListe($select, $idListe) {
+    $param = [['prep'=>':idListe', 'variable'=>$idListe]];
+    $read =  new RCUD($select, $param);
+    $data = $read->READ();
+    return $data;
+  }
+
+  protected function chef($idListe) {
+    $select = "SELECT `chefValide` FROM `Listes` WHERE `idListe` = :idListe";
+    $param = [['prep'=>':idListe', 'variable'=> $idListe]];
+    $read = new RCUD($select, $param);
+    $data = $read->READ();
+    return $data[0]['chefValide'];
+  }
 
   protected function extractTalent($idFaction) {
-    /*$select = "SELECT `idlienTF`, `idFaction`, `lienTalentFaction`.`idTalent`, `nomTalent`, `prixTalent`, `talentDeTroupe`
-              FROM `lienTalentFaction`
-              INNER JOIN `Talents` ON `lienTalentFaction`.`idTalent` = `Talents`.`idTalent`
-              WHERE `idFaction` = :idFaction AND `valide` = 1;";*/
     $select = "SELECT `idlienTF`, `idFaction`, `lienTalentFaction`.`idTalent`, `nomTalent`, `prixTalent`, `talentDeTroupe`
               FROM `lienTalentFaction`
               INNER JOIN `Talents` ON `lienTalentFaction`.`idTalent` = `Talents`.`idTalent`
@@ -30,12 +40,6 @@ class GetArmy extends PrintTroupes
     $readTalent = new RCUD($select, $param);
     return $readTalent->READ();
   }
-  /*protected function affectedTalent($idListe) {
-    $select = "SELECT `idTalent` FROM `lienTalentListe` WHERE `idListe` =:idListe";
-    $param = [['prep'=>':idliste', 'variable'=> $idListe]];
-    $readTalent = new RCUD($select, $param);
-    return $readTalent->READ();
-  }*/
   public function nbrYourList($idUser, $valide) {
     $select = "SELECT COUNT(`idListe`) AS `nbr` FROM `Listes` WHERE `auteurListe` = :idUser AND `valide` = :valide";
     $param = [['prep'=>':valide', 'variable'=>$valide],
@@ -99,16 +103,13 @@ class GetArmy extends PrintTroupes
         return [0, 0, 0, 0, 0];
       }
   }
-  /*protected function troopePrice ($idListe) {
-    $select = "SELECT  SUM(`nombreTroupe` * `prixTroupe`) AS `total`
-              FROM `CompositionListe`
-              INNER JOIN `Troupes` ON `CompositionListe`.`idTroupe`= `Troupes`.`idTroupe`
-              WHERE `idListe` = :idListe;";
+  protected function discriptionListe($idListe) {
+    $select = "SELECT `descriptionListe` FROM `Listes` WHERE `idListe` = :idListe";
     $param = [['prep'=>':idListe', 'variable'=>$idListe]];
     $read =  new RCUD($select, $param);
     $data = $read->READ();
-    return $data[0]['total'];
-  }*/
+    return $data[0]['descriptionListe'];
+  }
   protected function troopePrice ($idListe) {
     $select = "SELECT  SUM(`nombreTroupe` * `prixTroupe`) AS `total`
               FROM `CompositionListe`
@@ -127,16 +128,30 @@ class GetArmy extends PrintTroupes
     $talentPrice = $data[0]['total'];
     return $talentPrice + $trooperPrice;
   }
+
   protected function detailListe($idListe) {
     $select = "SELECT `idCL`, `nombreTroupe`, `nomTroupe`, `typeTroupe`, `tireur`, `monture`, `prixTroupe`, `cheval`, `idListe`
               FROM `CompositionListe`
               INNER JOIN `Troupes` ON `Troupes`.`idTroupe` = `CompositionListe`.`idTroupe`
+              INNER JOIN
               WHERE `idListe` = :idListe;";
-              $param = [['prep'=>':idListe', 'variable'=>$idListe]];
-              $read =  new RCUD($select, $param);
-              $data = $read->READ();
-              return $data;
+        return $this->returnListe($select, $idListe);
   }
+  protected function getListeTroupe ($idListe) {
+    $select = "SELECT `nombreTroupe`, `typeTroupe`, `nomTroupe`, `factionTroupe`, `descriptionTroupe`, `classe`, `monture`, `valide`, `auteur`, `prixTroupe`, `arbalete`,
+              `arc`, `armeDeBase`, `armeImp`, `armure`, `banniere`, `bouclier`, `cheval`, `chienDG`, `corDG`, `fronde`, `hacheD`, `javelot`, `lance`, `SP`, `tireur`
+              FROM `CompositionListe`
+              INNER JOIN `Troupes` ON `Troupes`.`idTroupe` = `CompositionListe`.`idTroupe`
+              WHERE `idListe`= :idListe;";
+      return $this->returnListe($select, $idListe);
+  }
+  protected function GetInfoListe($idListe) {
+    $select = "SELECT `idListe`, `Listes`.`idFaction`, `nomListe`, `descriptionListe`, `auteurListe`, `Listes`.`valide`, `partager`, `chefValide`, `nomFaction`
+    FROM `Listes`
+    INNER JOIN `Factions` ON `Listes`.`idFaction` = `Factions`.`idFaction`
+    WHERE `idListe` = :idListe";
+    return $this->returnListe($select, $idListe);
 
+  }
 
 }

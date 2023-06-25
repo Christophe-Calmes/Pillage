@@ -103,7 +103,9 @@ a {
     margin-right: 0.5em;
     width: auto;
 }
-
+.line {
+  width: 100%;
+}
 
 /*Formulaire*/
 .designTroupe {
@@ -302,8 +304,9 @@ footer {
 .formLiCol {
   list-style: none;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: baseline;
+  justify-content: center;
 }
 .formCheck {
   display: flex;
@@ -397,6 +400,146 @@ transition: display 3s;
   justify-content: center;
 }
 /*Bibliothèque Grid*/
+.print {  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "RL DL"
+    "DT DT";
+}
+
+.RL {  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "DATA"
+    "TA";
+  grid-area: RL;
+}
+
+.DATA { grid-area: DATA; }
+
+.TA { grid-area: TA;
+  text-align: justify;
+  padding: 0em 0.5em 0.5em 0.5em;
+}
+
+.DL {
+  grid-area: DL;
+  text-align: justify;
+  padding: 0em 0.5em 0.5em 0.5em;
+ }
+
+.DT { grid-area: DT; }
+
+
+
+.resumeList {
+  display: grid;
+  text-align: left;
+  width: 90%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 4px 4px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "info info"
+    "form2 form1";
+}
+
+  .info {
+    display: grid;
+    text-align: left;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "Nom Nombre prices";
+    grid-area: info;
+  }
+
+
+  .Nombre { grid-area: Nombre; }
+
+  .prices { grid-area: prices; }
+
+  .form1 {
+    grid-area: form1;
+    text-align: left;
+   }
+  .form2 {
+    grid-area: form2;
+    text-align: left;
+  }
+
+
+
+.troope {  display: grid;
+  grid-template-columns: 0.5fr 0.3fr 0.5fr;
+  /* grid-template-rows: 1fr 1fr; */
+  gap: 5px 5px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "information weapons addTroop";
+}
+
+.information {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "nom nom nom"
+    "type Armure move"
+    "price price price";
+  grid-area: information;
+}
+
+.nom { grid-area: nom; }
+
+.type { grid-area: type; }
+
+.Armure { grid-area: Armure; }
+
+.move { grid-area: move; }
+
+.price { grid-area: price; }
+
+.weapons { grid-area: weapons; }
+
+.addTroop {
+  grid-area: addTroop;
+}
+
+
+
+.affected {  display: grid;
+  grid-template-columns: 0.4fr 0.3fr 0.3fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px 4px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "UnitedAffected Talent resume"
+    "uniteDisponible uniteDisponible uniteDisponible";
+}
+
+.UnitedAffected {
+  grid-area: UnitedAffected;
+  width: 100%;
+}
+
+.Talent { grid-area: Talent; }
+
+.resume { grid-area: resume; }
+
+.uniteDisponible { grid-area: uniteDisponible; }
+
+
 .colums2 {
 display: grid;
 grid-template-columns: repeat(2, 1fr);
@@ -491,6 +634,9 @@ margin-top: 1em;
   font-size: 1em;
   font-weight: 800;
   margin-bottom: 0.5em;
+}
+.largeSize {
+  width: 40%;
 }
 .borderLeft {
   padding-left: 0.85em;
@@ -819,3 +965,59 @@ grid-row-gap: 0px;
   border: var(--main-border);
   border-radius: var(--main-radius);
 }
+/**/
+
+@media print {
+    .navigationBandeau {
+      display: none;
+    }
+    .hautPage {
+      display: none;
+    }
+    section h3 {
+      display: none;
+    }
+    header {
+      display: none;
+    }
+    footer {
+      display: none;
+    }
+    body {
+      margin:0 mm;
+    }
+    .lienBoutton {
+      display: none;
+    }
+    .lienImpression {
+      display: none;
+    }
+    .titre {
+      font-size: 1.5em;
+    }
+    .sousTitre {
+      font-size: 1.2em;
+    }
+    .listeBlanche {
+      break-after: auto;
+    }
+    .SPGRID {
+      padding: 20px 0px 20px 0px;
+      border-radius: 5px;
+      max-width:100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, 50vh);
+      grid-gap: 5px;
+      justify-content: center;
+    }
+    .SPitem {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: black;
+      padding: 15px;
+      border: 1px solid black;
+      font-size: 0.5em;
+      /*justify-content: center;*/
+    }
+  }

@@ -27,7 +27,8 @@ class PrintArmy extends GetArmy
     </div>';
   }
   public function displayList($data) {
-    echo '<div class="colums6 headGrid">
+
+    echo '<div class="colums6">
             <div class="col1">Nom liste</div>
             <div class="col2">Faction</div>
             <div class="col3">Partager ?</div>
@@ -48,7 +49,10 @@ class PrintArmy extends GetArmy
               <div class="col3">'.yes($value['partager']).'</div>
               <div class="col4">'.yes($value['chefValide']).'</div>
               <div class="col5">'.$message.'</div>
-              <div class="col6"> <a class="item" href='.findTargetRoute(122).'&idListe='.$value['idListe'].'>Roster</a></div>
+              <div class="col6">
+                <a class="item" href='.findTargetRoute(122).'&idListe='.$value['idListe'].'>Roster</a>
+                <a class="item" href='.findTargetRoute(124).'&idListe='.$value['idListe'].'>Impression</a>
+              </div>
             </div> ';
     }
 
@@ -85,43 +89,70 @@ class PrintArmy extends GetArmy
     $idFaction = $this->findIdFaction($idListe);
     $dataTalent = $this->extractTalent($idFaction);
     $dataTalentAffected = $this->affectedTalent($idListe);
-    //$dataAffectedTalent = $this->affectedTalent($idListe);
     $troupes = new PrintTroupes();
-    echo '<article>';
-    $troupes->printListingTroupe($idFaction, $idUser, $idNav, $idListe);
-    echo '</article>';
-    echo '<article class="headGrid">';
-    if(!empty($dataTalent)){
-      echo '<h3>Les talents de la faction</h3>';
 
-        for ($i=0; $i <count($dataTalent) ; $i++) {
-          $this->displayOneTalents($dataTalent[$i], $idNav, $idListe, true);
-        }
-    } else {
-        echo '<h3>Plus de talent à affecter.</h3>';
-    }
-    if(!empty($dataTalentAffected)){
-        echo '<h3>Les talents affecté à la liste</h3>';
-          for ($i=0; $i <count($dataTalentAffected) ; $i++) {
-            $this->displayOneTalents($dataTalentAffected[$i], $idNav, $idListe, false);
-          }
-      } else {
-        echo '<h3>Pas encore de talents affectés.</h3>';
-      }
-    echo '</article>';
+    echo '<h3>Création de la liste</h3>';
+    //echo '<section class="flex-colonne">';
+    echo '<div class="affected  headGrid">
+            <div class="uniteDisponible  headGrid">';
+            echo '<h3>Les unités disponible</h3>';
+            $troupes->printListingTroupe($idFaction, $idUser, $idNav, $idListe);
+
+          echo'</div>
+            <div class="UniteAffected">';
+            $this->diplayList($idListe, $idNav);
+      echo'</div>
+            <div class="resume  headGrid">';
+              $this->resumeList($idListe, false);
+      echo'</div>
+            <div class="Talent  headGrid">';
+            if(!empty($dataTalent)){
+              echo '<h3>Les talents de la faction</h3>';
+
+                for ($i=0; $i <count($dataTalent) ; $i++) {
+                  $this->displayOneTalents($dataTalent[$i], $idNav, $idListe, true);
+                }
+            } else {
+                echo '<h3>Plus de talent à affecter.</h3>';
+            }
+            if(!empty($dataTalentAffected)){
+                echo '<h3>Les talents affecté à la liste</h3>';
+                  for ($i=0; $i <count($dataTalentAffected) ; $i++) {
+                    $this->displayOneTalents($dataTalentAffected[$i], $idNav, $idListe, false);
+                  }
+              } else {
+                echo '<h3>Pas encore de talents affectés.</h3>';
+              }
+      echo'</div>
+          </div>';
+    //echo '</section>';
+
+
+
+
 
   }
-  protected function resumeList($idListe) {
+  protected function resumeList($idListe, $print) {
     $message = NULL;
     $col24 = NULL;
     $col26 = NULL;
-
+    $chef = $this->chef($idListe);
     $resultList = $this->propotionList($idListe);
     $price = $this->troopePrice ($idListe);
     if(($resultList[3]> 25) ||($resultList[4]> 25)) {
       $message = 'Non';
+        if($chef == 1) {
+          $message = $message.' + Chef';
+        } else {
+          $message = $message.' + pas de Chef';
+        }
     } else {
       $message = 'Oui';
+        if($chef == 1) {
+          $message = $message.' + Chef';
+        } else {
+          $message = $message.' + pas de Chef';
+        }
     }
     if(($resultList[1] !=0 )&&(($resultList [3]!=0))) {
       $col24 = $resultList[1].'/ '.$resultList[3].'%';
@@ -148,19 +179,84 @@ class PrintArmy extends GetArmy
               <div class="col28">'.$message.'</div>
             </div>';
     echo '</article>';
+    if(!$print){
+    echo '<article>';
+      echo '<h3>Description de la liste</h3>';
+      echo '<p>'.$this->discriptionListe($idListe).'</p>';
+    echo '</article>';
+  }
   }
   public function diplayList($idListe, $idNav) {
-    echo '<section class="flex-colonne headGrid">';
+    echo '<section class="flex-colonne">';
     $dataTroupeListe = $this->detailListe($idListe);
-    $this->resumeList($idListe);
-    //print_r($dataTroupeListe);
     echo '<h3>Liste des troupes de la liste</h3>';
-    for ($i=0; $i <count($dataTroupeListe) ; $i++) {
-      $this->resumeTroupeFiche($dataTroupeListe[$i], $idNav);
-    }
+    //echo '<div class="gallery">';
+          for ($i=0; $i <count($dataTroupeListe) ; $i++) {
+            $this->resumeTroupeFiche($dataTroupeListe[$i], $idNav);
+          }
+    //echo '</div>';
     echo '</section>';
   }
+  protected function TitreListe ($data) {
+      //print_r($data);
 
+        echo '<h4>Liste : '.$data[0]['nomListe'].' - Faction : '.$data[0]['nomFaction'].'</h4>';
+        echo '<article>'.$data[0]['descriptionListe'].'</article>';
+
+  }
+  protected function TalentListe ($data) {
+      function TalentDeTroupe($check) {
+        if($check == 1) {
+          return 'Talent de troupe';
+        } else {
+          return 'Talent de personnage';
+        }
+      }
+      if(!empty($data)){
+
+      echo '<article>';
+          echo '<h4>Talents de la liste</h4>';
+            echo '<ul>';
+              foreach ($data as $key => $value) {
+                echo '<li class="formLi">'.$value['nomTalent'].' - Prix : '.$value['prixTalent'].' - Type de talent : '.TalentDeTroupe($value['talentDeTroupe']).'</li>';
+              }
+            echo '</ul>';
+      echo '</article>';
+    } else {
+      echo '<p>Aucun talent définis pour cette liste</p>';
+    }
+
+  }
+
+
+  public function printingListe($idListe, $idUser) {
+    $datasTalent = $this->affectedTalent($idListe);
+    $dataTroupe = $this->getListeTroupe ($idListe);
+    $dataInfoListe = $this->GetInfoListe($idListe);
+    echo '<div class="print">
+          <div class="RL">
+            <div class="DATA">';
+            $this->resumeList($idListe, true);
+      echo'</div>
+            <div class="TA">';
+              $this->TalentListe ($datasTalent);
+
+        echo'</div>
+          </div>
+            <div class="DL">';
+              $this->TitreListe ($dataInfoListe);
+      echo'</div>
+          <div class="DT">';
+          for ($i=0; $i <count($dataTroupe) ; $i++) {
+              $this->PrintingOneTroupeListe($dataTroupe[$i]);
+          }
+
+    echo'</div>
+        </div>';
+
+
+
+  }
   public function __destruct()
   {
 

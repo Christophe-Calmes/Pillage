@@ -54,12 +54,12 @@ private $yes;
   }
   public function printProfilUser ($variable) {
     echo '<ul class="listeProfil">';
-      echo '<li><h4>Votre profil</h4></li>';
+      echo '<li class="formLi"><h4>Votre profil</h4></li>';
       foreach ($variable as $key => $value) {
-        echo '<li>Identité : '.$value['prenom'].' '.$value['nom'].'</li>';
-        echo '<li>Pseudo : '.$value['login'].'</li>';
-        echo '<li>Role : '.$this->role[$value['role']].'</li>';
-        echo '<li>Date d\'inscription : '.brassageDate($value['dateCreation']).'</li>';
+        echo '<li class="formLi">Identité : '.$value['prenom'].' '.$value['nom'].'</li>';
+        echo '<li class="formLi">Pseudo : '.$value['login'].'</li>';
+        echo '<li class="formLi">Role : '.$this->role[$value['role']].'</li>';
+        echo '<li class="formLi">Date d\'inscription : '.brassageDate($value['dateCreation']).'</li>';
       }
     echo '</ul>';
   }

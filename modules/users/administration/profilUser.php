@@ -5,11 +5,11 @@
   require 'modules/users/objets/printUser.php';
   $user = new PrintUser();
   $dataUser = $user->getProfil($_SESSION['tokenConnexion']);
-  echo '<div class="flex-rows">';
+  echo '<div class="flex-rows headGrid"">';
   echo '<article>';
   $user->printProfilUser ($dataUser);
   echo '</article>';
-  echo '<aside class="flex-colonne">';
+  echo '<aside class="flex-colonne headGrid">';
   // Modifier step by step
   //Email
   $formModifierProfil = [['name'=>'email', 'message'=>'Votre email', 'type'=>0, 'lastInput'=>$dataUser[0]['email']]];
@@ -21,7 +21,7 @@
   formModification(17, $formModifierProfil, $idNav, $button);
   //mdp
   $formModifierProfil = [['name'=>'mdp', 'message'=>'Votre nouveau mot de passe', 'type'=>0, 'lastInput'=>genToken (12)],
-                        ['name'=>'mdpA', 'message'=>'Confirmer votre nouveau mot de passe', 'type'=>9, 'lastInput'=>'????']];
+                        ['name'=>'mdpA', 'message'=>'Confirmer votre nouveau mot de passe', 'type'=>9, 'lastInput'=>genToken (12)]];
     $button = 'Modifier mot de passe';
   formModification(18, $formModifierProfil, $idNav, $button);
   $user->formDelUser($dataUser[0]['idUser'], $idNav, $_SESSION['role']);
