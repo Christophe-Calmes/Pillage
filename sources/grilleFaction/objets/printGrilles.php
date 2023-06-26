@@ -128,10 +128,10 @@ Class PrintGrilles extends GetGrilles {
       $nameFaction = $dataFaction[0]['nomFaction'];
         // Génération de la grilles vierge
         echo '<h3>Grille '.$nameFaction.'</h3>';
-        echo '<div class="flex-rows">';
+        echo '<div class="flex-rows headGrid">';
         for ($i=0; $i < count($this->typeTroupe) ; $i++) {
           //Visualisation des éléments pas encore définis
-            echo '<form class="formulaireClassique"action="'.encodeRoutage($route).'" method="post">';
+            echo '<form class="formulaireClassique headGrid" action="'.encodeRoutage($route).'" method="post">';
             echo '<h4>'.$this->typeTroupe[$i].'</h4>';
             for ($o=0; $o <count($this->champs) ; $o++) {
               selectPO ($this->champs[$o], $this->nomTypes [$o]);
@@ -147,8 +147,6 @@ Class PrintGrilles extends GetGrilles {
       // Sécurité parce que tentative de hacking
       require 'modules/securiter/deconnexion.php';
     }
-
-
   }
 
     public function formGrille ($variable, $idNav, $admin) {
@@ -176,13 +174,13 @@ Class PrintGrilles extends GetGrilles {
       }
       // Affichage des élément déjà créer
       echo '<h3>Grille '.$nameFaction.'</h3>';
-      echo '<div class="flex-rows">';
+      echo '<div class="flex-rows headGrid">';
       $voidCout = array_diff($arrayIndex, $arrayIndexOk);
       foreach ($variable as $key => $value) {
 
         if(!empty($this->typeTroupe[$value['indexType']])) {
           // Table pleine
-          echo '<form class="formulaireClassique"action="'.encodeRoutage($route).'" method="post">';
+          echo '<form class="formulaireClassique headGrid" action="'.encodeRoutage($route).'" method="post">';
           echo '<h4>Modifier '.$this->typeTroupe[$value['indexType']].'</h4>';
           for ($i=0; $i <count($this->champs) ; $i++) {
             selectPOSelected ($this->champs[$i], $this->nomTypes [$i], $value[$this->champs[$i]]);
@@ -210,28 +208,6 @@ Class PrintGrilles extends GetGrilles {
                   echo '</form>';
         }
       }
-
-      // Grille de coût non encore rempli.
-
-
-
-
-
-/*
-      // Intialisation boucle
-        for ($i=count($arrayIndexOk); $i < count($this->typeTroupe) ; $i++) {
-          //Visualisation des éléments pas encore définis
-            echo '<form class="formulaireClassique"action="'.encodeRoutage($updateRoute).'" method="post">';
-            echo '<h4>'.$this->typeTroupe[$i].'</h4>';
-            for ($o=0; $o <count($this->champs) ; $o++) {
-              selectPO ($this->champs[$o], $this->nomTypes [$o]);
-            }
-            echo '<input type="hidden" name="idFaction" value="'.$id.'"/>
-                  <input type="hidden" name="indexType" value="'.$i.'"/>
-                  <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Créer</button>';
-                  echo '</form>';
-        }
-        */
       echo '</div>';
       echo '</div>';
     }

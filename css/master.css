@@ -400,9 +400,48 @@ transition: display 3s;
   justify-content: center;
 }
 /*Bibliothèque Grid*/
+.fichetroupe {  display: grid;
+  grid-template-columns: 0.25fr 0.25fr 0.25fr 0.25fr;
+  grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "troupeNom troupeFaction nbr price"
+    "classeArmure mouvementTroupe typeTroupe equipement"
+    "closeWeapons closeWeapons closeWeapons closeWeapons"
+    "shootWeapons shootWeapons shootWeapons shootWeapons";
+    border: 1px solid black;
+    margin: 0.25em;
+    padding: 0.5em;
+}
+
+.troupeNom { grid-area: troupeNom; }
+
+.troupeFaction { grid-area: troupeFaction; }
+
+.nbr { grid-area: nbr; }
+
+.price { grid-area: price; }
+
+.classeArmure { grid-area: classeArmure; }
+
+.mouvementTroupe { grid-area: mouvementTroupe; }
+
+.typeTroupe { grid-area: typeTroupe; }
+
+.equipement { grid-area: equipement; }
+
+.closeWeapons { grid-area: closeWeapons; }
+
+.shootWeapons { grid-area: shootWeapons; }
+
+
+
+
+
 .print {  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 0.5fr 0.5fr;
+  grid-template-rows: 0.5fr 0.5fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
@@ -520,7 +559,7 @@ transition: display 3s;
 
 .affected {  display: grid;
   grid-template-columns: 0.4fr 0.3fr 0.3fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 0.5fr 0.5fr;
   gap: 4px 4px;
   grid-auto-flow: row;
   grid-template-areas:

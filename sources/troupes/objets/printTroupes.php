@@ -474,8 +474,59 @@ Class PrintTroupes extends GetTroupes {
 
   }
   protected function PrintingOneTroupeListe($data) {
-    echo '<br/>';
-    print_r($data);
+    $equipement = 'Pas d\'équipement spéciaux' ;
+
+    if($data['corDG']) {
+      $equipement = 'Core de guerre';
+    }
+    if($data['chienDG']) {
+      $equipement = 'Chien de guerre <br/>';
+    }
+    if ($data['chienDG'] && $data['chienDG']) {
+      $equipement = 'Core de guerre<br/>Chien de guerre ';
+    }
+
+    //echo '<br/>';
+    //print_r($data);
+    echo '<div class="fichetroupe">
+            <div class="troupeNom"><h4>'.$data['nomTroupe'].'</h4></div>
+            <div class="troupeFaction">Faction : '.$data['nomFaction'].'</div>
+            <div class="nbr">Nombre : '.$data['nombreTroupe'].'</div>
+            <div class="price">
+              Prix unitaire : '.$data['prixTroupe'].' PO
+              <br/>
+              Prix total : '.($data['prixTroupe'] * $data['nombreTroupe']).' PO
+            </div>
+            <div class="classeArmure">Classe d\'armure :'.classArmor ($data['classe']).'</div>
+            <div class="mouvementTroupe">Mouvement : '.mouvementUnit($data['monture'], $data['classe']).' pouces</div>
+            <div class="typeTroupe">Type troupe : '.$this->typeTroupe[$data['typeTroupe']].'
+                                    <br/>
+                                    Cavalier :'.yes($data['monture']).'
+                                    <br/>
+                                    Tireur : '.yes($data['tireur']).'
+            </div>
+            <div class="equipement">'.$equipement.'</div>
+            <div class="closeWeapons">';
+
+            echo '<li class="formLi"><h3>Arme de contact</h3></li>';
+              for ($i=0; $i <count($this->weapon) ; $i++) {
+                if($data[$this->weapon[$i]['id']] != NULL) {
+                  echo '<li class="formLi">'.$this->weapon[$i]['message'].'</li>';
+                }
+                echo'</li>';
+              }
+       echo'</div>
+            <div class="shootWeapons">';
+            if($data['tireur'] == 1) {
+                echo '<li class="formLi"><h3>Arme de tir</h3></li>';
+                for ($i=0; $i <count($this->weaponShoot) ; $i++) {
+                  if($data[$this->weaponShoot[$i]['id']] != NULL) {
+                    echo '<li class="formLi">'.$this->weaponShoot[$i]['message'].' Portée : '.$this->weaponShoot[$i]['range'].' pouces</li>';
+                  }
+                }
+            }
+       echo'</div>
+          </div>';
 
   }
 

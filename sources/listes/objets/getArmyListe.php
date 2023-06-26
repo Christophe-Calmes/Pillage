@@ -133,15 +133,15 @@ class GetArmy extends PrintTroupes
     $select = "SELECT `idCL`, `nombreTroupe`, `nomTroupe`, `typeTroupe`, `tireur`, `monture`, `prixTroupe`, `cheval`, `idListe`
               FROM `CompositionListe`
               INNER JOIN `Troupes` ON `Troupes`.`idTroupe` = `CompositionListe`.`idTroupe`
-              INNER JOIN
-              WHERE `idListe` = :idListe;";
+              WHERE `idListe` = :idListe";
         return $this->returnListe($select, $idListe);
   }
   protected function getListeTroupe ($idListe) {
-    $select = "SELECT `nombreTroupe`, `typeTroupe`, `nomTroupe`, `factionTroupe`, `descriptionTroupe`, `classe`, `monture`, `valide`, `auteur`, `prixTroupe`, `arbalete`,
-              `arc`, `armeDeBase`, `armeImp`, `armure`, `banniere`, `bouclier`, `cheval`, `chienDG`, `corDG`, `fronde`, `hacheD`, `javelot`, `lance`, `SP`, `tireur`
+    $select = "SELECT `nombreTroupe`, `typeTroupe`, `nomTroupe`, `factionTroupe`, `descriptionTroupe`, `classe`, `monture`, `Troupes`.`valide`, `Troupes`.`auteur`, `prixTroupe`, `arbalete`,
+              `arc`, `armeDeBase`, `armeImp`, `armure`, `banniere`, `bouclier`, `cheval`, `chienDG`, `corDG`, `fronde`, `hacheD`, `javelot`, `lance`, `SP`, `tireur`, `nomFaction`
               FROM `CompositionListe`
               INNER JOIN `Troupes` ON `Troupes`.`idTroupe` = `CompositionListe`.`idTroupe`
+              INNER JOIN `Factions` ON `Troupes`.`factionTroupe` = `Factions`.`idFaction`
               WHERE `idListe`= :idListe;";
       return $this->returnListe($select, $idListe);
   }
