@@ -13,7 +13,10 @@ class controlerAffichage {
           include 'modules/navigation/pageGeneral.php';
           return 0;
       }
-
+      function dev($route, $dev) {
+        if($dev){echo $route;}
+      }
+      $dev = true;
       if (isset($data['idNav'])) {
           $idNav = filter($data['idNav']);
           $readNav = new GetNavigation();
@@ -21,9 +24,11 @@ class controlerAffichage {
           if (empty($chemin)) {
               deadEnd();
           } elseif ((empty($session)) && ($chemin[0]['niveau'] == 0)) {
+              dev($chemin[0]['cheminNav'], $dev);
               include $chemin[0]['cheminNav'];
               return $idNav;
           } elseif ((isset($session['role'])) && ($session['role'] <= $chemin[0]['niveau'])) {
+              dev($chemin[0]['cheminNav'], $dev);
               include $chemin[0]['cheminNav'];
               return $idNav;
           } else {
