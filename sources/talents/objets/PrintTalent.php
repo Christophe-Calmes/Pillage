@@ -127,11 +127,11 @@ class PrintTalent extends GetTalent {
       header('location:../index.php?message=Soucis avec les talents sélectionné.');
     }
   }
-  public function displayOneTalentPrivate ($idTalent, $idNav) {
+  public function displayOneTalentPrivate ($idTalent, $idNav, $idUser) {
     $data = $this->getOneTalent($idTalent);
       if(!empty($data)) {
         $factions = new GetFactions();
-        $datasFactions = $factions->getLinkTalentPrivateFaction($idTalent);
+        $datasFactions = $factions->getLinkTalentPrivateFaction($idTalent, $idUser);
         // Présentation d'un talent
     echo '<section>
           <div class="designTroupe">
@@ -227,16 +227,9 @@ class PrintTalent extends GetTalent {
     echo '<div class="flex-rows">';
 
     $factions = new GetFactions();
-    $dataFactions = $factions->factionPrivatePublic ($idUser);
+    $dataFactions = $factions->factionPrivatePublic($idUser);
     echo '<form class="formulaireClassique designTroupe" action="'.encodeRoutage(53).'" method="post">';
     echo '<h3>Affecter les factions valides pour ce talent</h3>';
-    /*echo '<li class="formCheck">
-            <p>Tous valider</p>
-            <input type="checkbox" class="checkbox" id="checkAll"/>
-            <label for="checkAll" class="toggle">
-                <p class="checkedText">Tous valider</p>
-            </label>
-          </li>';*/
       foreach ($dataFactions as $key => $value) {
         echo '<li class="formCheck">
               <p>'.$value['nomFaction'].'</p>
@@ -249,7 +242,7 @@ class PrintTalent extends GetTalent {
       echo '<input type="hidden" name="idTalent" value="'.$idTalent.'"/>';
       echo '<button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Affecter</button>';
     echo '</form>';
-    $this->displayOneTalentPrivate($idTalent, $idNav);
+    $this->displayOneTalentPrivate($idTalent, $idNav, $idUser);
     echo'</div>';
   }
 

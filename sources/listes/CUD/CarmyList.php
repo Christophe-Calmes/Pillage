@@ -3,7 +3,7 @@
 $parametre = new Preparation();
 $param = $parametre->creationPrepIdUser ($_POST);
 print_r($param);
-$insert = "INSERT INTO `Listes`(`nomListe`, `idFaction`, `descriptionListe`, `auteurListe`) 
+$insert = "INSERT INTO `Listes`(`nomListe`, `idFaction`, `descriptionListe`, `auteurListe`)
             VALUES ( :nomListe, :factionTroupe, :descriptionListe, :idUser)";
 $action = new RCUD($insert, $param);
 $action->CUD();
