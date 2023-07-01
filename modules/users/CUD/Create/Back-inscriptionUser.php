@@ -21,10 +21,8 @@ if(($mdp == $mdpA)&&(strlen($mdp) > 9)) {
     $sql = "SELECT`login`FROM `users` WHERE `login` = :login";
     $preparation = ':login';
     $valeur = filter($_POST['login']);
-    array_push($controleForm, $doublon->doublon($sql, $preparation , $valeur));
+      array_push($controleForm, $doublon->doublon($sql, $preparation , $valeur));
   if($controleForm == [0, 0, 0, 0, 0, 0, 0, 0]) {
-    unset($_POST['mpdA']);
-    //print_r($_POST);
     $_POST['mdp'] = haschage(filter($_POST['mdp']));
     // Creation d'un primo token
     $_POST['token'] = genToken(16);
@@ -36,10 +34,10 @@ if(($mdp == $mdpA)&&(strlen($mdp) > 9)) {
       $action = new RCUD($insert, $param);
       $action->CUD();
       //mail(filter($_POST['mail']), 'Votre inscription à', 'Votre token de confirmation:'.$_POST['token'])
-      header('location:../index.php?message=Vous avez reçus un mail pour confirmer votre inscription&idNav='.$idNav);
+    //header('location:../index.php?message=Vous avez reçus un mail pour confirmer votre inscription&idNav='.$idNav);
   } else {
-    header('location:../index.php?message=Probléme de traitement&idNav='.$idNav);
+    //header('location:../index.php?message=Probléme de traitement&idNav='.$idNav);
   }
 } else {
-  header('location:../index.php?message=Mot de passe non valide');
+  //header('location:../index.php?message=Mot de passe non valide');
 }

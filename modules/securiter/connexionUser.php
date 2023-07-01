@@ -24,7 +24,7 @@ if (password_verify(filter($_POST['mdp']), $dataTraiter[0]['mdp'])) {
                         ['prep'=>':login', 'variable'=>$dataTraiter[0]['login']]];
                 $log = new RCUD($insert, $log);
                 $log->CUD();
-              header('location:../index.php?message=bienvenu '.$_SESSION['login']);
+              header('location:../index.php?message=bienvenus '.$_SESSION['login']);
 
 } else {
   $insert="INSERT INTO `journaux`(`ipUser`, `login`, `mdpHacker`)

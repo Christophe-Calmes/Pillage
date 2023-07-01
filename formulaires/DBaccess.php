@@ -9,11 +9,11 @@ $dataRoute = new GetNavigation();
 $dataRoute = $dataRoute->getFrom($route);
 $securiter = $dataRoute[0]['securiter'];
 // Contrôle Identité
-$checkId = new Controles();
-$sql = "SELECT `token` FROM `users` WHERE `token` = :token";
-$preparation = ':token';
-$valeur = $_SESSION['tokenConnexion'];
-$border = $checkId->doublon($sql, $preparation , $valeur);
+  $checkId = new Controles();
+  $sql = "SELECT `token` FROM `users` WHERE `token` = :token";
+  $preparation = ':token';
+  $valeur = $_SESSION['tokenConnexion'];
+  $border = $checkId->doublon($sql, $preparation , $valeur);
 // Fin de contrôle Identité
 $chemin = $dataRoute[0]['chemin'];
 if($securiter == 0) {
