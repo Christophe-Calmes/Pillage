@@ -361,6 +361,7 @@ a {
   display: var(--main-display);
   font-size: var(--main-font-size);
   cursor: var(--main-cursor);
+  z-index: 0;
 }
 .lienNav:hover {
    border: 3px solid var(--main-color-frech);
@@ -1010,6 +1011,7 @@ grid-row-gap: 0px;
   /* border: 1px solid black; */
   border: var(--main-border);
   border-radius: var(--main-radius);
+  z-index: 2;
 }
 /**/
 

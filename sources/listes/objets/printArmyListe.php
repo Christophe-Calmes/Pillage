@@ -50,7 +50,7 @@ class PrintArmy extends GetArmy
               <div class="col4">'.yes($value['chefValide']).'</div>
               <div class="col5">'.$message.'</div>
               <div class="col6">
-                <a class="item" href='.findTargetRoute(122).'&idListe='.$value['idListe'].'>Roster</a>
+                <a class="item" href='.findTargetRoute(122).'&idListe='.$value['idListe'].'>Rooster</a>
                 <a class="item" href='.findTargetRoute(124).'&idListe='.$value['idListe'].'>Impression</a>
               </div>
             </div> ';
