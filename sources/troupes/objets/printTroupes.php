@@ -489,10 +489,10 @@ Class PrintTroupes extends GetTroupes {
     //echo '<br/>';
     //print_r($data);
     echo '<div class="fichetroupe">
-            <div class="troupeNom"><h4>'.$data['nomTroupe'].'</h4></div>
+            <div class="troupeNom"><h4 class="titre">'.$data['nomTroupe'].'</h4></div>
             <div class="troupeFaction">Faction : '.$data['nomFaction'].'</div>
             <div class="nbr">Nombre : '.$data['nombreTroupe'].'</div>
-            <div class="price">
+            <div class="price"><h4 class="titre">Prix</h4>
               Prix unitaire : '.$data['prixTroupe'].' PO
               <br/>
               Prix total : '.($data['prixTroupe'] * $data['nombreTroupe']).' PO
@@ -505,10 +505,12 @@ Class PrintTroupes extends GetTroupes {
                                     <br/>
                                     Tireur : '.yes($data['tireur']).'
             </div>
-            <div class="equipement">'.$equipement.'</div>
+            <div class="equipement"><h4 class="titre">Equipements</h4>
+            '.$equipement.'
+            </div>
             <div class="closeWeapons">';
 
-            echo '<li class="formLi"><h3>Arme de contact</h3></li>';
+            echo '<li class="formLi"><h4 class="titre">Arme de contact</h4></li>';
               for ($i=0; $i <count($this->weapon) ; $i++) {
                 if($data[$this->weapon[$i]['id']] != NULL) {
                   echo '<li class="formLi">'.$this->weapon[$i]['message'].'</li>';
@@ -518,7 +520,7 @@ Class PrintTroupes extends GetTroupes {
        echo'</div>
             <div class="shootWeapons">';
             if($data['tireur'] == 1) {
-                echo '<li class="formLi"><h3>Arme de tir</h3></li>';
+                echo '<li class="formLi"><h4 class="titre">Arme de tir</h4></li>';
                 for ($i=0; $i <count($this->weaponShoot) ; $i++) {
                   if($data[$this->weaponShoot[$i]['id']] != NULL) {
                     echo '<li class="formLi">'.$this->weaponShoot[$i]['message'].' Portée : '.$this->weaponShoot[$i]['range'].' pouces</li>';

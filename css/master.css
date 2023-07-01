@@ -400,8 +400,9 @@ transition: display 3s;
   justify-content: center;
 }
 /*Bibliothèque Grid*/
-.fichetroupe {  display: grid;
-  grid-template-columns: 0.25fr 0.25fr 0.25fr 0.25fr;
+.fichetroupe {
+  display: grid;
+  grid-template-columns: 0.35fr 0.25fr 0.25fr 0.25fr;
   grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr;
   gap: 0px 0px;
   grid-auto-flow: row;
@@ -410,9 +411,10 @@ transition: display 3s;
     "classeArmure mouvementTroupe typeTroupe equipement"
     "closeWeapons closeWeapons closeWeapons closeWeapons"
     "shootWeapons shootWeapons shootWeapons shootWeapons";
-    border: 1px solid black;
+    border: 2px solid black;
     margin: 0.25em;
     padding: 0.5em;
+    font-size: 0.7em;
 }
 
 .troupeNom { grid-area: troupeNom; }
@@ -451,12 +453,13 @@ transition: display 3s;
 
 .RL {  display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 0.3fr 0.3fr 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
     "DATA"
-    "TA";
+    "TA"
+    "DT";
   grid-area: RL;
 }
 
@@ -465,6 +468,9 @@ transition: display 3s;
 .TA { grid-area: TA;
   text-align: justify;
   padding: 0em 0.5em 0.5em 0.5em;
+  width: max-content;
+  height: auto;
+}
 }
 
 .DL {
@@ -1040,23 +1046,8 @@ grid-row-gap: 0px;
     .listeBlanche {
       break-after: auto;
     }
-    .SPGRID {
-      padding: 20px 0px 20px 0px;
-      border-radius: 5px;
-      max-width:100%;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, 50vh);
-      grid-gap: 5px;
-      justify-content: center;
+    .titre {
+      font-size: 1em;
     }
-    .SPitem {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: black;
-      padding: 15px;
-      border: 1px solid black;
-      font-size: 0.5em;
-      /*justify-content: center;*/
-    }
+
   }
