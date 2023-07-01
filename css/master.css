@@ -330,6 +330,7 @@ button {
   font-family: var(--main-font-family);
   cursor: var(--main-cursor);
   border-radius: var(--main-radius);
+  width: fit-content;
 
 }
 a {

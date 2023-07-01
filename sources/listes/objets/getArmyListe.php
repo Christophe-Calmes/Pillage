@@ -54,8 +54,8 @@ class GetArmy extends PrintTroupes
     $select="SELECT `idListe`, `Listes`.`idFaction`, `nomListe`, `descriptionListe`, `auteurListe`, `Listes`.`valide`, `partager`, `chefValide`, `prixListe`, `nomFaction`
     FROM `Listes`
     INNER JOIN `Factions` ON `Listes`.`idFaction` =  `Factions`.`idFaction`
-    WHERE `Listes`.`valide` = :valide AND`auteurListe` = :idUser
-    ORDER BY `nomListe` DESC LIMIT {$premier}, {$parPage}";
+    WHERE `Listes`.`valide` = :valide AND `auteurListe` = :idUser
+    ORDER BY `nomListe` DESC LIMIT {$premier}, {$parPage};";
     $param = [['prep'=>':valide', 'variable'=>$valide],
               ['prep'=>':idUser', 'variable'=>$idUser]];
     $readData = new RCUD($select, $param);

@@ -322,7 +322,7 @@ Class PrintTroupes extends GetTroupes {
           loop($dataCout, $this->specialRules, true, '');
           echo '</div></li></ul>';
           echo '<input type="hidden" name="idTroupe" value="'.$dataTroupe[0]['idTroupe'].'"/>
-          <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">Modifier</button>
+          <div class="center"><button  type="submit" name="idNav" value="'.$idNav.'">Modifier</button></div>
           </form>';
         } else {
           echo '<ul>';

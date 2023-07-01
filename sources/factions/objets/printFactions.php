@@ -4,7 +4,8 @@ Class PrintFactions extends GetFactions {
   public function printForm($type, $idNav) {
     // Si admin $type = 1
     if($type == 1) {
-      echo '<form class="formulaireClassique" action="'.encodeRoutage(26).'" method="post">
+      echo '<h3>Ajouter une nouvelle faction</h3>
+        <form class="formulaireClassique" action="'.encodeRoutage(26).'" method="post">
         <label for="nomFaction">Nom d\'une nouvelle faction de pillage </label>
         <input id="nomFaction" type="text" name="nomFaction" required>
         <label for="descriptionFaction">Description de la nouvelle faction</label>
@@ -13,7 +14,8 @@ Class PrintFactions extends GetFactions {
       </form>';
     } else {
       //
-      echo '<form class="formulaireClassique" action="'.encodeRoutage(27).'" method="post">
+      echo '<h3>Ajouter une nouvelle faction</h3>
+        <form class="formulaireClassique" action="'.encodeRoutage(27).'" method="post">
         <label for="nomFaction">Nom d\'une nouvelle faction de pillage </label>
         <input id="nomFaction" type="text" name="nomFaction" required>
         <label for="descriptionFaction">Description de la nouvelle faction</label>
@@ -160,7 +162,7 @@ Class PrintFactions extends GetFactions {
     echo '</div>';
   }
   public function selectFaction($dataUser, $dataPublic) {
-    echo '<label for="factionTroupe">Type de troupe</label>';
+    echo '<label for="factionTroupe">Factions</label>';
     echo '<select name="factionTroupe">';
     foreach ($dataUser as $key => $value) {
       echo '<option value="'.$value['idFaction'].'">Vos factions : '.$value['nomFaction'].'</option>';
