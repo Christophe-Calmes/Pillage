@@ -19,7 +19,7 @@ class ControlerAffichage {
       $dev = true;
       if (isset($data['idNav'])) {
           $idNav = filter($data['idNav']);
-          $readNav = new GetNavigation();
+          $readNav = new PrintNavigation();
           $chemin = $readNav->getContenus($idNav);
           if (empty($chemin)) {
               deadEnd();

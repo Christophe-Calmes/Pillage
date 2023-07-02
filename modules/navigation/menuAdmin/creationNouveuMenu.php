@@ -1,7 +1,10 @@
 <?php
+
   $yes = ['Non', 'Oui'];
   include 'arrayInterne/roles.php';
   $dataMenuDeroulant = $readNav->getMenuDeroulant();
+  // Instanciation obligatoire 
+  $localNav = new PrintNavigation();
 ?>
 <h3>Ajouter un lien de navigation</h3>
 <form class="formulaireClassique" action="<?php echo encodeRoutage(4); ?>" method="post">
@@ -20,13 +23,15 @@
       <?php for ($i=0; $i < count($internaute) ; $i++) {  echo '<option value="'.$i.'">'.$internaute[$i].'</option>'; } ?>
     </select>
     <?php
-      $readNav->selectZoneMenu($dataMenuDeroulant);
-      $readNav->menuDeroulant($dataMenuDeroulant);
+
+    $localNav->selectZoneMenu($dataMenuDeroulant);
+    $localNav->menuDeroulant($dataMenuDeroulant);
     ?>
 
 <button class="buttonForm" type="submit" name="idNav" value="<?=$idNav?>">Ajouter</button>
 </form>
 <h3>Liste des menus hors menus carousselle haut</h3>
 <?php
-  $data = $readNav->getNavId();
+$data = $localNav->getNavId();
+
   $readNav->listNavId($data);
