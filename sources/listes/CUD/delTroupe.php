@@ -42,7 +42,7 @@
             // Check si dans la composition il y a au moins un chef. (typeTroupe == 1)
             // Si il n'y en a pas, retirer le chef valide et le passer à 0
 
-            header('location:../index.php?idNav='.$idNav.'&idListe='.$idAuteur[0]['idListe'].'&message=Liste créer.');
+            header('location:../index.php?idNav='.$idNav.'&idListe='.$idAuteur[0]['idListe'].'&message=Liste effacées.');
           } else {
             header('location:../index.php?message=Erreur d\'enregistrement.');
           }

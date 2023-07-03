@@ -27,7 +27,7 @@ class PrintArmy extends GetArmy
     </div>';
   }
   public function displayList($data) {
-
+    //print_r($data);
     echo '<div class="colums6">
             <div class="col1">Nom liste</div>
             <div class="col2">Faction</div>
@@ -55,8 +55,34 @@ class PrintArmy extends GetArmy
               </div>
             </div> ';
     }
+  }
+  public function displayShareList($data) {
+    echo '<div class="colums6">
+            <div class="col1">Nom liste</div>
+            <div class="col2">Faction</div>
+            <div class="col3">Partager ?</div>
+            <div class="col4">Chef valide ?</div>
+            <div class="col5">Prix</div>
+            <div class="col6">Administrer</div>
+          </div>';
+    foreach ($data as $key => $value) {
+      if(empty($value['prixListe'])) {
+        $message = "Non définis";
+      } else {
+        $message = $value['prixListe'].' PO';
+      }
 
-  //print_r($data);
+      echo ' <div class="colums6">
+              <div class="col1">'.$value['nomListe'].'</div>
+              <div class="col2">'.$value['nomFaction'].'</div>
+              <div class="col3">'.yes($value['partager']).'</div>
+              <div class="col4">'.yes($value['chefValide']).'</div>
+              <div class="col5">'.$message.'</div>
+              <div class="col6">
+                <a class="item" href='.findTargetRoute(126).'&idListe='.$value['idListe'].'>Impression</a>
+              </div>
+            </div> ';
+    }
   }
   protected function displayOneTalents($data, $idNav, $idListe, $type) {
     //print_r($data);
@@ -85,6 +111,7 @@ class PrintArmy extends GetArmy
   }
 
   public function rooster($idListe, $idUser, $idNav) {
+    //print_r($idNav);
     // Trier les troupes de la faction
     $idFaction = $this->findIdFaction($idListe);
     $dataTalent = $this->extractTalent($idFaction);
@@ -103,7 +130,7 @@ class PrintArmy extends GetArmy
             $this->diplayList($idListe, $idNav);
       echo'</div>
             <div class="resume  headGrid">';
-              $this->resumeList($idListe, false);
+              $this->resumeList($idListe, false, $idNav);
       echo'</div>
             <div class="Talent  headGrid">';
             if(!empty($dataTalent)){
@@ -126,13 +153,8 @@ class PrintArmy extends GetArmy
       echo'</div>
           </div>';
     //echo '</section>';
-
-
-
-
-
   }
-  protected function resumeList($idListe, $print) {
+  protected function resumeList($idListe, $print, $idNav) {
     $message = NULL;
     $col24 = NULL;
     $col26 = NULL;
@@ -164,6 +186,14 @@ class PrintArmy extends GetArmy
     } else {
         $col26 = 'Pas de cavalier';
     }
+    $share = $this->getShare($idListe);
+    //print_r($share);
+    if($share[0]['partager'] == 1) {
+      $share = "Liste partagé";
+    } else {
+      $share = "Liste privé";
+    }
+
     //print_r($resultList);
     echo '<article>';
     echo '<h3>Composition de la liste</h3>';
@@ -183,6 +213,13 @@ class PrintArmy extends GetArmy
     echo '<article>';
       echo '<h3>Description de la liste</h3>';
       echo '<p>'.$this->discriptionListe($idListe).'</p>';
+    echo '</article>';
+    echo '<article>';
+      echo '<h3>Partager la liste</h3>';
+      echo '<form class="formulaireClassique" action="'.encodeRoutage(55).'" method="post">
+                <input type="hidden" name="idListe" value="'.$idListe.'"/>
+                <button class="buttonForm" type="submit" name="idNav" value="'.$idNav.'">'.$share.'</button>
+                </form>';
     echo '</article>';
   }
   }
@@ -229,14 +266,14 @@ class PrintArmy extends GetArmy
   }
 
 
-  public function printingListe($idListe, $idUser) {
+  public function printingListe($idListe, $idUser, $idNav) {
     $datasTalent = $this->affectedTalent($idListe);
     $dataTroupe = $this->getListeTroupe ($idListe);
     $dataInfoListe = $this->GetInfoListe($idListe);
     echo '<div class="print">
           <div class="RL">
             <div class="DATA">';
-            $this->resumeList($idListe, true);
+            $this->resumeList($idListe, true, $idNav);
       echo'</div>
             <div class="TA">';
               $this->TalentListe ($datasTalent);
@@ -255,6 +292,35 @@ class PrintArmy extends GetArmy
         </div>';
 
 
+
+  }
+  public function SharePrintingListe($idListe, $idNav) {
+
+    $datasTalent = $this->affectedTalent($idListe);
+    $dataTroupe = $this->getListeTroupe ($idListe);
+    $dataInfoListe = $this->GetInfoListe($idListe);
+
+    echo '<div class="print">
+          <div class="RL">
+            <div class="DATA">';
+            $this->resumeList($idListe, true, $idNav);
+
+      echo'</div>
+            <div class="TA">';
+              $this->TalentListe ($datasTalent);
+
+        echo'</div>
+          </div>
+            <div class="DL">';
+              $this->TitreListe ($dataInfoListe);
+      echo'</div>
+          <div class="DT">';
+          for ($i=0; $i <count($dataTroupe) ; $i++) {
+              $this->PrintingOneTroupeListe($dataTroupe[$i]);
+          }
+
+    echo'</div>
+        </div>';
 
   }
   public function __destruct()

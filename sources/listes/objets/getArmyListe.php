@@ -49,6 +49,21 @@ class GetArmy extends PrintTroupes
               return $nbr[0]['nbr'];
 
   }
+  public function nbrShareList() {
+    $select = "SELECT COUNT(`idListe`) AS `nbr`  FROM `Listes` WHERE `valide` = 1 AND `partager` = 1;";
+              $readData = new RCUD($select, []);
+              $nbr = $readData->READ();
+              return $nbr[0]['nbr'];
+  }
+  public function getShareListPagined( $premier, $parPage) {
+    $select="SELECT `idListe`, `Listes`.`idFaction`, `nomListe`, `descriptionListe`, `auteurListe`, `Listes`.`valide`, `partager`, `chefValide`, `prixListe`, `nomFaction`
+    FROM `Listes`
+    INNER JOIN `Factions` ON `Listes`.`idFaction` =  `Factions`.`idFaction`
+    WHERE `Listes`.`valide` = 1 AND `partager` = 1
+    ORDER BY `nomListe` DESC LIMIT {$premier}, {$parPage};";
+    $readData = new RCUD($select, []);
+    return $readData->READ();
+  }
 
   public function getYourlistPagined($idUser, $valide, $premier, $parPage) {
     $select="SELECT `idListe`, `Listes`.`idFaction`, `nomListe`, `descriptionListe`, `auteurListe`, `Listes`.`valide`, `partager`, `chefValide`, `prixListe`, `nomFaction`
@@ -152,6 +167,10 @@ class GetArmy extends PrintTroupes
     WHERE `idListe` = :idListe";
     return $this->returnListe($select, $idListe);
 
+  }
+  protected function getShare($idListe) {
+    $select = "SELECT  `partager` FROM `Listes` WHERE `idListe` = :idListe";
+    return $this->returnListe($select, $idListe);
   }
 
 }

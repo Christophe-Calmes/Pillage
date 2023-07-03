@@ -4,4 +4,4 @@ require 'sources/listes/headArmyList.php';
   $checkId = new Controles();
   $idUser = $checkId->idUser($_SESSION['tokenConnexion']);
   //print_r($idListe);
-  $Army->printingListe($idListe, $idUser);
+  $Army->printingListe($idListe, $idUser, $idNav);

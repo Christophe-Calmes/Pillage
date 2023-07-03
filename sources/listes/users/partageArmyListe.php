@@ -1,10 +1,6 @@
 <?php
 require 'functions/functionPagination.php';
 require 'sources/listes/headArmyList.php';
-  $id = new Controles();
-  $idUser = $id->idUser($_SESSION['tokenConnexion']);
-  $Army->addArmyListe($idNav, $idUser);
-  require 'javaScript/magicButton.php';
   // Pagination des listes valides
   // Paramètre de pagination
     if(isset($_GET['page']) && (!empty($_GET['page']))) {
@@ -13,12 +9,12 @@ require 'sources/listes/headArmyList.php';
         $currentPage = 1;
       }
     $parPage = 12;
-    $pages = ceil($Army->nbrYourList($idUser, 1)/$parPage);
+    $pages = ceil($Army->nbrShareList()/$parPage);
     //print_r($pages);
     // Calcul du premier objet dans la page.
     $premier = ($currentPage * $parPage) - $parPage;
-    $dataListe = $Army->getYourlistPagined($idUser, 1, $premier, $parPage);
-    $Army->displayList($dataListe);
+    $dataListe = $Army->getShareListPagined( $premier, $parPage);
+    $Army->displayShareList($dataListe);
 
     for ($page=1; $page <= $pages ; $page++ ) {
         echo '<a class="lienNav" href="index.php?idNav='.$idNav.'&page='.$page.'">'.$page.'</a>';
